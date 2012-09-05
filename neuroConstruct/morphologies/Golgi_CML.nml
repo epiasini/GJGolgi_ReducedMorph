@@ -75,36 +75,6 @@
                     </bio:parameter>
                 </bio:mechanism>
 
-                <bio:mechanism name="hcn1s_CML" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="0.05">
-                        <bio:group>soma_group</bio:group>
-                    </bio:parameter>
-                </bio:mechanism>
-
-                <bio:mechanism name="hcn1f_CML" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="0.05">
-                        <bio:group>soma_group</bio:group>
-                    </bio:parameter>
-                </bio:mechanism>
-
-                <bio:mechanism name="KA_CML" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="8.0">
-                        <bio:group>soma_group</bio:group>
-                    </bio:parameter>
-                </bio:mechanism>
-
-                <bio:mechanism name="NaP_CML" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="0.19">
-                        <bio:group>soma_group</bio:group>
-                    </bio:parameter>
-                </bio:mechanism>
-
-                <bio:mechanism name="NaR_CML" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="1.7">
-                        <bio:group>soma_group</bio:group>
-                    </bio:parameter>
-                </bio:mechanism>
-
                 <bio:mechanism name="Golgi_CALC_CML" type="Ion Concentration">
                     <bio:parameter name="gmax" value="-1.0E8">
                         <bio:group>soma_group</bio:group>
@@ -121,12 +91,30 @@
                     </bio:parameter>
                 </bio:mechanism>
 
+                <bio:mechanism name="CaHVA_CML" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="0.46">
+                        <bio:group>soma_group</bio:group>
+                    </bio:parameter>
+                </bio:mechanism>
+
+                <bio:mechanism name="hcn1f_CML" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="0.05">
+                        <bio:group>soma_group</bio:group>
+                    </bio:parameter>
+                </bio:mechanism>
+
                 <bio:mechanism name="Golgi_CALC_ca2_CML" type="Ion Concentration">
                     <bio:parameter name="gmax" value="-1.0E8">
                         <bio:group>soma_group</bio:group>
                     </bio:parameter>
                     <bio:parameter name="thickness" value="0.20304">    <!--Note: Units of extra parameters are not known, except if it's e!!-->
 
+                        <bio:group>soma_group</bio:group>
+                    </bio:parameter>
+                </bio:mechanism>
+
+                <bio:mechanism name="hcn1s_CML" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="0.05">
                         <bio:group>soma_group</bio:group>
                     </bio:parameter>
                 </bio:mechanism>
@@ -140,20 +128,20 @@
                     </bio:parameter>
                 </bio:mechanism>
 
-                <bio:mechanism name="CaLVA_CML" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="0.25">
-                        <bio:group>soma_group</bio:group>
-                    </bio:parameter>
-                </bio:mechanism>
-
-                <bio:mechanism name="CaHVA_CML" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="0.46">
-                        <bio:group>soma_group</bio:group>
-                    </bio:parameter>
-                </bio:mechanism>
-
                 <bio:mechanism name="KC_CML" type="Channel Mechanism">
                     <bio:parameter name="gmax" value="3.0">
+                        <bio:group>soma_group</bio:group>
+                    </bio:parameter>
+                </bio:mechanism>
+
+                <bio:mechanism name="KAHP_CML" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="38.0">
+                        <bio:group>soma_group</bio:group>
+                    </bio:parameter>
+                </bio:mechanism>
+
+                <bio:mechanism name="KA_CML" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="8.0">
                         <bio:group>soma_group</bio:group>
                     </bio:parameter>
                 </bio:mechanism>
@@ -170,14 +158,26 @@
                     </bio:parameter>
                 </bio:mechanism>
 
+                <bio:mechanism name="CaLVA_CML" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="0.25">
+                        <bio:group>soma_group</bio:group>
+                    </bio:parameter>
+                </bio:mechanism>
+
+                <bio:mechanism name="NaR_CML" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="1.7">
+                        <bio:group>soma_group</bio:group>
+                    </bio:parameter>
+                </bio:mechanism>
+
                 <bio:mechanism name="Kslow_CML" type="Channel Mechanism">
                     <bio:parameter name="gmax" value="1.0">
                         <bio:group>soma_group</bio:group>
                     </bio:parameter>
                 </bio:mechanism>
 
-                <bio:mechanism name="KAHP_CML" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="38.0">
+                <bio:mechanism name="NaP_CML" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="0.19">
                         <bio:group>soma_group</bio:group>
                     </bio:parameter>
                 </bio:mechanism>
