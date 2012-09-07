@@ -30,7 +30,7 @@
 
                 <mml:segment id="6" name="Dend_ap_2_1" parent="0" cable="4">
                     <mml:proximal x="0.0" y="0.0" z="0.0" diameter="2.0"/>
-                    <mml:distal x="-1500.0" y="-5.0" z="0.0" diameter="2.0"/>
+                    <mml:distal x="-2500.0" y="-5.0" z="0.0" diameter="2.0"/>
                 </mml:segment>
 
                 
