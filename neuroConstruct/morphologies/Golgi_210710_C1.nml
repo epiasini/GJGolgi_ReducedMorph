@@ -9654,7 +9654,7 @@ Value for scaling factor to apply to current to get change in conc should be
                 </net:potential_syn_loc>
             
                 <net:potential_syn_loc synapse_type="GapJuncML2">
-                    <net:group>ML2</net:group>
+                    <net:group>ML1</net:group>
                 </net:potential_syn_loc>
             
                 <net:potential_syn_loc synapse_type="GapJuncML3">
