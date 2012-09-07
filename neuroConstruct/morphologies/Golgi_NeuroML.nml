@@ -21029,62 +21029,14 @@ See the main project description for more details on the cells included with thi
 
             <biophysics units="Physiological Units">
 
-                <bio:mechanism name="hcn1s_CML_VervaekeEtAl_GolgiCellNetwork" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="0.05">
-                        <bio:group>soma_group</bio:group>
-                    </bio:parameter>
-                </bio:mechanism>
-
-                <bio:mechanism name="NaP_CML_VervaekeEtAl_GolgiCellNetwork" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="0.19">
-                        <bio:group>soma_group</bio:group>
-                    </bio:parameter>
-                </bio:mechanism>
-
-                <bio:mechanism name="hcn1f_CML_VervaekeEtAl_GolgiCellNetwork" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="0.05">
-                        <bio:group>soma_group</bio:group>
-                    </bio:parameter>
-                </bio:mechanism>
-
                 <bio:mechanism name="CaHVA_CML_VervaekeEtAl_GolgiCellNetwork" type="Channel Mechanism">
                     <bio:parameter name="gmax" value="0.46">
                         <bio:group>soma_group</bio:group>
                     </bio:parameter>
                 </bio:mechanism>
 
-                <bio:mechanism name="Kslow_CML_VervaekeEtAl_GolgiCellNetwork" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="1.0">
-                        <bio:group>soma_group</bio:group>
-                    </bio:parameter>
-                </bio:mechanism>
-
                 <bio:mechanism name="CaLVA_CML_VervaekeEtAl_GolgiCellNetwork" type="Channel Mechanism">
                     <bio:parameter name="gmax" value="0.25">
-                        <bio:group>soma_group</bio:group>
-                    </bio:parameter>
-                </bio:mechanism>
-
-                <bio:mechanism name="KA_CML_VervaekeEtAl_GolgiCellNetwork" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="8.0">
-                        <bio:group>soma_group</bio:group>
-                    </bio:parameter>
-                </bio:mechanism>
-
-                <bio:mechanism name="NaR_CML_VervaekeEtAl_GolgiCellNetwork" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="1.7">
-                        <bio:group>soma_group</bio:group>
-                    </bio:parameter>
-                </bio:mechanism>
-
-                <bio:mechanism name="hcn2f_CML_VervaekeEtAl_GolgiCellNetwork" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="0.08">
-                        <bio:group>soma_group</bio:group>
-                    </bio:parameter>
-                </bio:mechanism>
-
-                <bio:mechanism name="NaT_CML_VervaekeEtAl_GolgiCellNetwork" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="48.0">
                         <bio:group>soma_group</bio:group>
                     </bio:parameter>
                 </bio:mechanism>
@@ -21096,27 +21048,6 @@ See the main project description for more details on the cells included with thi
                     <bio:parameter name="thickness" value="0.20304">    <!--Note: Units of extra parameters are not known, except if it's e!!-->
 
                         <bio:group>soma_group</bio:group>
-                    </bio:parameter>
-                </bio:mechanism>
-
-                <bio:mechanism name="KC_CML_VervaekeEtAl_GolgiCellNetwork" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="3.0">
-                        <bio:group>soma_group</bio:group>
-                    </bio:parameter>
-                </bio:mechanism>
-
-                <bio:mechanism name="hcn2s_CML_VervaekeEtAl_GolgiCellNetwork" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="0.08">
-                        <bio:group>soma_group</bio:group>
-                    </bio:parameter>
-                </bio:mechanism>
-
-                <bio:mechanism name="LeakConductance" type="Channel Mechanism" passive_conductance="true">
-                    <bio:parameter name="e" value="-55.0">
-                        <bio:group>all</bio:group>
-                    </bio:parameter>
-                    <bio:parameter name="gmax" value="0.021">
-                        <bio:group>all</bio:group>
                     </bio:parameter>
                 </bio:mechanism>
 
@@ -21136,8 +21067,77 @@ See the main project description for more details on the cells included with thi
                     </bio:parameter>
                 </bio:mechanism>
 
+                <bio:mechanism name="KA_CML_VervaekeEtAl_GolgiCellNetwork" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="8.0">
+                        <bio:group>soma_group</bio:group>
+                    </bio:parameter>
+                </bio:mechanism>
+
+                <bio:mechanism name="KC_CML_VervaekeEtAl_GolgiCellNetwork" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="3.0">
+                        <bio:group>soma_group</bio:group>
+                    </bio:parameter>
+                </bio:mechanism>
+
                 <bio:mechanism name="KV_CML_VervaekeEtAl_GolgiCellNetwork" type="Channel Mechanism">
                     <bio:parameter name="gmax" value="32.0">
+                        <bio:group>soma_group</bio:group>
+                    </bio:parameter>
+                </bio:mechanism>
+
+                <bio:mechanism name="Kslow_CML_VervaekeEtAl_GolgiCellNetwork" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="1.0">
+                        <bio:group>soma_group</bio:group>
+                    </bio:parameter>
+                </bio:mechanism>
+
+                <bio:mechanism name="LeakConductance" type="Channel Mechanism" passive_conductance="true">
+                    <bio:parameter name="e" value="-55.0">
+                        <bio:group>all</bio:group>
+                    </bio:parameter>
+                    <bio:parameter name="gmax" value="0.021">
+                        <bio:group>all</bio:group>
+                    </bio:parameter>
+                </bio:mechanism>
+
+                <bio:mechanism name="NaP_CML_VervaekeEtAl_GolgiCellNetwork" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="0.19">
+                        <bio:group>soma_group</bio:group>
+                    </bio:parameter>
+                </bio:mechanism>
+
+                <bio:mechanism name="NaR_CML_VervaekeEtAl_GolgiCellNetwork" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="1.7">
+                        <bio:group>soma_group</bio:group>
+                    </bio:parameter>
+                </bio:mechanism>
+
+                <bio:mechanism name="NaT_CML_VervaekeEtAl_GolgiCellNetwork" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="48.0">
+                        <bio:group>soma_group</bio:group>
+                    </bio:parameter>
+                </bio:mechanism>
+
+                <bio:mechanism name="hcn1f_CML_VervaekeEtAl_GolgiCellNetwork" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="0.05">
+                        <bio:group>soma_group</bio:group>
+                    </bio:parameter>
+                </bio:mechanism>
+
+                <bio:mechanism name="hcn1s_CML_VervaekeEtAl_GolgiCellNetwork" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="0.05">
+                        <bio:group>soma_group</bio:group>
+                    </bio:parameter>
+                </bio:mechanism>
+
+                <bio:mechanism name="hcn2f_CML_VervaekeEtAl_GolgiCellNetwork" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="0.08">
+                        <bio:group>soma_group</bio:group>
+                    </bio:parameter>
+                </bio:mechanism>
+
+                <bio:mechanism name="hcn2s_CML_VervaekeEtAl_GolgiCellNetwork" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="0.08">
                         <bio:group>soma_group</bio:group>
                     </bio:parameter>
                 </bio:mechanism>

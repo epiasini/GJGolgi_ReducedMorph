@@ -9520,8 +9520,26 @@ V3 text file written for MicroBrightField products.</meta:notes>
 
             <biophysics units="Physiological Units">
 
-                <bio:mechanism name="KA" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="8.0">
+                <bio:mechanism name="CALC" type="Ion Concentration">    <!--Note: not adding gmax for Ion Concentration. 
+Value for scaling factor to apply to current to get change in conc should be
+ determined from ChannelML file for the CaPool...-->
+
+                </bio:mechanism>
+
+                <bio:mechanism name="CALC_ca2" type="Ion Concentration">    <!--Note: not adding gmax for Ion Concentration. 
+Value for scaling factor to apply to current to get change in conc should be
+ determined from ChannelML file for the CaPool...-->
+
+                </bio:mechanism>
+
+                <bio:mechanism name="Ca_HVA" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="0.46">
+                        <bio:group>soma_group</bio:group>
+                    </bio:parameter>
+                </bio:mechanism>
+
+                <bio:mechanism name="Ca_LVA" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="0.25">
                         <bio:group>soma_group</bio:group>
                     </bio:parameter>
                 </bio:mechanism>
@@ -9532,29 +9550,26 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     </bio:parameter>
                 </bio:mechanism>
 
-                <bio:mechanism name="Ca_HVA" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="0.46">
+                <bio:mechanism name="HCN2" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="0.08">
                         <bio:group>soma_group</bio:group>
                     </bio:parameter>
                 </bio:mechanism>
 
-                <bio:mechanism name="LeakConductance_VervaekeEtAl_GJCompensate" type="Channel Mechanism" passive_conductance="true">
-                    <bio:parameter name="e" value="-55.0">
-                        <bio:group>all</bio:group>
+                <bio:mechanism name="KA" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="8.0">
+                        <bio:group>soma_group</bio:group>
                     </bio:parameter>
-                    <bio:parameter name="gmax" value="0.043">
-                        <bio:group>all</bio:group>
+                </bio:mechanism>
+
+                <bio:mechanism name="KBK" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="9.0">
+                        <bio:group>soma_group</bio:group>
                     </bio:parameter>
                 </bio:mechanism>
 
                 <bio:mechanism name="KM" type="Channel Mechanism">
                     <bio:parameter name="gmax" value="1.0">
-                        <bio:group>soma_group</bio:group>
-                    </bio:parameter>
-                </bio:mechanism>
-
-                <bio:mechanism name="HCN2" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="0.08">
                         <bio:group>soma_group</bio:group>
                     </bio:parameter>
                 </bio:mechanism>
@@ -9571,14 +9586,29 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     </bio:parameter>
                 </bio:mechanism>
 
+                <bio:mechanism name="LeakConductance_VervaekeEtAl_GJCompensate" type="Channel Mechanism" passive_conductance="true">
+                    <bio:parameter name="e" value="-55.0">
+                        <bio:group>all</bio:group>
+                    </bio:parameter>
+                    <bio:parameter name="gmax" value="0.043">
+                        <bio:group>all</bio:group>
+                    </bio:parameter>
+                </bio:mechanism>
+
                 <bio:mechanism name="NaP" type="Channel Mechanism">
                     <bio:parameter name="gmax" value="0.19">
                         <bio:group>soma_group</bio:group>
                     </bio:parameter>
                 </bio:mechanism>
 
-                <bio:mechanism name="KBK" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="9.0">
+                <bio:mechanism name="NaR" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="1.7">
+                        <bio:group>soma_group</bio:group>
+                    </bio:parameter>
+                </bio:mechanism>
+
+                <bio:mechanism name="NaT" type="Channel Mechanism">
+                    <bio:parameter name="gmax" value="48.0">
                         <bio:group>soma_group</bio:group>
                     </bio:parameter>
                 </bio:mechanism>
@@ -9589,36 +9619,6 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     </bio:parameter>
                     <bio:parameter name="gmax" value="0.0">
                         <bio:group>all</bio:group>
-                    </bio:parameter>
-                </bio:mechanism>
-
-                <bio:mechanism name="Ca_LVA" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="0.25">
-                        <bio:group>soma_group</bio:group>
-                    </bio:parameter>
-                </bio:mechanism>
-
-                <bio:mechanism name="CALC_ca2" type="Ion Concentration">    <!--Note: not adding gmax for Ion Concentration. 
-Value for scaling factor to apply to current to get change in conc should be
- determined from ChannelML file for the CaPool...-->
-
-                </bio:mechanism>
-
-                <bio:mechanism name="NaR" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="1.7">
-                        <bio:group>soma_group</bio:group>
-                    </bio:parameter>
-                </bio:mechanism>
-
-                <bio:mechanism name="CALC" type="Ion Concentration">    <!--Note: not adding gmax for Ion Concentration. 
-Value for scaling factor to apply to current to get change in conc should be
- determined from ChannelML file for the CaPool...-->
-
-                </bio:mechanism>
-
-                <bio:mechanism name="NaT" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="48.0">
-                        <bio:group>soma_group</bio:group>
                     </bio:parameter>
                 </bio:mechanism>
 

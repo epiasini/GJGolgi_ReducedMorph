@@ -9,7 +9,7 @@ part of NeuroML or any standardised XML specification. -->
 
  <object class="ucl.physiol.neuroconstruct.project.BasicProjectInfo">
   <void property="projectFileVersion">
-   <string>neuroConstruct v1.6.0</string>
+   <string>neuroConstruct v1.6.1</string>
   </void>
   <void property="projectName">
    <string>GJGolgi_ReducedMorph</string>

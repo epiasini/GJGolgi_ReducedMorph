@@ -3,10 +3,10 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-target_segment_index_range = [3,6]
-target_fraction_along_range = np.arange(.1, 1., .1)
+target_segment_index_range = [3]
+target_fraction_along_range = [.1,.2,.3,.4,.5,.6,.7,.8,.9]
 
-timestamp = 1346947749.04
+timestamp = 1347010416.91
 
 data = []
 
