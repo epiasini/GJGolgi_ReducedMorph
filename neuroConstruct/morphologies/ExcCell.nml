@@ -57,6 +57,14 @@
                 </bio:init_memb_potential></biophysics>
 
             <connectivity>
+                <net:potential_syn_loc synapse_type="AMPA_direct">
+                    <net:group>all</net:group>
+                </net:potential_syn_loc>
+            
+                <net:potential_syn_loc synapse_type="AMPA_spillover">
+                    <net:group>all</net:group>
+                </net:potential_syn_loc>
+            
                 <net:potential_syn_loc synapse_type="FastSynInput_if_gl">
                     <net:group>all</net:group>
                 </net:potential_syn_loc>
@@ -65,15 +73,7 @@
                     <net:group>all</net:group>
                 </net:potential_syn_loc>
             
-                <net:potential_syn_loc synapse_type="AMPA_direct">
-                    <net:group>all</net:group>
-                </net:potential_syn_loc>
-            
                 <net:potential_syn_loc synapse_type="NMDA_if_gl">
-                    <net:group>all</net:group>
-                </net:potential_syn_loc>
-            
-                <net:potential_syn_loc synapse_type="AMPA_spillover">
                     <net:group>all</net:group>
                 </net:potential_syn_loc>
             </connectivity>

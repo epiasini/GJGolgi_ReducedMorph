@@ -9641,36 +9641,36 @@ Value for scaling factor to apply to current to get change in conc should be
                 </bio:init_memb_potential></biophysics>
 
             <connectivity>
-                <net:potential_syn_loc synapse_type="GapJuncML3">
-                    <net:group>ML3</net:group>
-                </net:potential_syn_loc>
-            
                 <net:potential_syn_loc synapse_type="GABA">
                     <net:group>mossy</net:group>
-                </net:potential_syn_loc>
-            
-                <net:potential_syn_loc synapse_type="NMDA">
-                    <net:group>soma_group</net:group>
-                
-                    <net:group>dendrite_group</net:group>
-                </net:potential_syn_loc>
-            
-                <net:potential_syn_loc synapse_type="GapJuncML2">
-                    <net:group>ML2</net:group>
-                </net:potential_syn_loc>
-            
-                <net:potential_syn_loc synapse_type="GapJuncML1">
-                    <net:group>ML1</net:group>
                 </net:potential_syn_loc>
             
                 <net:potential_syn_loc synapse_type="GapJuncGCL">
                     <net:group>GCL</net:group>
                 </net:potential_syn_loc>
             
+                <net:potential_syn_loc synapse_type="GapJuncML1">
+                    <net:group>ML2</net:group>
+                </net:potential_syn_loc>
+            
+                <net:potential_syn_loc synapse_type="GapJuncML2">
+                    <net:group>ML2</net:group>
+                </net:potential_syn_loc>
+            
+                <net:potential_syn_loc synapse_type="GapJuncML3">
+                    <net:group>ML3</net:group>
+                </net:potential_syn_loc>
+            
                 <net:potential_syn_loc synapse_type="MultiDecaySyn_VervaekeEtAl_GJCompensate">
                     <net:group>mossy</net:group>
                 
                     <net:group>parfiber</net:group>
+                </net:potential_syn_loc>
+            
+                <net:potential_syn_loc synapse_type="NMDA">
+                    <net:group>soma_group</net:group>
+                
+                    <net:group>dendrite_group</net:group>
                 </net:potential_syn_loc>
             </connectivity>
 
