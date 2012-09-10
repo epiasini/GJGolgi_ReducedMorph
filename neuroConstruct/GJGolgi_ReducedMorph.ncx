@@ -9,7 +9,7 @@ part of NeuroML or any standardised XML specification. -->
 
  <object class="ucl.physiol.neuroconstruct.project.BasicProjectInfo">
   <void property="projectFileVersion">
-   <string>neuroConstruct v1.6.0</string>
+   <string>neuroConstruct v1.6.1</string>
   </void>
   <void property="projectName">
    <string>GJGolgi_ReducedMorph</string>
@@ -68,13 +68,13 @@ part of NeuroML or any standardised XML specification. -->
      <object class="ucl.physiol.neuroconstruct.project.packing.RandomCellPackingAdapter"/>
     </void>
     <void method="add">
-     <object class="ucl.physiol.neuroconstruct.project.packing.RandomCellPackingAdapter"/>
+     <object class="ucl.physiol.neuroconstruct.project.packing.SinglePositionedCellPackingAdapter"/>
     </void>
     <void method="add">
      <object class="ucl.physiol.neuroconstruct.project.packing.RandomCellPackingAdapter"/>
     </void>
     <void method="add">
-     <object class="ucl.physiol.neuroconstruct.project.packing.RandomCellPackingAdapter"/>
+     <object class="ucl.physiol.neuroconstruct.project.packing.SinglePositionedCellPackingAdapter"/>
     </void>
    </void>
    <void method="get">
@@ -83,7 +83,7 @@ part of NeuroML or any standardised XML specification. -->
      <string>Golgi_CML</string>
     </void>
     <void method="add">
-     <string>Golgi_NeuroML</string>
+     <string>Golgi_210710_C1</string>
     </void>
     <void method="add">
      <string>GJGolgi_Reduced</string>
@@ -315,6 +315,9 @@ part of NeuroML or any standardised XML specification. -->
     <int>255</int>
    </object>
   </void>
+  <void property="show3DAxes">
+   <boolean>true</boolean>
+  </void>
   <void property="showRegions">
    <boolean>false</boolean>
   </void>
@@ -457,6 +460,42 @@ part of NeuroML or any standardised XML specification. -->
      </void>
     </object>
    </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.project.SimConfig">
+     <void property="cellGroups">
+      <void method="add">
+       <string>Golgi_Vervaeke</string>
+      </void>
+      <void method="add">
+       <string>relays</string>
+      </void>
+     </void>
+     <void property="inputs">
+      <void method="add">
+       <string>relay_stim</string>
+      </void>
+     </void>
+     <void property="name">
+      <string>attenuation_original</string>
+     </void>
+     <void property="netConns">
+      <void method="add">
+       <string>NetConn_relays_Golgi_Vervaeke</string>
+      </void>
+     </void>
+     <void property="plots">
+      <void method="add">
+       <string>Golgi_Vervaeke_v</string>
+      </void>
+      <void method="add">
+       <string>relays_v</string>
+      </void>
+     </void>
+     <void property="simDuration">
+      <float>100.0</float>
+     </void>
+    </object>
+   </void>
   </void>
  </object>
  <object class="ucl.physiol.neuroconstruct.project.SimpleNetworkConnectionsInfo">
@@ -466,9 +505,15 @@ part of NeuroML or any standardised XML specification. -->
     <void method="add">
      <string>relay_conn</string>
     </void>
+    <void method="add">
+     <string>NetConn_relays_Golgi_Vervaeke</string>
+    </void>
    </void>
    <void method="get">
     <string>AP speed</string>
+    <void method="add">
+     <float>3.4028235E38</float>
+    </void>
     <void method="add">
      <float>3.4028235E38</float>
     </void>
@@ -506,11 +551,55 @@ part of NeuroML or any standardised XML specification. -->
       </void>
      </object>
     </void>
+    <void method="add">
+     <object class="java.util.Vector">
+      <void method="add">
+       <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
+        <void property="delayGenerator">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator">
+          <void property="fixedNum">
+           <float>0.0</float>
+          </void>
+          <void property="numberType">
+           <int>11</int>
+          </void>
+         </object>
+        </void>
+        <void property="synapseType">
+         <string>MultiDecaySyn_VervaekeEtAl_GJCompensate</string>
+        </void>
+        <void property="threshold">
+         <double>-20.0</double>
+        </void>
+        <void property="weightsGenerator">
+         <object class="ucl.physiol.neuroconstruct.utils.WeightGenerator">
+          <void property="numberType">
+           <int>11</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+     </object>
+    </void>
    </void>
    <void method="get">
     <string>Max/min</string>
     <void method="add">
      <object class="ucl.physiol.neuroconstruct.project.MaxMinLength"/>
+    </void>
+    <void method="add">
+     <object class="ucl.physiol.neuroconstruct.project.MaxMinLength">
+      <void property="maxLength">
+       <float>195.0</float>
+      </void>
+      <void property="minLength">
+       <float>185.0</float>
+      </void>
+      <void property="numberAttempts">
+       <int>10000</int>
+      </void>
+     </object>
     </void>
    </void>
    <void method="get">
@@ -522,9 +611,19 @@ part of NeuroML or any standardised XML specification. -->
       </void>
      </object>
     </void>
+    <void method="add">
+     <object class="ucl.physiol.neuroconstruct.project.SearchPattern">
+      <void property="type">
+       <int>0</int>
+      </void>
+     </object>
+    </void>
    </void>
    <void method="get">
     <string>Source</string>
+    <void method="add">
+     <string>relays</string>
+    </void>
     <void method="add">
      <string>relays</string>
     </void>
@@ -546,11 +645,26 @@ part of NeuroML or any standardised XML specification. -->
       </void>
      </object>
     </void>
+    <void method="add">
+     <object class="ucl.physiol.neuroconstruct.project.ConnectivityConditions">
+      <void property="allowAutapses">
+       <boolean>false</boolean>
+      </void>
+      <void property="prePostAllowedLoc">
+       <void property="somaAllowedPost">
+        <boolean>false</boolean>
+       </void>
+      </void>
+     </object>
+    </void>
    </void>
    <void method="get">
     <string>Target</string>
     <void method="add">
      <string>Golgi_reduced</string>
+    </void>
+    <void method="add">
+     <string>Golgi_Vervaeke</string>
     </void>
    </void>
   </void>
