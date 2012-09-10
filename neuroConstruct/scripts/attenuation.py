@@ -32,8 +32,8 @@ while pm.isGenerating():
 source_segment_index = 0
 source_fraction_along = 0.5
 delay = 0.
-for target_segment_index in [3,6]:
-    for target_fraction_along in [.1, .2, .3, .4, .5, .6, .7, .8, .9]:
+for target_segment_index in [3]:
+    for target_fraction_along in [.1, .5, .9]:
 	sim_ref = timestamp + '_' + str(target_segment_index) + '_' + str(target_fraction_along)
 	sim_path = '../simulations/' + sim_ref
 	project.simulationParameters.setReference(sim_ref)
