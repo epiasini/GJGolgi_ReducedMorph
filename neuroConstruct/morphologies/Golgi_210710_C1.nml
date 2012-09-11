@@ -9339,6 +9339,12 @@ V3 text file written for MicroBrightField products.</meta:notes>
                 </mml:cable>
 
                 <mml:cable id="52" name="SecDendriteCyan_2_1_R">
+                    <meta:properties>
+                        
+                    <meta:property tag="numberInternalDivisions" value="100"/>
+
+                    </meta:properties>
+                
                     <meta:group>all</meta:group>
                     <meta:group>dendrite_group</meta:group>
                     <meta:group>colour_Cyan</meta:group>
@@ -9638,7 +9644,21 @@ Value for scaling factor to apply to current to get change in conc should be
                     <bio:parameter value="-60.0">
                         <bio:group>all</bio:group>
                     </bio:parameter>
-                </bio:init_memb_potential></biophysics>
+                </bio:init_memb_potential>
+
+                <bio:ion_props name="na">
+                    <bio:parameter name="e" value="87.39">
+                        <bio:group>soma_group</bio:group>
+                    </bio:parameter>
+                </bio:ion_props>
+            
+
+                <bio:ion_props name="k">
+                    <bio:parameter name="e" value="-84.69">
+                        <bio:group>soma_group</bio:group>
+                    </bio:parameter>
+                </bio:ion_props>
+            </biophysics>
 
             <connectivity>
                 <net:potential_syn_loc synapse_type="GABA">

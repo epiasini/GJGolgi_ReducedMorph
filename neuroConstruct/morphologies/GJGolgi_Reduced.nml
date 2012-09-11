@@ -25,12 +25,22 @@
 
                 <mml:segment id="3" name="Dend_ap_1_1" parent="0" cable="3">
                     <mml:proximal x="0.0" y="0.0" z="0.0" diameter="2.0"/>
-                    <mml:distal x="-200.0" y="5.0" z="0.0" diameter="2.0"/>
+                    <mml:distal x="-195.0" y="45.0" z="0.0" diameter="2.0"/>
                 </mml:segment>
 
                 <mml:segment id="4" name="Dend_ap_2_1" parent="0" cable="4">
-                    <mml:proximal x="0.0" y="0.0" z="0.0" diameter="2.0"/>
-                    <mml:distal x="-200.0" y="-5.0" z="0.0" diameter="2.0"/>
+                    <mml:proximal x="0.0" y="0.0" z="0.0" diameter="0.4"/>
+                    <mml:distal x="-33.35" y="0.0" z="0.0" diameter="0.4"/>
+                </mml:segment>
+
+                <mml:segment id="5" name="Dend_ap_2_2" parent="4" cable="5">
+                    <mml:proximal x="-33.35" y="0.0" z="0.0" diameter="0.4"/>
+                    <mml:distal x="-64.37" y="0.0" z="0.0" diameter="0.4"/>
+                </mml:segment>
+
+                <mml:segment id="6" name="Dend_ap_2_3" parent="5" cable="6">
+                    <mml:proximal x="-64.37" y="0.0" z="0.0" diameter="0.4"/>
+                    <mml:distal x="-215.0" y="0.0" z="0.0" diameter="0.4"/>
                 </mml:segment>
 
                 
@@ -68,12 +78,16 @@
                 </mml:cable>
 
                 <mml:cable id="4" name="Dend_ap_2" fract_along_parent="0.5">
-                    <meta:properties>
-                        
-                    <meta:property tag="numberInternalDivisions" value="3"/>
+                    <meta:group>all</meta:group>
+                    <meta:group>dendrite_group</meta:group>
+                </mml:cable>
 
-                    </meta:properties>
-                
+                <mml:cable id="5" name="Dend_ap_2_2">
+                    <meta:group>all</meta:group>
+                    <meta:group>dendrite_group</meta:group>
+                </mml:cable>
+
+                <mml:cable id="6" name="Dend_ap_2_3">
                     <meta:group>all</meta:group>
                     <meta:group>dendrite_group</meta:group>
                 </mml:cable>
@@ -204,7 +218,7 @@
                 </bio:spec_capacitance>
 
                 <bio:spec_axial_resistance>
-                    <bio:parameter value="0.1">
+                    <bio:parameter value="0.28">
                         <bio:group>all</bio:group>
                     </bio:parameter>
                 </bio:spec_axial_resistance>

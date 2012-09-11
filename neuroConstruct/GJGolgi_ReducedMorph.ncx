@@ -68,13 +68,13 @@ part of NeuroML or any standardised XML specification. -->
      <object class="ucl.physiol.neuroconstruct.project.packing.RandomCellPackingAdapter"/>
     </void>
     <void method="add">
-     <object class="ucl.physiol.neuroconstruct.project.packing.SinglePositionedCellPackingAdapter"/>
+     <object class="ucl.physiol.neuroconstruct.project.packing.RandomCellPackingAdapter"/>
     </void>
     <void method="add">
      <object class="ucl.physiol.neuroconstruct.project.packing.RandomCellPackingAdapter"/>
     </void>
     <void method="add">
-     <object class="ucl.physiol.neuroconstruct.project.packing.SinglePositionedCellPackingAdapter"/>
+     <object class="ucl.physiol.neuroconstruct.project.packing.RandomCellPackingAdapter"/>
     </void>
    </void>
    <void method="get">
@@ -521,6 +521,48 @@ part of NeuroML or any standardised XML specification. -->
      </void>
     </object>
    </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.project.SimConfig">
+     <void property="cellGroups">
+      <void method="add">
+       <string>Golgi_Vervaeke</string>
+      </void>
+      <void method="add">
+       <string>relays</string>
+      </void>
+      <void method="add">
+       <string>Golgi_reduced</string>
+      </void>
+     </void>
+     <void property="inputs">
+      <void method="add">
+       <string>relay_stim</string>
+      </void>
+     </void>
+     <void property="name">
+      <string>attenuation_comparison</string>
+     </void>
+     <void property="netConns">
+      <void method="add">
+       <string>NetConn_relays_Golgi_Vervaeke</string>
+      </void>
+      <void method="add">
+       <string>relay_conn</string>
+      </void>
+     </void>
+     <void property="plots">
+      <void method="add">
+       <string>Golgi_Vervaeke_v</string>
+      </void>
+      <void method="add">
+       <string>Golgi_reduced_v</string>
+      </void>
+     </void>
+     <void property="simDuration">
+      <float>200.0</float>
+     </void>
+    </object>
+   </void>
   </void>
  </object>
  <object class="ucl.physiol.neuroconstruct.project.SimpleNetworkConnectionsInfo">
@@ -614,17 +656,7 @@ part of NeuroML or any standardised XML specification. -->
      <object class="ucl.physiol.neuroconstruct.project.MaxMinLength"/>
     </void>
     <void method="add">
-     <object class="ucl.physiol.neuroconstruct.project.MaxMinLength">
-      <void property="maxLength">
-       <float>195.0</float>
-      </void>
-      <void property="minLength">
-       <float>185.0</float>
-      </void>
-      <void property="numberAttempts">
-       <int>10000</int>
-      </void>
-     </object>
+     <object class="ucl.physiol.neuroconstruct.project.MaxMinLength"/>
     </void>
    </void>
    <void method="get">
