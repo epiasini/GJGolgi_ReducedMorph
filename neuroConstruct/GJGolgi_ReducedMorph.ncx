@@ -363,7 +363,7 @@ part of NeuroML or any standardised XML specification. -->
      </void>
      <void property="del">
       <void property="fixedNum">
-       <float>40.0</float>
+       <float>150.0</float>
       </void>
      </void>
      <void property="dur">
@@ -461,7 +461,7 @@ part of NeuroML or any standardised XML specification. -->
       </void>
      </void>
      <void property="simDuration">
-      <float>100.0</float>
+      <float>200.0</float>
      </void>
     </object>
    </void>
@@ -497,7 +497,7 @@ part of NeuroML or any standardised XML specification. -->
       </void>
      </void>
      <void property="simDuration">
-      <float>100.0</float>
+      <float>200.0</float>
      </void>
     </object>
    </void>

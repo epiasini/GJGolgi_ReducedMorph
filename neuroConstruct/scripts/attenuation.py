@@ -15,13 +15,13 @@ project_path = '../GJGolgi_ReducedMorph.ncx'
 project_file = File(project_path)
 project = pm.loadProject(project_file)
 
-sim_config_name = 'attenuation'
+#sim_config_name = 'attenuation'
+#conn_name = 'relay_conn'
+sim_config_name = 'attenuation_original'
+conn_name = 'NetConn_relays_Golgi_Vervaeke'
+
 sim_config = project.simConfigInfo.getSimConfig(sim_config_name)
-
 project.neuronSettings.setNoConsole()
-
-conn_name = 'relay_conn'
-
 
 # generate
 pm.doGenerate(sim_config_name, 1234)
@@ -32,8 +32,8 @@ while pm.isGenerating():
 source_segment_index = 0
 source_fraction_along = 0.5
 delay = 0.
-for target_segment_index in [3]:
-    for target_fraction_along in [.1, .5, .9]:
+for target_segment_index in [679,1013,1196]:#[3]:
+    for target_fraction_along in [.5]:
 	sim_ref = timestamp + '_' + str(target_segment_index) + '_' + str(target_fraction_along)
 	sim_path = '../simulations/' + sim_ref
 	project.simulationParameters.setReference(sim_ref)
