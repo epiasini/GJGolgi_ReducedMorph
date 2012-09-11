@@ -1,12 +1,16 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
+import sys
 import numpy as np
 from matplotlib import pyplot as plt
 
+if len(sys.argv) > 1:
+    timestamp = sys.argv[1]
+else:
+    timestamp = 1347282961.43
+
 target_segment_index_range = [3]
 target_fraction_along_range = [.1,.5,.9]
-
-timestamp = 1347282961.43
 
 data = []
 

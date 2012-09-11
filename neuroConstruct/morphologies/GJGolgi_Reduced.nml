@@ -156,19 +156,19 @@
                 </bio:mechanism>
 
                 <bio:mechanism name="NaP_CML" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="0.19">
+                    <bio:parameter name="gmax" value="0.0">
                         <bio:group>soma_group</bio:group>
                     </bio:parameter>
                 </bio:mechanism>
 
                 <bio:mechanism name="NaR_CML" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="1.7">
+                    <bio:parameter name="gmax" value="0.0">
                         <bio:group>soma_group</bio:group>
                     </bio:parameter>
                 </bio:mechanism>
 
                 <bio:mechanism name="NaT_CML" type="Channel Mechanism">
-                    <bio:parameter name="gmax" value="48.0">
+                    <bio:parameter name="gmax" value="0.0">
                         <bio:group>soma_group</bio:group>
                     </bio:parameter>
                 </bio:mechanism>

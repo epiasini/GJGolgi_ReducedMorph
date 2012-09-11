@@ -337,7 +337,7 @@ part of NeuroML or any standardised XML specification. -->
    <float>100.0</float>
   </void>
   <void property="reference">
-   <string>Sim_23</string>
+   <string>Sim_25</string>
   </void>
   <void property="saveCopyGenSimFiles">
    <boolean>true</boolean>
@@ -360,6 +360,11 @@ part of NeuroML or any standardised XML specification. -->
      </void>
      <void property="cellGroup">
       <string>relays</string>
+     </void>
+     <void property="del">
+      <void property="fixedNum">
+       <float>40.0</float>
+      </void>
      </void>
      <void property="dur">
       <void property="fixedNum">
@@ -489,6 +494,26 @@ part of NeuroML or any standardised XML specification. -->
       </void>
       <void method="add">
        <string>relays_v</string>
+      </void>
+     </void>
+     <void property="simDuration">
+      <float>100.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.project.SimConfig">
+     <void property="cellGroups">
+      <void method="add">
+       <string>Golgi_reduced</string>
+      </void>
+     </void>
+     <void property="name">
+      <string>GJreduced_simple_test</string>
+     </void>
+     <void property="plots">
+      <void method="add">
+       <string>Golgi_reduced_v</string>
       </void>
      </void>
      <void property="simDuration">
