@@ -28,5 +28,4 @@ for cell_name in ['reduced', 'Vervaeke']:
 	    ax.plot(data[-1][2], label='{0}_{1}'.format(target_segment_index,
 							target_fraction_along))
 
-ax.legend('off')
 plt.show()

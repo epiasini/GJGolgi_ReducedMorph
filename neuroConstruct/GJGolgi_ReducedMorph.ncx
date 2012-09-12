@@ -288,6 +288,99 @@ part of NeuroML or any standardised XML specification. -->
      </void>
     </object>
    </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.project.SimPlot">
+     <void property="cellGroup">
+      <string>Golgi_reduced</string>
+     </void>
+     <void property="cellNumber">
+      <string>0</string>
+     </void>
+     <void property="graphWindow">
+      <string>GraphWin_0</string>
+     </void>
+     <void property="maxValue">
+      <float>50.0</float>
+     </void>
+     <void property="minValue">
+      <float>-90.0</float>
+     </void>
+     <void property="plotAndOrSave">
+      <string>Save only</string>
+     </void>
+     <void property="plotReference">
+      <string>spikes_reduced</string>
+     </void>
+     <void property="segmentId">
+      <string>0</string>
+     </void>
+     <void property="valuePlotted">
+      <string>SPIKES:-20</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.project.SimPlot">
+     <void property="cellGroup">
+      <string>Golgi_Vervaeke</string>
+     </void>
+     <void property="cellNumber">
+      <string>0</string>
+     </void>
+     <void property="graphWindow">
+      <string>GraphWin_0</string>
+     </void>
+     <void property="maxValue">
+      <float>50.0</float>
+     </void>
+     <void property="minValue">
+      <float>-90.0</float>
+     </void>
+     <void property="plotAndOrSave">
+      <string>Save only</string>
+     </void>
+     <void property="plotReference">
+      <string>spikes_vervaeke</string>
+     </void>
+     <void property="segmentId">
+      <string>0</string>
+     </void>
+     <void property="valuePlotted">
+      <string>SPIKES:-20</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.project.SimPlot">
+     <void property="cellGroup">
+      <string>Golgi_Solinas</string>
+     </void>
+     <void property="cellNumber">
+      <string>0</string>
+     </void>
+     <void property="graphWindow">
+      <string>GraphWin_0</string>
+     </void>
+     <void property="maxValue">
+      <float>50.0</float>
+     </void>
+     <void property="minValue">
+      <float>-90.0</float>
+     </void>
+     <void property="plotAndOrSave">
+      <string>Save only</string>
+     </void>
+     <void property="plotReference">
+      <string>spikes_solinas</string>
+     </void>
+     <void property="segmentId">
+      <string>0</string>
+     </void>
+     <void property="valuePlotted">
+      <string>SPIKES:-20</string>
+     </void>
+    </object>
+   </void>
   </void>
  </object>
  <object class="ucl.physiol.neuroconstruct.project.ProjectProperties">
@@ -322,11 +415,7 @@ part of NeuroML or any standardised XML specification. -->
    <boolean>false</boolean>
   </void>
  </object>
- <object class="ucl.physiol.neuroconstruct.neuron.NeuronSettings">
-  <void property="showShapePlot">
-   <boolean>true</boolean>
-  </void>
- </object>
+ <object class="ucl.physiol.neuroconstruct.neuron.NeuronSettings"/>
  <object class="ucl.physiol.neuroconstruct.genesis.GenesisSettings"/>
  <object class="ucl.physiol.neuroconstruct.psics.PsicsSettings"/>
  <object class="ucl.physiol.neuroconstruct.simulation.SimulationParameters">
@@ -337,7 +426,7 @@ part of NeuroML or any standardised XML specification. -->
    <float>100.0</float>
   </void>
   <void property="reference">
-   <string>Sim_26</string>
+   <string>Sim_32</string>
   </void>
   <void property="saveCopyGenSimFiles">
    <boolean>true</boolean>
@@ -376,6 +465,90 @@ part of NeuroML or any standardised XML specification. -->
      </void>
      <void property="reference">
       <string>relay_stim</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.simulation.IClampSettings">
+     <void property="amp">
+      <void property="fixedNum">
+       <float>0.01</float>
+      </void>
+     </void>
+     <void property="cellGroup">
+      <string>Golgi_reduced</string>
+     </void>
+     <void property="del">
+      <void property="fixedNum">
+       <float>0.0</float>
+      </void>
+     </void>
+     <void property="dur">
+      <void property="fixedNum">
+       <float>1000.0</float>
+      </void>
+      <void property="numberType">
+       <int>11</int>
+      </void>
+     </void>
+     <void property="reference">
+      <string>cclamp_reduced</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.simulation.IClampSettings">
+     <void property="amp">
+      <void property="fixedNum">
+       <float>0.01</float>
+      </void>
+     </void>
+     <void property="cellGroup">
+      <string>Golgi_Vervaeke</string>
+     </void>
+     <void property="del">
+      <void property="fixedNum">
+       <float>0.0</float>
+      </void>
+     </void>
+     <void property="dur">
+      <void property="fixedNum">
+       <float>1000.0</float>
+      </void>
+      <void property="numberType">
+       <int>11</int>
+      </void>
+     </void>
+     <void property="reference">
+      <string>cclamp_vervaeke</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.simulation.IClampSettings">
+     <void property="amp">
+      <void property="fixedNum">
+       <float>0.01</float>
+      </void>
+     </void>
+     <void property="cellGroup">
+      <string>Golgi_Solinas</string>
+     </void>
+     <void property="del">
+      <void property="fixedNum">
+       <float>0.0</float>
+      </void>
+     </void>
+     <void property="dur">
+      <void property="fixedNum">
+       <float>1000.0</float>
+      </void>
+      <void property="numberType">
+       <int>11</int>
+      </void>
+     </void>
+     <void property="reference">
+      <string>cclamp_solinas</string>
      </void>
     </object>
    </void>
@@ -469,42 +642,6 @@ part of NeuroML or any standardised XML specification. -->
     <object class="ucl.physiol.neuroconstruct.project.SimConfig">
      <void property="cellGroups">
       <void method="add">
-       <string>Golgi_Vervaeke</string>
-      </void>
-      <void method="add">
-       <string>relays</string>
-      </void>
-     </void>
-     <void property="inputs">
-      <void method="add">
-       <string>relay_stim</string>
-      </void>
-     </void>
-     <void property="name">
-      <string>attenuation_original</string>
-     </void>
-     <void property="netConns">
-      <void method="add">
-       <string>NetConn_relays_Golgi_Vervaeke</string>
-      </void>
-     </void>
-     <void property="plots">
-      <void method="add">
-       <string>Golgi_Vervaeke_v</string>
-      </void>
-      <void method="add">
-       <string>relays_v</string>
-      </void>
-     </void>
-     <void property="simDuration">
-      <float>200.0</float>
-     </void>
-    </object>
-   </void>
-   <void method="add">
-    <object class="ucl.physiol.neuroconstruct.project.SimConfig">
-     <void property="cellGroups">
-      <void method="add">
        <string>Golgi_reduced</string>
       </void>
      </void>
@@ -560,6 +697,78 @@ part of NeuroML or any standardised XML specification. -->
      </void>
      <void property="simDuration">
       <float>200.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.project.SimConfig">
+     <void property="cellGroups">
+      <void method="add">
+       <string>Golgi_Vervaeke</string>
+      </void>
+      <void method="add">
+       <string>Golgi_reduced</string>
+      </void>
+     </void>
+     <void property="name">
+      <string>spontaneous_comparison</string>
+     </void>
+     <void property="plots">
+      <void method="add">
+       <string>Golgi_Vervaeke_v</string>
+      </void>
+      <void method="add">
+       <string>Golgi_reduced_v</string>
+      </void>
+     </void>
+     <void property="simDuration">
+      <float>1000.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.project.SimConfig">
+     <void property="cellGroups">
+      <void method="add">
+       <string>Golgi_Solinas</string>
+      </void>
+      <void method="add">
+       <string>Golgi_Vervaeke</string>
+      </void>
+      <void method="add">
+       <string>Golgi_reduced</string>
+      </void>
+     </void>
+     <void property="description">
+      <string>FI curve comparison between original (Vervaeke2012) and reduced morphology Golgi cell model.</string>
+     </void>
+     <void property="inputs">
+      <void method="add">
+       <string>cclamp_solinas</string>
+      </void>
+      <void method="add">
+       <string>cclamp_reduced</string>
+      </void>
+      <void method="add">
+       <string>cclamp_vervaeke</string>
+      </void>
+     </void>
+     <void property="name">
+      <string>fi_comparison</string>
+     </void>
+     <void property="plots">
+      <void method="add">
+       <string>spikes_vervaeke</string>
+      </void>
+      <void method="add">
+       <string>spikes_solinas</string>
+      </void>
+      <void method="add">
+       <string>spikes_reduced</string>
+      </void>
+     </void>
+     <void property="simDuration">
+      <float>1000.0</float>
      </void>
     </object>
    </void>

@@ -3,7 +3,6 @@ import random
 import time
 from java.lang import System
 from java.io import File
-from java.util import ArrayList
 
 from ucl.physiol.neuroconstruct.project import ProjectManager
 from ucl.physiol.neuroconstruct.neuron import NeuronFileManager
@@ -16,10 +15,6 @@ project_path = '../GJGolgi_ReducedMorph.ncx'
 project_file = File(project_path)
 project = pm.loadProject(project_file)
 
-#sim_config_name = 'attenuation'
-#conn_name = 'relay_conn'
-#sim_config_name = 'attenuation_original'
-#conn_name = 'NetConn_relays_Golgi_Vervaeke'
 sim_config_name = 'attenuation_comparison'
 
 sim_config = project.simConfigInfo.getSimConfig(sim_config_name)
