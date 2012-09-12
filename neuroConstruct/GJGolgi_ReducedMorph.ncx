@@ -83,7 +83,7 @@ part of NeuroML or any standardised XML specification. -->
      <string>Golgi_CML</string>
     </void>
     <void method="add">
-     <string>Golgi_CML</string>
+     <string>Golgi_210710_C1</string>
     </void>
     <void method="add">
      <string>GJGolgi_Reduced</string>
@@ -337,7 +337,7 @@ part of NeuroML or any standardised XML specification. -->
    <float>100.0</float>
   </void>
   <void property="reference">
-   <string>Sim_25</string>
+   <string>Sim_26</string>
   </void>
   <void property="saveCopyGenSimFiles">
    <boolean>true</boolean>
