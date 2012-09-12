@@ -83,7 +83,7 @@ part of NeuroML or any standardised XML specification. -->
      <string>Golgi_CML</string>
     </void>
     <void method="add">
-     <string>Golgi_210710_C1</string>
+     <string>Golgi_CML</string>
     </void>
     <void method="add">
      <string>GJGolgi_Reduced</string>

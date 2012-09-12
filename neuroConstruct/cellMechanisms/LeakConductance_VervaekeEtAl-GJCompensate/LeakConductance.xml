@@ -28,7 +28,7 @@
 
         
 
-    <channel_type name="LeakConductance_VervaekeEtAl_GJCompensate" density="yes">
+    <channel_type name="LeakConductance_VervaekeEtAl-GJCompensate" density="yes">
         
         <status value="stable"/>
 
