@@ -164,7 +164,7 @@
                     <bio:parameter name="e" value="-55.0">
                         <bio:group>all</bio:group>
                     </bio:parameter>
-                    <bio:parameter name="gmax" value="0.021">
+                    <bio:parameter name="gmax" value="0.043">
                         <bio:group>all</bio:group>
                     </bio:parameter>
                 </bio:mechanism>
