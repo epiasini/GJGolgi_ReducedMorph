@@ -315,7 +315,7 @@ part of NeuroML or any standardised XML specification. -->
       <string>0</string>
      </void>
      <void property="valuePlotted">
-      <string>SPIKES:-20</string>
+      <string>SPIKES:20</string>
      </void>
     </object>
    </void>
@@ -346,7 +346,7 @@ part of NeuroML or any standardised XML specification. -->
       <string>0</string>
      </void>
      <void property="valuePlotted">
-      <string>SPIKES:-20</string>
+      <string>SPIKES:20</string>
      </void>
     </object>
    </void>
@@ -377,7 +377,7 @@ part of NeuroML or any standardised XML specification. -->
       <string>0</string>
      </void>
      <void property="valuePlotted">
-      <string>SPIKES:-20</string>
+      <string>SPIKES:20</string>
      </void>
     </object>
    </void>
@@ -426,7 +426,7 @@ part of NeuroML or any standardised XML specification. -->
    <float>100.0</float>
   </void>
   <void property="reference">
-   <string>Sim_32</string>
+   <string>Sim_33</string>
   </void>
   <void property="saveCopyGenSimFiles">
    <boolean>true</boolean>
