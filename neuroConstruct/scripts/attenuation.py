@@ -20,16 +20,29 @@ sim_config_name = 'attenuation_comparison'
 sim_config = project.simConfigInfo.getSimConfig(sim_config_name)
 project.neuronSettings.setNoConsole()
 
+# switch off Na channels (TTX)
+reduced_cell_type = project.cellManager.getCell('GJGolgi_Reduced')
+vervaeke_cell_type = project.cellManager.getCell('Golgi_210710_C1')
+for chan in reduced_cell_type.getChanMechsForGroup('soma_group'):
+    if chan.getName() in ['NaP_CML', 'NaR_CML', 'NaT_CML']:
+	chan.setDensity(0)
+	reduced_cell_type.associateGroupWithChanMech('soma_group', chan)
+for chan in vervaeke_cell_type.getChanMechsForGroup('soma_group'):
+    if chan.getName() in ['NaP', 'NaR', 'NaT']:
+	chan.setDensity(0)
+	vervaeke_cell_type.associateGroupWithChanMech('soma_group', chan)
+
 # generate
 pm.doGenerate(sim_config_name, 1234)
 while pm.isGenerating():
     time.sleep(0.02)
 
+
+
+
 # pick segment ids on the detailed cell
 cth = CellTopologyHelper()
-cell_type = project.cellManager.getCell('GJGolgi_Reduced')
-cell_type = project.cellManager.getCell('Golgi_210710_C1')
-distances = dict(cth.getSegmentDistancesFromRoot(cell_type, 'all'))
+distances = dict(cth.getSegmentDistancesFromRoot(vervaeke_cell_type, 'all'))
 dist_0 = dict((k, v) for k,v in distances.items() if 9.08 < v < 9.28)
 id0 = min(dist_0.keys())
 dist_1 = dict((k, v) for k,v in distances.items() if 33.78 < v < 33.98)

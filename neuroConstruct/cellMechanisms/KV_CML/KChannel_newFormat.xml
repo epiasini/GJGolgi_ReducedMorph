@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<channelml xmlns="http://morphml.org/channelml/schema"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:meta="http://morphml.org/metadata/schema"
-    xsi:schemaLocation="http://morphml.org/channelml/schema  http://www.neuroml.org/NeuroMLValidator/NeuroMLFiles/Schemata/v1.8.1/Level2/ChannelML_v1.8.1.xsd"
-    units="Physiological Units">
+<channelml xmlns="http://morphml.org/channelml/schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:meta="http://morphml.org/metadata/schema" xsi:schemaLocation="http://morphml.org/channelml/schema  http://www.neuroml.org/NeuroMLValidator/NeuroMLFiles/Schemata/v1.8.1/Level2/ChannelML_v1.8.1.xsd" units="Physiological Units">
 
     <meta:notes>ChannelML file containing a single Channel description from Solinas et al 2007</meta:notes>
     
@@ -58,7 +53,7 @@
             <meta:uri>http://senselab.med.yale.edu/modeldb/ShowModel.asp?model=112685</meta:uri>
         </meta:modelDBref>
         
-        <current_voltage_relation cond_law="ohmic" ion="k" default_gmax="32" default_erev="-85">
+        <current_voltage_relation cond_law="ohmic" ion="k" default_gmax="32" default_erev="-84.69">
             
             <q10_settings q10_factor="3" experimental_temp="6.3"/>
             
@@ -67,7 +62,7 @@
                 <closed_state id="n0"/>
                 <open_state id="n"/>
                 
-                <!--
+                    <!--
                 Aalpha_n = -0.01 (/ms-mV)
 		Kalpha_n = -10 (mV)
 		V0alpha_n = -26 (mV)
@@ -94,6 +89,7 @@
 		beta = A * exp((v-V1/2)/B)   (exponential)   
 		
                 -->
+
 
                      
                 <transition name="alpha" from="n0" to="n" expr_form="exp_linear" rate="0.1" scale="10" midpoint="-26"/>

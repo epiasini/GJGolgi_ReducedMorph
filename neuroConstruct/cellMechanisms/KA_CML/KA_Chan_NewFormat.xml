@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<channelml xmlns="http://morphml.org/channelml/schema"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:meta="http://morphml.org/metadata/schema"
-    xsi:schemaLocation="http://morphml.org/channelml/schema  http://www.neuroml.org/NeuroMLValidator/NeuroMLFiles/Schemata/v1.8.1/Level2/ChannelML_v1.8.1.xsd"
-    units="Physiological Units">
+<channelml xmlns="http://morphml.org/channelml/schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:meta="http://morphml.org/metadata/schema" xsi:schemaLocation="http://morphml.org/channelml/schema  http://www.neuroml.org/NeuroMLValidator/NeuroMLFiles/Schemata/v1.8.1/Level2/ChannelML_v1.8.1.xsd" units="Physiological Units">
 
     <meta:notes>ChannelML file containing a single Channel description from Solinas et al 2007</meta:notes>
 
@@ -69,7 +64,7 @@
         </meta:modelDBref>
 	
 	        
-        <current_voltage_relation cond_law="ohmic" ion="k" default_gmax="48" default_erev="-85">
+        <current_voltage_relation cond_law="ohmic" ion="k" default_gmax="48" default_erev="-84.69">
 	            
 	        <q10_settings q10_factor="3" experimental_temp="25.5"/>	     
             
@@ -78,7 +73,7 @@
                 <closed_state id="a0"/>
                 <open_state id="a"/>
 
-                    <!--
+                        <!--
 	         Aalpha_a = 0.8147 (/ms)
 			Kalpha_a = -23.32708 (mV)
 			V0alpha_a = -9.17203 (mV)
@@ -104,8 +99,9 @@
 
             -->
 
+
                 <transition name="alpha" from="a0" to="a" expr_form="sigmoid" rate="0.8147 " scale="-23.32708" midpoint="-9.17203"/>
-                <transition name="beta" from="a" to="a0"  expr_form="generic" expr="0.1655 /( exp ((v + 18.27914)/19.47175 ))"/>
+                <transition name="beta" from="a" to="a0" expr_form="generic" expr="0.1655 /( exp ((v + 18.27914)/19.47175 ))"/>
 
                 <steady_state name="inf" from="a0" to="a" expr_form="sigmoid" rate="1" scale=" -17" midpoint=" -38"/>
 
@@ -114,9 +110,9 @@
             <gate name="b" instances="1">
 
                 <closed_state id="b0"/>
-                <open_state   id="b"/>
+                <open_state id="b"/>
 
-             <!--
+                 <!--
 
 			Aalpha_b = 0.0368 (/ms)
 			Kalpha_b = 12.8433 (mV)
@@ -143,8 +139,9 @@
 		
 	                -->
 
+
                 <transition name="alpha" from="b0" to="b" expr_form="sigmoid" rate="0.0368 " scale=" 12.8433 " midpoint=" -111.33209"/>
-                <transition name="beta"  from="b" to="b0" expr_form="sigmoid" rate="0.0345" scale="-8.90123" midpoint="-49.953"/>
+                <transition name="beta" from="b" to="b0" expr_form="sigmoid" rate="0.0345" scale="-8.90123" midpoint="-49.953"/>
                 <steady_state name="inf" from="b0" to="b" expr_form="sigmoid" rate="1" scale=" 8.4 " midpoint="-78.8"/>
 
             </gate>
@@ -158,4 +155,3 @@
     </channel_type>
 
 </channelml>
-
