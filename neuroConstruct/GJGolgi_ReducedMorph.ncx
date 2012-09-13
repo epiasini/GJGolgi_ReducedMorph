@@ -693,7 +693,7 @@ part of NeuroML or any standardised XML specification. -->
       </void>
      </void>
      <void property="simDuration">
-      <float>200.0</float>
+      <float>300.0</float>
      </void>
     </object>
    </void>

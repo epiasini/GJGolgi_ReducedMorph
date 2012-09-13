@@ -50,7 +50,14 @@ id1 = min(dist_1.keys())
 dist_2 = dict((k, v) for k,v in distances.items() if 124.59 < v < 124.79)
 id2 = min(dist_2.keys())
 
-print id0, id1, id2
+ids = [id0, id1, id2]
+dists = [distances[i] for i in ids]
+segs = [vervaeke_cell_type.getSegmentWithId(i) for i in ids]
+lengths = [seg.getSegmentLength() for seg in segs]
+locs = [d + lengths[k] for k,d in enumerate(dists)]
+
+print (locs)
+
 
 source_segment_index = 0
 source_fraction_along = 0.5
@@ -59,7 +66,7 @@ for conn_name in ['relay_conn', 'NetConn_relays_Golgi_Vervaeke']:
     if conn_name == 'relay_conn': target_segments = [4,5,6]
     else: target_segments = [id0, id1, id2]#[1526, 1545, 1646]#[679,1013,1196]
     for target_segment_index in target_segments:
-	for target_fraction_along in [.1]:
+	for target_fraction_along in [.5]:
 	    sim_ref = timestamp + '_' + str(target_segment_index) + '_' + str(target_fraction_along)
 	    sim_path = '../simulations/' + sim_ref
 	    project.simulationParameters.setReference(sim_ref)
@@ -84,6 +91,9 @@ for conn_name in ['relay_conn', 'NetConn_relays_Golgi_Vervaeke']:
 		while not os.path.exists(timefile_path):
 		    time.sleep(0.1)
 
-print "Data reference " + timestamp + " " + str(id0) + " " + str(id1) + " " + str(id2)
+data_string = "Data reference " + timestamp
+for k,i in enumerate(ids):
+    data_string = data_string + " " + str(i) + " " + str(locs[k])
+print data_string
 
 System.exit(0)
