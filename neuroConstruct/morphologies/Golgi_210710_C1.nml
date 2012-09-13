@@ -10028,7 +10028,7 @@ Value for scaling factor to apply to current to get change in conc should be
                     <bio:parameter name="e" value="-55.0">
                         <bio:group>all</bio:group>
                     </bio:parameter>
-                    <bio:parameter name="gmax" value="0.043">
+                    <bio:parameter name="gmax" value="0.0667">
                         <bio:group>all</bio:group>
                     </bio:parameter>
                 </bio:mechanism>

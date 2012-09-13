@@ -81,12 +81,6 @@
                 </mml:cable>
 
                 <mml:cable id="3" name="Dend_ap_1" fract_along_parent="0.5">
-                    <meta:properties>
-                        
-                    <meta:property tag="numberInternalDivisions" value="3"/>
-
-                    </meta:properties>
-                
                     <meta:group>all</meta:group>
                     <meta:group>dendrite_group</meta:group>
                     <meta:group>apical</meta:group>
@@ -194,7 +188,7 @@
                     <bio:parameter name="e" value="-55.0">
                         <bio:group>all</bio:group>
                     </bio:parameter>
-                    <bio:parameter name="gmax" value="0.021">
+                    <bio:parameter name="gmax" value="0.0667">
                         <bio:group>all</bio:group>
                     </bio:parameter>
                 </bio:mechanism>
