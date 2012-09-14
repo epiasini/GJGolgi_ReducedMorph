@@ -20,6 +20,9 @@ sim_config_name = 'attenuation_comparison'
 sim_config = project.simConfigInfo.getSimConfig(sim_config_name)
 project.neuronSettings.setNoConsole()
 
+all_distance_limits = [[34.5, 35.5], [104.5, 105.5], [174.5, 175.5]]
+reduced_seg_ids = [4,5,6]
+
 # switch off Na channels (TTX)
 reduced_cell_type = project.cellManager.getCell('GJGolgi_Reduced')
 vervaeke_cell_type = project.cellManager.getCell('Golgi_210710_C1')
@@ -39,60 +42,64 @@ while pm.isGenerating():
 
 
 
-
-# pick segment ids on the detailed cell
+# calculate segment-soma distances on the detailed cell
 cth = CellTopologyHelper()
-distances = dict(cth.getSegmentDistancesFromRoot(vervaeke_cell_type, 'all'))
-dist_0 = dict((k, v) for k,v in distances.items() if 9.08 < v < 9.28)
-id0 = min(dist_0.keys())
-dist_1 = dict((k, v) for k,v in distances.items() if 33.78 < v < 33.98)
-id1 = min(dist_1.keys())
-dist_2 = dict((k, v) for k,v in distances.items() if 124.59 < v < 124.79)
-id2 = min(dist_2.keys())
-
-ids = [id0, id1, id2]
-dists = [distances[i] for i in ids]
-segs = [vervaeke_cell_type.getSegmentWithId(i) for i in ids]
-lengths = [seg.getSegmentLength() for seg in segs]
-locs = [d + lengths[k] for k,d in enumerate(dists)]
-
-print (locs)
-
+distances_dict = dict(cth.getSegmentDistancesFromRoot(vervaeke_cell_type, 'all'))
 
 source_segment_index = 0
 source_fraction_along = 0.5
 delay = 0.
-for conn_name in ['relay_conn', 'NetConn_relays_Golgi_Vervaeke']:
-    if conn_name == 'relay_conn': target_segments = [4,5,6]
-    else: target_segments = [id0, id1, id2]#[1526, 1545, 1646]#[679,1013,1196]
-    for target_segment_index in target_segments:
-	for target_fraction_along in [.5]:
-	    sim_ref = timestamp + '_' + str(target_segment_index) + '_' + str(target_fraction_along)
-	    sim_path = '../simulations/' + sim_ref
-	    project.simulationParameters.setReference(sim_ref)
 
-	    # delete all existing connections
-	    project.generatedNetworkConnections.reset()
+locs = []
+detailed_seg_ids = []
 
-	    # connect the spike relay at the specified point on the golgi dendrite
-	    project.generatedNetworkConnections.addSynapticConnection(conn_name, 0, 0, source_segment_index, source_fraction_along, 0, target_segment_index, target_fraction_along, delay, None)
+for distance_index in [0,1,2]:
+    # basic simulation setup
+    sim_ref = timestamp + '_' + str(distance_index)
+    sim_path = '../simulations/' + sim_ref
+    project.simulationParameters.setReference(sim_ref)
+    # pick segment to be stimulated on detailed cell
+    dist_limits = all_distance_limits[distance_index]
+    allowed_segments = dict((k,v) for k,v in distances_dict.items() if dist_limits[0] < v < dist_limits[1])
+    seg_id_detailed = min(allowed_segments.keys())
+    # store stimulation location for detailed cell
+    dist = allowed_segments[seg_id_detailed]
+    seg = vervaeke_cell_type.getSegmentWithId(seg_id_detailed)
+    length = seg.getSegmentLength()
+    locs.append(dist + length/2.)
+    detailed_seg_ids.append(seg_id_detailed)
+    # pick segment to be stimulated on reduced cell
+    seg_id_reduced = reduced_seg_ids[distance_index]
 
-	    # generate and compile neuron files
-	    print "Generating NEURON scripts..."
-	    simulator_seed = random.getrandbits(32)
-	    project.neuronFileManager.generateTheNeuronFiles(sim_config, None, NeuronFileManager.RUN_HOC,simulator_seed)
-	    compile_process = ProcessManager(project.neuronFileManager.getMainHocFile())
-	    compile_success = compile_process.compileFileWithNeuron(0,0)
-	    # simulate
-	    if compile_success:
-		print "Simulating: simulation reference " + sim_ref
-		pm.doRunNeuron(sim_config)
-		timefile_path = sim_path + '/time.dat'
-		while not os.path.exists(timefile_path):
-		    time.sleep(0.1)
+    # delete all existing connections
+    project.generatedNetworkConnections.reset()
+
+    # connect the spike relay at the specified point on the golgi dendrite
+    project.generatedNetworkConnections.addSynapticConnection('relay_conn',
+							      0, 0, 0, 0.5, 0,
+							      seg_id_reduced,
+							      0.5, 0, None)
+    project.generatedNetworkConnections.addSynapticConnection('NetConn_relays_Golgi_Vervaeke',
+							      0, 0, 0, 0.5, 0,
+							      seg_id_detailed,
+							      0.5, 0, None)
+
+    # generate and compile neuron files
+    print "Generating NEURON scripts..."
+    simulator_seed = random.getrandbits(32)
+    project.neuronFileManager.generateTheNeuronFiles(sim_config, None, NeuronFileManager.RUN_HOC,simulator_seed)
+    compile_process = ProcessManager(project.neuronFileManager.getMainHocFile())
+    compile_success = compile_process.compileFileWithNeuron(0,0)
+    # simulate
+    if compile_success:
+	print "Simulating: simulation reference " + sim_ref
+	pm.doRunNeuron(sim_config)
+	timefile_path = sim_path + '/time.dat'
+	while not os.path.exists(timefile_path):
+	    time.sleep(0.1)
 
 data_string = "Data reference " + timestamp
-for k,i in enumerate(ids):
+for k,i in enumerate(detailed_seg_ids):
     data_string = data_string + " " + str(i) + " " + str(locs[k])
 print data_string
 
