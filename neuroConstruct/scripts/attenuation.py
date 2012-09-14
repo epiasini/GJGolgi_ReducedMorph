@@ -3,6 +3,7 @@ import random
 import time
 from java.lang import System
 from java.io import File
+from java.util import ArrayList
 
 from ucl.physiol.neuroconstruct.project import ProjectManager
 from ucl.physiol.neuroconstruct.neuron import NeuronFileManager
@@ -83,6 +84,14 @@ for distance_index in [0,1,2]:
 							      0, 0, 0, 0.5, 0,
 							      seg_id_detailed,
 							      0.5, 0, None)
+
+    # set up voltage recording at current injection site
+    sim_plot_dend_reduced = project.simPlotInfo.getSimPlot('Golgi_reduced_v_d')
+    sim_plot_dend_reduced.setSegmentId(str(seg_id_reduced))
+    project.generatedPlotSaves.addPlotSaveDetails('Golgi_reduced_v_d', sim_plot_dend_reduced, ArrayList([0]), ArrayList([seg_id_reduced]), False, False)
+    sim_plot_dend_detailed = project.simPlotInfo.getSimPlot('Golgi_detailed_v_d')
+    sim_plot_dend_detailed.setSegmentId(str(seg_id_detailed))
+    project.generatedPlotSaves.addPlotSaveDetails('Golgi_detailed_v_d', sim_plot_dend_detailed, ArrayList([0]), ArrayList([seg_id_detailed]), False, False)
 
     # generate and compile neuron files
     print "Generating NEURON scripts..."
