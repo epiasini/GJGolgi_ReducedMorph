@@ -207,34 +207,6 @@ part of NeuroML or any standardised XML specification. -->
    <void method="add">
     <object class="ucl.physiol.neuroconstruct.project.SimPlot">
      <void property="cellGroup">
-      <string>Golgi_Vervaeke</string>
-     </void>
-     <void property="cellNumber">
-      <string>*</string>
-     </void>
-     <void property="graphWindow">
-      <string>Golgi_Solinas_v</string>
-     </void>
-     <void property="maxValue">
-      <float>50.0</float>
-     </void>
-     <void property="minValue">
-      <float>-90.0</float>
-     </void>
-     <void property="plotAndOrSave">
-      <string>Plot and save</string>
-     </void>
-     <void property="plotReference">
-      <string>Golgi_Vervaeke_v</string>
-     </void>
-     <void property="segmentId">
-      <string>0</string>
-     </void>
-    </object>
-   </void>
-   <void method="add">
-    <object class="ucl.physiol.neuroconstruct.project.SimPlot">
-     <void property="cellGroup">
       <string>Golgi_reduced</string>
      </void>
      <void property="cellNumber">
@@ -431,6 +403,34 @@ part of NeuroML or any standardised XML specification. -->
      </void>
      <void property="plotReference">
       <string>Golgi_reduced_v_d</string>
+     </void>
+     <void property="segmentId">
+      <string>0</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.project.SimPlot">
+     <void property="cellGroup">
+      <string>Golgi_Vervaeke</string>
+     </void>
+     <void property="cellNumber">
+      <string>*</string>
+     </void>
+     <void property="graphWindow">
+      <string>Golgi_Solinas_v</string>
+     </void>
+     <void property="maxValue">
+      <float>50.0</float>
+     </void>
+     <void property="minValue">
+      <float>-90.0</float>
+     </void>
+     <void property="plotAndOrSave">
+      <string>Plot and save</string>
+     </void>
+     <void property="plotReference">
+      <string>Golgi_detailed_v</string>
      </void>
      <void property="segmentId">
       <string>0</string>
@@ -641,9 +641,6 @@ part of NeuroML or any standardised XML specification. -->
        <string>Golgi_Solinas_v</string>
       </void>
       <void method="add">
-       <string>Golgi_Vervaeke_v</string>
-      </void>
-      <void method="add">
        <string>Golgi_reduced_v</string>
       </void>
       <void method="add">
@@ -742,7 +739,7 @@ part of NeuroML or any standardised XML specification. -->
      </void>
      <void property="plots">
       <void method="add">
-       <string>Golgi_Vervaeke_v</string>
+       <string>Golgi_detailed_v</string>
       </void>
       <void method="add">
        <string>Golgi_detailed_v_d</string>
@@ -778,9 +775,6 @@ part of NeuroML or any standardised XML specification. -->
      <void property="plots">
       <void method="add">
        <string>Golgi_Solinas_v</string>
-      </void>
-      <void method="add">
-       <string>Golgi_Vervaeke_v</string>
       </void>
       <void method="add">
        <string>Golgi_reduced_v</string>

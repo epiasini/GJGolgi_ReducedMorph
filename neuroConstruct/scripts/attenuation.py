@@ -84,7 +84,12 @@ for distance_index in [0,1,2]:
 							      0, 0, 0, 0.5, 0,
 							      seg_id_detailed,
 							      0.5, 0, None)
+    # delete all existing probes
+    project.generatedPlotSaves.reset()
 
+    # set up voltage recording at the soma
+    project.generatedPlotSaves.addPlotSaveDetails('Golgi_reduced_v', project.simPlotInfo.getSimPlot('Golgi_reduced_v'), ArrayList([0]), ArrayList([0]), False, False)
+    project.generatedPlotSaves.addPlotSaveDetails('Golgi_detailed_v', project.simPlotInfo.getSimPlot('Golgi_detailed_v'), ArrayList([0]), ArrayList([0]), False, False)
     # set up voltage recording at current injection site
     sim_plot_dend_reduced = project.simPlotInfo.getSimPlot('Golgi_reduced_v_d')
     sim_plot_dend_reduced.setSegmentId(str(seg_id_reduced))
