@@ -33,7 +33,7 @@ reduced_seg_ids = [4,4,4,4,4,4,5,5,5,5,5,5,6,6,6,6,6,6]
 
 # switch off Na channels (TTX)
 reduced_cell_type = project.cellManager.getCell('GJGolgi_Reduced')
-vervaeke_cell_type = project.cellManager.getCell('Golgi_210710_C1')
+vervaeke_cell_type = project.cellManager.getCell('Golgi_240710_C0')
 for chan in reduced_cell_type.getChanMechsForGroup('soma_group'):
     if chan.getName() in ['NaP_CML', 'NaR_CML', 'NaT_CML']:
 	chan.setDensity(0)
