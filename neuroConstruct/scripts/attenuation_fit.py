@@ -14,8 +14,8 @@ import numpy as np
 from matplotlib import pyplot as plt
 from scipy.optimize import curve_fit
 
-def attenuation_function(x, a, l):
-    return a*np.exp(-x/l)
+def attenuation_function(x, l):
+    return np.exp(-x/l)
 
 initial_a = 1.
 initial_l = 46.
@@ -30,6 +30,7 @@ reduced_locs = np.array([35.,35.,35.,35.,35.,35., 105.,105.,105.,105.,105.,105.,
 data = {'reduced':[], 'detailed':[]}
 
 fig, ax = plt.subplots()
+trace_fig, trace_ax = plt.subplots()
 
 for distance_index in range(n_points):
     seg_id_reduced = reduced_seg_ids[distance_index]
@@ -44,13 +45,19 @@ for distance_index in range(n_points):
 			     np.loadtxt('{0}/Golgi_Vervaeke_0.dat'.format(sim_path)),
 			     np.loadtxt('{0}/Golgi_Vervaeke_0.{1}.dat'.format(sim_path,
 									      seg_id_detailed))])
-
+colors = ['blue', 'green']
+time = np.loadtxt('{0}/time.dat'.format(sim_path))
 maxima = {'reduced':{}, 'detailed':{}}
 baselines = {'reduced':{}, 'detailed':{}}
 amplitudes = {'reduced':{}, 'detailed':{}}
 attenuation = {}
 
-for cell_type in data.keys():
+
+for k,cell_type in enumerate(data.keys()):
+    for distance_index in range(n_points):
+	trace_ax.plot(time,
+		      data[cell_type][distance_index][1],
+		      color=colors[k])
     maxima[cell_type]['soma'] = np.array([data[cell_type][dist_index][1].max() for dist_index in range(n_points)])
     maxima[cell_type]['dend'] = np.array([data[cell_type][dist_index][2].max() for dist_index in range(n_points)])
     baselines[cell_type]['soma'] = np.array([data[cell_type][dist_index][1][-1] for dist_index in range(n_points)])
@@ -64,13 +71,14 @@ for cell_type in data.keys():
 
     ax.plot(positions,
 	    attenuation[cell_type],
-	    marker='o', label=cell_type)
-    a, l = curve_fit(attenuation_function,
-		     positions,
-		     attenuation[cell_type],
-		     [initial_a, initial_l])[0]
-    print(cell_type,a,l)
-    values = np.array([attenuation_function(x, a,l,) for x in np.arange(0,200,0.1)])
+	    marker='o', color=colors[k],
+	    label=cell_type)
+    l = curve_fit(attenuation_function,
+		  positions,
+		  attenuation[cell_type],
+		  [initial_l])[0]
+    print(cell_type, l)
+    values = np.array([attenuation_function(x, l) for x in np.arange(0,200,0.1)])
     ax.plot(np.arange(0,200,0.1), values, color='black', linestyle=':')
 
 ax.legend(loc='best')
