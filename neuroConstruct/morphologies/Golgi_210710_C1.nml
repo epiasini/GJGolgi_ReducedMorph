@@ -8942,6 +8942,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>mossy</meta:group>
                     <meta:group>GCL</meta:group>
+                    <meta:group>apical_dend_2</meta:group>
                 </mml:cable>
 
                 <mml:cable id="2" name="SecDendriteCyan_1_R_1">
@@ -8956,6 +8957,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>mossy</meta:group>
                     <meta:group>GCL</meta:group>
+                    <meta:group>apical_dend_2</meta:group>
                 </mml:cable>
 
                 <mml:cable id="3" name="SecDendriteCyan_1_R_2">
@@ -8970,6 +8972,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>mossy</meta:group>
                     <meta:group>GCL</meta:group>
+                    <meta:group>apical_dend_2</meta:group>
                 </mml:cable>
 
                 <mml:cable id="4" name="SecDendriteCyan_1_R_2_1">
@@ -8984,6 +8987,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>GCL</meta:group>
+                    <meta:group>apical_dend_2</meta:group>
                 </mml:cable>
 
                 <mml:cable id="5" name="SecDendriteCyan_1_R_2_2">
@@ -8998,6 +9002,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>GCL</meta:group>
+                    <meta:group>apical_dend_2</meta:group>
                 </mml:cable>
 
                 <mml:cable id="6" name="SecDendriteCyan_1_R_2_2_1">
@@ -9012,6 +9017,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML1</meta:group>
+                    <meta:group>apical_dend_2</meta:group>
                 </mml:cable>
 
                 <mml:cable id="7" name="SecDendriteCyan_1_R_2_2_1_1">
@@ -9026,6 +9032,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML1</meta:group>
+                    <meta:group>apical_dend_2</meta:group>
                 </mml:cable>
 
                 <mml:cable id="8" name="SecDendriteCyan_1_R_2_2_1_2">
@@ -9040,6 +9047,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML1</meta:group>
+                    <meta:group>apical_dend_2</meta:group>
                 </mml:cable>
 
                 <mml:cable id="9" name="SecDendriteCyan_1_R_2_2_2">
@@ -9054,6 +9062,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML1</meta:group>
+                    <meta:group>apical_dend_2</meta:group>
                 </mml:cable>
 
                 <mml:cable id="10" name="SecDendriteCyan_1_R_2_2_2_1">
@@ -9068,6 +9077,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML2</meta:group>
+                    <meta:group>apical_dend_2</meta:group>
                 </mml:cable>
 
                 <mml:cable id="11" name="SecDendriteCyan_1_R_2_2_2_2">
@@ -9082,6 +9092,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML2</meta:group>
+                    <meta:group>apical_dend_2</meta:group>
                 </mml:cable>
 
                 <mml:cable id="12" name="SecDendriteCyan_1_R_2_2_2_2_1">
@@ -9096,6 +9107,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML2</meta:group>
+                    <meta:group>apical_dend_2</meta:group>
                 </mml:cable>
 
                 <mml:cable id="13" name="SecDendriteCyan_1_R_2_2_2_2_2">
@@ -9110,6 +9122,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML2</meta:group>
+                    <meta:group>apical_dend_2</meta:group>
                 </mml:cable>
 
                 <mml:cable id="14" name="SecDendriteCyan_1_R_2_2_2_2_2_1">
@@ -9124,6 +9137,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML3</meta:group>
+                    <meta:group>apical_dend_2</meta:group>
                 </mml:cable>
 
                 <mml:cable id="15" name="SecDendriteCyan_1_R_2_2_2_2_2_1_1">
@@ -9138,6 +9152,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML3</meta:group>
+                    <meta:group>apical_dend_2</meta:group>
                 </mml:cable>
 
                 <mml:cable id="16" name="SecDendriteCyan_1_R_2_2_2_2_2_1_2">
@@ -9152,6 +9167,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML3</meta:group>
+                    <meta:group>apical_dend_2</meta:group>
                 </mml:cable>
 
                 <mml:cable id="17" name="SecDendriteCyan_1_R_2_2_2_2_2_2">
@@ -9166,6 +9182,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML3</meta:group>
+                    <meta:group>apical_dend_2</meta:group>
                 </mml:cable>
 
                 <mml:cable id="18" name="SecDendriteCyan_1_R_2_2_2_2_2_2_1">
@@ -9180,6 +9197,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML3</meta:group>
+                    <meta:group>apical_dend_2</meta:group>
                 </mml:cable>
 
                 <mml:cable id="19" name="SecDendriteCyan_1_R_2_2_2_2_2_2_1_1">
@@ -9194,6 +9212,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML3</meta:group>
+                    <meta:group>apical_dend_2</meta:group>
                 </mml:cable>
 
                 <mml:cable id="20" name="SecDendriteCyan_1_R_2_2_2_2_2_2_1_2">
@@ -9208,6 +9227,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML3</meta:group>
+                    <meta:group>apical_dend_2</meta:group>
                 </mml:cable>
 
                 <mml:cable id="21" name="SecDendriteCyan_1_R_2_2_2_2_2_2_2">
@@ -9222,6 +9242,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML3</meta:group>
+                    <meta:group>apical_dend_2</meta:group>
                 </mml:cable>
 
                 <mml:cable id="22" name="SecDendriteCyan_1_1_R">
@@ -9236,6 +9257,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>mossy</meta:group>
                     <meta:group>GCL</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="23" name="SecDendriteCyan_1_1_R_1">
@@ -9250,6 +9272,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>mossy</meta:group>
                     <meta:group>GCL</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="24" name="SecDendriteCyan_1_1_R_1_1">
@@ -9264,6 +9287,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>GCL</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="25" name="SecDendriteCyan_1_1_R_1_2">
@@ -9278,6 +9302,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>GCL</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="26" name="SecDendriteCyan_1_1_R_1_2_1">
@@ -9292,6 +9317,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML1</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="27" name="SecDendriteCyan_1_1_R_1_2_2">
@@ -9306,6 +9332,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML1</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="28" name="SecDendriteCyan_1_1_R_2">
@@ -9320,6 +9347,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>mossy</meta:group>
                     <meta:group>GCL</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="29" name="SecDendriteCyan_1_1_R_2_1">
@@ -9334,6 +9362,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>GCL</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="30" name="SecDendriteCyan_1_1_R_2_1_split">
@@ -9348,6 +9377,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML1</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="31" name="SecDendriteCyan_1_1_R_2_1_split_split">
@@ -9362,6 +9392,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML2</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="32" name="SecDendriteCyan_1_1_R_2_1_1">
@@ -9376,6 +9407,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML2</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="33" name="SecDendriteCyan_1_1_R_2_1_2">
@@ -9390,6 +9422,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML2</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="34" name="SecDendriteCyan_1_1_R_2_1_2_1">
@@ -9404,6 +9437,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML2</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="35" name="SecDendriteCyan_1_1_R_2_1_2_1_split">
@@ -9418,6 +9452,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML3</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="36" name="SecDendriteCyan_1_1_R_2_1_2_1_1">
@@ -9432,6 +9467,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML3</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="37" name="SecDendriteCyan_1_1_R_2_1_2_1_2">
@@ -9446,6 +9482,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML3</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="38" name="SecDendriteCyan_1_1_R_2_1_2_2">
@@ -9460,6 +9497,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML2</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="39" name="SecDendriteCyan_1_1_R_2_1_2_2_1">
@@ -9474,6 +9512,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML2</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="40" name="SecDendriteCyan_1_1_R_2_1_2_2_2">
@@ -9488,6 +9527,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML2</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="41" name="SecDendriteCyan_1_1_R_2_2">
@@ -9502,6 +9542,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>GCL</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="42" name="SecDendriteCyan_1_1_R_2_2_split">
@@ -9516,6 +9557,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML1</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="43" name="SecDendriteCyan_1_1_R_2_2_split_split">
@@ -9530,6 +9572,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML2</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="44" name="SecDendriteCyan_1_1_R_2_2_1">
@@ -9544,6 +9587,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML2</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="45" name="SecDendriteCyan_1_1_R_2_2_2">
@@ -9558,6 +9602,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML2</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="46" name="SecDendriteCyan_1_1_R_2_2_2_1">
@@ -9572,6 +9617,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML3</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="47" name="SecDendriteCyan_1_1_R_2_2_2_1_1">
@@ -9586,6 +9632,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML3</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="48" name="SecDendriteCyan_1_1_R_2_2_2_1_2">
@@ -9600,6 +9647,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML3</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="49" name="SecDendriteCyan_1_1_R_2_2_2_2">
@@ -9614,6 +9662,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML3</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="50" name="SecDendriteCyan_1_1_R_2_2_2_2_1">
@@ -9628,6 +9677,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML3</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="51" name="SecDendriteCyan_1_1_R_2_2_2_2_2">
@@ -9642,6 +9692,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML3</meta:group>
+                    <meta:group>apical_dend_3</meta:group>
                 </mml:cable>
 
                 <mml:cable id="52" name="SecDendriteCyan_2_1_R">
@@ -9656,7 +9707,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>mossy</meta:group>
                     <meta:group>GCL</meta:group>
-                    <meta:group>attenuation_dend</meta:group>
+                    <meta:group>apical_dend_1</meta:group>
                 </mml:cable>
 
                 <mml:cable id="53" name="SecDendriteCyan_2_1_R_1">
@@ -9671,7 +9722,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML1</meta:group>
-                    <meta:group>attenuation_dend</meta:group>
+                    <meta:group>apical_dend_1</meta:group>
                 </mml:cable>
 
                 <mml:cable id="54" name="SecDendriteCyan_2_1_R_1_split">
@@ -9686,7 +9737,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML2</meta:group>
-                    <meta:group>attenuation_dend</meta:group>
+                    <meta:group>apical_dend_1</meta:group>
                 </mml:cable>
 
                 <mml:cable id="55" name="SecDendriteCyan_2_1_R_1_1">
@@ -9701,7 +9752,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML2</meta:group>
-                    <meta:group>attenuation_dend</meta:group>
+                    <meta:group>apical_dend_1</meta:group>
                 </mml:cable>
 
                 <mml:cable id="56" name="SecDendriteCyan_2_1_R_1_2">
@@ -9716,7 +9767,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML2</meta:group>
-                    <meta:group>attenuation_dend</meta:group>
+                    <meta:group>apical_dend_1</meta:group>
                 </mml:cable>
 
                 <mml:cable id="57" name="SecDendriteCyan_2_1_R_1_2_split">
@@ -9731,7 +9782,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML3</meta:group>
-                    <meta:group>attenuation_dend</meta:group>
+                    <meta:group>apical_dend_1</meta:group>
                 </mml:cable>
 
                 <mml:cable id="58" name="SecDendriteCyan_2_1_R_1_2_1">
@@ -9746,7 +9797,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML3</meta:group>
-                    <meta:group>attenuation_dend</meta:group>
+                    <meta:group>apical_dend_1</meta:group>
                 </mml:cable>
 
                 <mml:cable id="59" name="SecDendriteCyan_2_1_R_1_2_2">
@@ -9761,7 +9812,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML3</meta:group>
-                    <meta:group>attenuation_dend</meta:group>
+                    <meta:group>apical_dend_1</meta:group>
                 </mml:cable>
 
                 <mml:cable id="60" name="SecDendriteCyan_2_1_R_1_2_2_1">
@@ -9776,7 +9827,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML3</meta:group>
-                    <meta:group>attenuation_dend</meta:group>
+                    <meta:group>apical_dend_1</meta:group>
                 </mml:cable>
 
                 <mml:cable id="61" name="SecDendriteCyan_2_1_R_1_2_2_2">
@@ -9791,7 +9842,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML3</meta:group>
-                    <meta:group>attenuation_dend</meta:group>
+                    <meta:group>apical_dend_1</meta:group>
                 </mml:cable>
 
                 <mml:cable id="62" name="SecDendriteCyan_2_1_R_2">
@@ -9806,7 +9857,7 @@ V3 text file written for MicroBrightField products.</meta:notes>
                     <meta:group>colour_Cyan</meta:group>
                     <meta:group>parfiber</meta:group>
                     <meta:group>ML1</meta:group>
-                    <meta:group>attenuation_dend</meta:group>
+                    <meta:group>apical_dend_1</meta:group>
                 </mml:cable>
 
                 <mml:cable id="63" name="SecDendriteCyan_3_1_R">
