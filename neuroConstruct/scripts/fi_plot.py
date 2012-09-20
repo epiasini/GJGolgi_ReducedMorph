@@ -11,13 +11,16 @@ fig, ax = plt.subplots()
 
 for cell_name in ['reduced', 'Vervaeke', 'Solinas']:
     data = []
-    threshold = '20'
+    threshold = 'min20'
     for amplitude in current_amplitude_range:
 	filename = '../simulations/{0}_{1}/Golgi_{2}_0.SPIKES_{3}.spike'.format(timestamp,
 										amplitude,
 										cell_name,
 										threshold)
-	data.append(len(np.loadtxt(filename)))
+	try:
+	    data.append(len(np.loadtxt(filename)))
+	except TypeError:
+	    data.append(0)
     ax.plot(current_amplitude_range, data, label=cell_name, marker='o')
 ax.legend(loc='best')
 plt.show()

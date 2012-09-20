@@ -58,12 +58,13 @@ for cell_type in data.keys():
     amplitudes[cell_type]['soma'] = maxima[cell_type]['soma'] - baselines[cell_type]['soma']
     amplitudes[cell_type]['dend'] = maxima[cell_type]['dend'] - baselines[cell_type]['dend']
 
-    attenuation[cell_type] = amplitudes[cell_type]['soma']/amplitudes[cell_type]['dend']
-    ax.plot([data[cell_type][dist_index][0] for dist_index in range(n_points)],
+    attenuation[cell_type] = np.concatenate((np.array([1.]),
+					    amplitudes[cell_type]['soma']/amplitudes[cell_type]['dend']))
+    ax.plot([0.]+[data[cell_type][dist_index][0] for dist_index in range(n_points)],
 	    attenuation[cell_type],
 	    marker='o', label=cell_type)
     a, l = curve_fit(attenuation_function,
-		     np.array([float(data[cell_type][dist_index][0]) for dist_index in range(n_points)]),
+		     np.array([0.]+[float(data[cell_type][dist_index][0]) for dist_index in range(n_points)]),
 		     attenuation[cell_type],
 		     [initial_a, initial_l])[0]
     print(cell_type,a,l)

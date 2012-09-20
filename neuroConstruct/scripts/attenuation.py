@@ -23,17 +23,12 @@ project.neuronSettings.setNoConsole()
 
 n_points = 18
 detailed_distance_step = 180/n_points
-detailed_distance_bounds = [[9.5, 10.5], [19.5, 20.5], [29.5,30.5],
-			    [39.5, 40.5], [49.5, 50.5], [59.5, 60.5],
-			    [69.5, 70.5], [79.5, 80.5], [89.5, 90.5],
-			    [99.5, 100.5], [109.5, 110.5], [119.5, 120.5],
-			    [129.5, 130.5], [139.5, 140.5], [149.5, 150.5],
-			    [159.5, 160.5], [169.5, 170.5], [179.5, 180.5]]
+detailed_distance_bounds = range(10.,190.,10.)
 reduced_seg_ids = [4,4,4,4,4,4,5,5,5,5,5,5,6,6,6,6,6,6]
 
 # switch off Na channels (TTX)
 reduced_cell_type = project.cellManager.getCell('GJGolgi_Reduced')
-vervaeke_cell_type = project.cellManager.getCell('Golgi_210710_C1')
+vervaeke_cell_type = project.cellManager.getCell('Golgi_240710_C0')
 for chan in reduced_cell_type.getChanMechsForGroup('soma_group'):
     if chan.getName() in ['NaP_CML', 'NaR_CML', 'NaT_CML']:
 	chan.setDensity(0)
@@ -50,7 +45,7 @@ while pm.isGenerating():
 
 # calculate segment-soma distances on the detailed cell
 cth = CellTopologyHelper()
-distances_dict = dict(cth.getSegmentDistancesFromRoot(vervaeke_cell_type, 'all'))
+distances_dict = dict(cth.getSegmentDistancesFromRoot(vervaeke_cell_type, 'dendrite_group'))
 
 source_segment_index = 0
 source_fraction_along = 0.5
@@ -66,7 +61,7 @@ for distance_index in range(n_points):
     project.simulationParameters.setReference(sim_ref)
     # pick segment to be stimulated on detailed cell
     dist_limits = detailed_distance_bounds[distance_index]
-    allowed_segments = dict((k,v) for k,v in distances_dict.items() if dist_limits[0] < v < dist_limits[1])
+    allowed_segments = dict((k,v) for k,v in distances_dict.items() if dist_limits-2. < v < dist_limits+2.)
     seg_id_detailed = random.choice(allowed_segments.keys())
     # store stimulation location for detailed cell
     dist = allowed_segments[seg_id_detailed]
