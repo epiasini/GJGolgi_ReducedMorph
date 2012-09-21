@@ -24,8 +24,8 @@
                 </mml:segment>
 
                 <mml:segment id="3" name="Dend_ap_1_1" parent="0" cable="3">
-                    <mml:proximal x="0.0" y="0.0" z="0.0" diameter="0.8"/>
-                    <mml:distal x="-15.0" y="-10.0" z="0.0" diameter="0.7"/>
+                    <mml:proximal x="0.0" y="0.0" z="0.0" diameter="1.1"/>
+                    <mml:distal x="-50.0" y="-50.0" z="0.0" diameter="0.9"/>
                 </mml:segment>
 
                 <mml:segment id="4" name="Dend_ap_2_1" parent="0" cable="4">
@@ -44,13 +44,13 @@
                 </mml:segment>
 
                 <mml:segment id="7" name="Dend_ap_1_2" parent="3" cable="7">
-                    <mml:proximal x="-15.0" y="-10.0" z="0.0" diameter="0.7"/>
-                    <mml:distal x="-42.0" y="-26.0" z="0.0" diameter="0.6"/>
+                    <mml:proximal x="-50.0" y="-50.0" z="0.0" diameter="0.9"/>
+                    <mml:distal x="-100.0" y="-100.0" z="0.0" diameter="0.7"/>
                 </mml:segment>
 
                 <mml:segment id="8" name="Dend_ap_1_3" parent="7" cable="8">
-                    <mml:proximal x="-42.0" y="-26.0" z="0.0" diameter="0.6"/>
-                    <mml:distal x="-173.0" y="-105.0" z="0.0" diameter="0.5"/>
+                    <mml:proximal x="-100.0" y="-100.0" z="0.0" diameter="0.7"/>
+                    <mml:distal x="-150.0" y="-150.0" z="0.0" diameter="0.7"/>
                 </mml:segment>
 
                 <mml:segment id="9" name="Axon_1" parent="0" cable="9">
