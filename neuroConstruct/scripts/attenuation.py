@@ -44,7 +44,7 @@ while pm.isGenerating():
 
 # calculate segment-soma distances on the detailed cell
 cth = CellTopologyHelper()
-distances_dict = dict(cth.getSegmentDistancesFromRoot(vervaeke_cell_type, 'apical_dend_3'))
+distances_dict = dict(cth.getSegmentDistancesFromRoot(vervaeke_cell_type, 'apical_dend_2'))
 
 source_segment_index = 0
 source_fraction_along = 0.5

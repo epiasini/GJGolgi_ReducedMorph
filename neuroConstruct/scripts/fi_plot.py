@@ -17,7 +17,10 @@ for cell_name in ['reduced', 'Vervaeke', 'Solinas']:
 										amplitude,
 										cell_name,
 										threshold)
-	data.append(len(np.loadtxt(filename)))
+	try:
+	    data.append(len(np.loadtxt(filename)))
+	except TypeError:
+	    data.append(0)
     ax.plot(current_amplitude_range, data, label=cell_name, marker='o')
 ax.legend(loc='best')
 plt.show()

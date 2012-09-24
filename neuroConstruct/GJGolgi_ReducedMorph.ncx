@@ -479,7 +479,7 @@ part of NeuroML or any standardised XML specification. -->
    <float>100.0</float>
   </void>
   <void property="reference">
-   <string>Sim_44</string>
+   <string>Sim_67</string>
   </void>
   <void property="saveCopyGenSimFiles">
    <boolean>true</boolean>
@@ -525,7 +525,7 @@ part of NeuroML or any standardised XML specification. -->
     <object class="ucl.physiol.neuroconstruct.simulation.IClampSettings">
      <void property="amp">
       <void property="fixedNum">
-       <float>0.01</float>
+       <float>-0.01</float>
       </void>
      </void>
      <void property="cellGroup">
@@ -553,7 +553,7 @@ part of NeuroML or any standardised XML specification. -->
     <object class="ucl.physiol.neuroconstruct.simulation.IClampSettings">
      <void property="amp">
       <void property="fixedNum">
-       <float>0.01</float>
+       <float>-0.01</float>
       </void>
      </void>
      <void property="cellGroup">
@@ -581,7 +581,7 @@ part of NeuroML or any standardised XML specification. -->
     <object class="ucl.physiol.neuroconstruct.simulation.IClampSettings">
      <void property="amp">
       <void property="fixedNum">
-       <float>0.01</float>
+       <float>-0.01</float>
       </void>
      </void>
      <void property="cellGroup">
@@ -619,9 +619,6 @@ part of NeuroML or any standardised XML specification. -->
        <string>Golgi_Vervaeke</string>
       </void>
       <void method="add">
-       <string>relays</string>
-      </void>
-      <void method="add">
        <string>Golgi_reduced</string>
       </void>
      </void>
@@ -638,13 +635,13 @@ part of NeuroML or any standardised XML specification. -->
      </void>
      <void property="plots">
       <void method="add">
+       <string>relays_v</string>
+      </void>
+      <void method="add">
        <string>Golgi_Solinas_v</string>
       </void>
       <void method="add">
        <string>Golgi_reduced_v</string>
-      </void>
-      <void method="add">
-       <string>relays_v</string>
       </void>
      </void>
      <void property="simDuration">
@@ -817,13 +814,13 @@ part of NeuroML or any standardised XML specification. -->
      </void>
      <void property="plots">
       <void method="add">
+       <string>spikes_reduced</string>
+      </void>
+      <void method="add">
        <string>spikes_vervaeke</string>
       </void>
       <void method="add">
        <string>spikes_solinas</string>
-      </void>
-      <void method="add">
-       <string>spikes_reduced</string>
       </void>
      </void>
      <void property="simDuration">
