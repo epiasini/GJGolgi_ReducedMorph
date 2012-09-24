@@ -479,7 +479,7 @@ part of NeuroML or any standardised XML specification. -->
    <float>100.0</float>
   </void>
   <void property="reference">
-   <string>Sim_67</string>
+   <string>Sim_72</string>
   </void>
   <void property="saveCopyGenSimFiles">
    <boolean>true</boolean>
@@ -821,6 +821,15 @@ part of NeuroML or any standardised XML specification. -->
       </void>
       <void method="add">
        <string>spikes_solinas</string>
+      </void>
+      <void method="add">
+       <string>Golgi_detailed_v</string>
+      </void>
+      <void method="add">
+       <string>Golgi_Solinas_v</string>
+      </void>
+      <void method="add">
+       <string>Golgi_reduced_v</string>
       </void>
      </void>
      <void property="simDuration">

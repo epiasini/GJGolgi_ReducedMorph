@@ -9,8 +9,8 @@
             <mml:segments>
 
                 <mml:segment id="0" name="Soma" cable="0">
-                    <mml:proximal x="0.0" y="0.0" z="0.0" diameter="24.0"/>
-                    <mml:distal x="0.0" y="0.0" z="0.0" diameter="24.0"/>
+                    <mml:proximal x="0.0" y="0.0" z="0.0" diameter="20.0"/>
+                    <mml:distal x="0.0" y="0.0" z="0.0" diameter="20.0"/>
                 </mml:segment>
 
                 <mml:segment id="3" name="Dend_ap_1_1" parent="0" cable="1">
@@ -43,9 +43,19 @@
                     <mml:distal x="-150.0" y="-150.0" z="0.0" diameter="0.7"/>
                 </mml:segment>
 
-                <mml:segment id="9" name="Axon" parent="0" cable="7">
-                    <mml:proximal x="0.0" y="0.0" z="0.0" diameter="2.0"/>
-                    <mml:distal x="1000.0" y="0.0" z="0.0" diameter="2.0"/>
+                <mml:segment id="9" name="Dend_bl_1" parent="0" cable="7">
+                    <mml:proximal x="0.0" y="0.0" z="0.0" diameter="1.0"/>
+                    <mml:distal x="150.0" y="50.0" z="0.0" diameter="1.0"/>
+                </mml:segment>
+
+                <mml:segment id="10" name="Dend_bl_2" parent="0" cable="8">
+                    <mml:proximal x="0.0" y="0.0" z="0.0" diameter="1.0"/>
+                    <mml:distal x="150.0" y="-50.0" z="0.0" diameter="1.0"/>
+                </mml:segment>
+
+                <mml:segment id="11" name="Axon" parent="0" cable="9">
+                    <mml:proximal x="0.0" y="0.0" z="0.0" diameter="1.4"/>
+                    <mml:distal x="200.0" y="0.0" z="0.0" diameter="1.4"/>
                 </mml:segment>
 
                 
@@ -89,7 +99,17 @@
                     <meta:group>dendrite_group</meta:group>
                 </mml:cable>
 
-                <mml:cable id="7" name="Axon" fract_along_parent="0.5">
+                <mml:cable id="7" name="Dend_bl_1" fract_along_parent="0.5">
+                    <meta:group>all</meta:group>
+                    <meta:group>dendrite_group</meta:group>
+                </mml:cable>
+
+                <mml:cable id="8" name="Dend_bl_2" fract_along_parent="0.5">
+                    <meta:group>all</meta:group>
+                    <meta:group>dendrite_group</meta:group>
+                </mml:cable>
+
+                <mml:cable id="9" name="Axon" fract_along_parent="0.5">
                     <meta:group>all</meta:group>
                     <meta:group>dendrite_group</meta:group>
                 </mml:cable>
