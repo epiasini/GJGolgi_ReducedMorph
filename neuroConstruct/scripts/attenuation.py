@@ -22,7 +22,7 @@ sim_config = project.simConfigInfo.getSimConfig(sim_config_name)
 project.neuronSettings.setNoConsole()
 
 n_points = 18
-detailed_distance_bounds = range(10.,190.,10.)
+detailed_distance_bounds = range(5.,185.,10.)
 reduced_seg_ids = [4,4,4,4,4,4,5,5,5,5,5,5,6,6,6,6,6,6]
 
 # switch off Na channels (TTX)
