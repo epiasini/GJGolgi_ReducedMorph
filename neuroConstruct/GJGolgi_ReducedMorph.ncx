@@ -529,13 +529,13 @@ part of NeuroML or any standardised XML specification. -->
    <float>100.0</float>
   </void>
   <void property="reference">
-   <string>Sim_120</string>
+   <string>Sim_141</string>
   </void>
   <void property="saveCopyGenSimFiles">
    <boolean>true</boolean>
   </void>
   <void property="temperature">
-   <float>23.0</float>
+   <float>30.0</float>
   </void>
   <void property="whatToRecord">
    <int>2</int>
@@ -742,6 +742,9 @@ part of NeuroML or any standardised XML specification. -->
        <string>Golgi_reduced</string>
       </void>
      </void>
+     <void property="description">
+      <string>Spontaneous activity test for reduced morphology model.</string>
+     </void>
      <void property="name">
       <string>GJreduced_simple_test</string>
      </void>
@@ -816,13 +819,13 @@ part of NeuroML or any standardised XML specification. -->
        <string>Golgi_reduced</string>
       </void>
      </void>
+     <void property="description">
+      <string>Spontaneous activity for all three models (Solinas, Vervaeke and reduced).</string>
+     </void>
      <void property="name">
       <string>spontaneous_comparison</string>
      </void>
      <void property="plots">
-      <void method="add">
-       <string>all_seg_reduced</string>
-      </void>
       <void method="add">
        <string>Golgi_detailed_v</string>
       </void>
@@ -834,7 +837,7 @@ part of NeuroML or any standardised XML specification. -->
       </void>
      </void>
      <void property="simDuration">
-      <float>1000.0</float>
+      <float>100.0</float>
      </void>
     </object>
    </void>
