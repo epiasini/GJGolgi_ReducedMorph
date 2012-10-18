@@ -5,13 +5,13 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 timestamp = sys.argv[1]
-current_amplitude_range = [-10, -5, 0, 5, 10, 15, 20]
+current_amplitude_range = range(0, 440, 40)
 
 fig, ax = plt.subplots()
 
 for cell_name in ['reduced', 'Vervaeke', 'Solinas']:
     data = []
-    threshold = '20'
+    threshold = 'min20'
     for amplitude in current_amplitude_range:
 	filename = '../simulations/{0}_{1}/Golgi_{2}_0.SPIKES_{3}.spike'.format(timestamp,
 										amplitude,
@@ -23,4 +23,6 @@ for cell_name in ['reduced', 'Vervaeke', 'Solinas']:
 	    data.append(0)
     ax.plot(current_amplitude_range, data, label=cell_name, marker='o')
 ax.legend(loc='best')
+ax.set_xlabel('injected current (pA)')
+ax.set_ylabel('firing rate (Hz)')
 plt.show()

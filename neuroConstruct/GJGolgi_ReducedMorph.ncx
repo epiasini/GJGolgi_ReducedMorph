@@ -22,16 +22,22 @@ part of NeuroML or any standardised XML specification. -->
     <void method="add">
      <string>Regions_1</string>
     </void>
+    <void method="add">
+     <string>stim_region</string>
+    </void>
    </void>
    <void method="get">
     <string>Colour</string>
     <void method="add">
-     <object class="java.awt.Color">
+     <object id="Color0" class="java.awt.Color">
       <int>255</int>
       <int>255</int>
       <int>255</int>
       <int>255</int>
      </object>
+    </void>
+    <void method="add">
+     <object idref="Color0"/>
     </void>
    </void>
    <void method="get">
@@ -39,6 +45,32 @@ part of NeuroML or any standardised XML specification. -->
     <void method="add">
      <object class="ucl.physiol.neuroconstruct.project.RectangularBox">
       <void property="parameterList">
+       <void index="3">
+        <void property="value">
+         <float>120.0</float>
+        </void>
+       </void>
+       <void index="4">
+        <void property="value">
+         <float>50.0</float>
+        </void>
+       </void>
+       <void index="5">
+        <void property="value">
+         <float>120.0</float>
+        </void>
+       </void>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="ucl.physiol.neuroconstruct.project.RectangularBox">
+      <void property="parameterList">
+       <void index="2">
+        <void property="value">
+         <float>-100.0</float>
+        </void>
+       </void>
        <void index="3">
         <void property="value">
          <float>120.0</float>
@@ -74,7 +106,11 @@ part of NeuroML or any standardised XML specification. -->
      <object class="ucl.physiol.neuroconstruct.project.packing.RandomCellPackingAdapter"/>
     </void>
     <void method="add">
-     <object class="ucl.physiol.neuroconstruct.project.packing.RandomCellPackingAdapter"/>
+     <object class="ucl.physiol.neuroconstruct.project.packing.RandomCellPackingAdapter">
+      <void property="maxNumberCells">
+       <int>30</int>
+      </void>
+     </object>
     </void>
    </void>
    <void method="get">
@@ -154,7 +190,7 @@ part of NeuroML or any standardised XML specification. -->
      <string>Regions_1</string>
     </void>
     <void method="add">
-     <string>Regions_1</string>
+     <string>stim_region</string>
     </void>
    </void>
    <void method="get">
@@ -287,7 +323,7 @@ part of NeuroML or any standardised XML specification. -->
       <string>0</string>
      </void>
      <void property="valuePlotted">
-      <string>SPIKES:20</string>
+      <string>SPIKES:-20</string>
      </void>
     </object>
    </void>
@@ -318,7 +354,7 @@ part of NeuroML or any standardised XML specification. -->
       <string>0</string>
      </void>
      <void property="valuePlotted">
-      <string>SPIKES:20</string>
+      <string>SPIKES:-20</string>
      </void>
     </object>
    </void>
@@ -349,7 +385,7 @@ part of NeuroML or any standardised XML specification. -->
       <string>0</string>
      </void>
      <void property="valuePlotted">
-      <string>SPIKES:20</string>
+      <string>SPIKES:-20</string>
      </void>
     </object>
    </void>
@@ -487,6 +523,37 @@ part of NeuroML or any standardised XML specification. -->
      </void>
     </object>
    </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.project.SimPlot">
+     <void property="cellGroup">
+      <string>relays</string>
+     </void>
+     <void property="cellNumber">
+      <string>*</string>
+     </void>
+     <void property="graphWindow">
+      <string>GraphWin_3</string>
+     </void>
+     <void property="maxValue">
+      <float>50.0</float>
+     </void>
+     <void property="minValue">
+      <float>-90.0</float>
+     </void>
+     <void property="plotAndOrSave">
+      <string>Plot and save</string>
+     </void>
+     <void property="plotReference">
+      <string>spikes_relays</string>
+     </void>
+     <void property="segmentId">
+      <string>0</string>
+     </void>
+     <void property="valuePlotted">
+      <string>SPIKES:0</string>
+     </void>
+    </object>
+   </void>
   </void>
  </object>
  <object class="ucl.physiol.neuroconstruct.project.ProjectProperties">
@@ -529,13 +596,13 @@ part of NeuroML or any standardised XML specification. -->
    <float>100.0</float>
   </void>
   <void property="reference">
-   <string>Sim_141</string>
+   <string>Sim_156</string>
   </void>
   <void property="saveCopyGenSimFiles">
    <boolean>true</boolean>
   </void>
   <void property="temperature">
-   <float>30.0</float>
+   <float>23.0</float>
   </void>
   <void property="whatToRecord">
    <int>2</int>
@@ -544,30 +611,25 @@ part of NeuroML or any standardised XML specification. -->
  <object class="ucl.physiol.neuroconstruct.project.ElecInputInfo">
   <void property="allStims">
    <void method="add">
-    <object class="ucl.physiol.neuroconstruct.simulation.IClampSettings">
-     <void property="amp">
-      <void property="fixedNum">
-       <float>1.0</float>
-      </void>
-     </void>
+    <object class="ucl.physiol.neuroconstruct.simulation.RandomSpikeTrainSettings">
      <void property="cellGroup">
       <string>relays</string>
      </void>
-     <void property="del">
-      <void property="fixedNum">
-       <float>150.0</float>
-      </void>
-     </void>
-     <void property="dur">
-      <void property="fixedNum">
-       <float>1.0</float>
-      </void>
-      <void property="numberType">
-       <int>11</int>
-      </void>
+     <void property="rate">
+      <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator">
+       <void property="fixedNum">
+        <float>0.12</float>
+       </void>
+       <void property="numberType">
+        <int>11</int>
+       </void>
+      </object>
      </void>
      <void property="reference">
       <string>relay_stim</string>
+     </void>
+     <void property="synapseType">
+      <string>FastSynInput</string>
      </void>
     </object>
    </void>
@@ -575,7 +637,7 @@ part of NeuroML or any standardised XML specification. -->
     <object class="ucl.physiol.neuroconstruct.simulation.IClampSettings">
      <void property="amp">
       <void property="fixedNum">
-       <float>-0.01</float>
+       <float>0.2</float>
       </void>
      </void>
      <void property="cellGroup">
@@ -603,7 +665,7 @@ part of NeuroML or any standardised XML specification. -->
     <object class="ucl.physiol.neuroconstruct.simulation.IClampSettings">
      <void property="amp">
       <void property="fixedNum">
-       <float>-0.01</float>
+       <float>0.2</float>
       </void>
      </void>
      <void property="cellGroup">
@@ -631,7 +693,7 @@ part of NeuroML or any standardised XML specification. -->
     <object class="ucl.physiol.neuroconstruct.simulation.IClampSettings">
      <void property="amp">
       <void property="fixedNum">
-       <float>-0.01</float>
+       <float>0.2</float>
       </void>
      </void>
      <void property="cellGroup">
@@ -675,10 +737,82 @@ part of NeuroML or any standardised XML specification. -->
      <void property="description">
       <string>This is the default configuration of the Cell Groups, stimulations, plots, etc for this project</string>
      </void>
-     <void property="inputs">
-      <void method="add">
-       <string>relay_stim</string>
+     <void id="MpiConfiguration0" property="mpiConf">
+      <void property="hostList">
+       <void index="0">
+        <void property="hostname">
+         <string>node0</string>
+        </void>
+       </void>
       </void>
+      <void property="name">
+       <string>MatLem (1 x 1p)</string>
+      </void>
+      <void property="queueInfo">
+       <object class="ucl.physiol.neuroconstruct.hpc.mpi.QueueInfo">
+        <void property="account">
+         <string></string>
+        </void>
+        <void property="queueType">
+         <object id="QueueInfo$QueueType0" class="java.lang.Enum" method="valueOf">
+          <class>ucl.physiol.neuroconstruct.hpc.mpi.QueueInfo$QueueType</class>
+          <string>SGE</string>
+         </object>
+        </void>
+        <void property="wallTimeMins">
+         <int>6</int>
+        </void>
+       </object>
+      </void>
+      <void property="remoteLogin">
+       <object class="ucl.physiol.neuroconstruct.hpc.mpi.RemoteLogin">
+        <void property="executables">
+         <void method="put">
+          <object id="MpiSettings$KnownSimulators0" class="java.lang.Enum" method="valueOf">
+           <class>ucl.physiol.neuroconstruct.hpc.mpi.MpiSettings$KnownSimulators</class>
+           <string>MOOSE</string>
+          </object>
+          <string>/share/apps/neuro/moose/moose</string>
+         </void>
+         <void method="put">
+          <object id="MpiSettings$KnownSimulators1" class="java.lang.Enum" method="valueOf">
+           <class>ucl.physiol.neuroconstruct.hpc.mpi.MpiSettings$KnownSimulators</class>
+           <string>PY_NEURON</string>
+          </object>
+          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv -python</string>
+         </void>
+         <void method="put">
+          <object id="MpiSettings$KnownSimulators2" class="java.lang.Enum" method="valueOf">
+           <class>ucl.physiol.neuroconstruct.hpc.mpi.MpiSettings$KnownSimulators</class>
+           <string>GENESIS</string>
+          </object>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
+         </void>
+         <void method="put">
+          <object id="MpiSettings$KnownSimulators3" class="java.lang.Enum" method="valueOf">
+           <class>ucl.physiol.neuroconstruct.hpc.mpi.MpiSettings$KnownSimulators</class>
+           <string>NEURON</string>
+          </object>
+          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv</string>
+         </void>
+        </void>
+        <void property="hostname">
+         <string>128.16.14.177</string>
+        </void>
+        <void property="userName">
+         <string>ucbtepi</string>
+        </void>
+        <void property="workDir">
+         <string>/home/ucbtepi/nCsims</string>
+        </void>
+       </object>
+      </void>
+      <void property="useScp">
+       <boolean>true</boolean>
+      </void>
+     </void>
+     <void property="mpiConf">
+      <object idref="MpiConfiguration0"/>
      </void>
      <void property="name">
       <string>Default Simulation Configuration</string>
@@ -716,11 +850,6 @@ part of NeuroML or any standardised XML specification. -->
      </void>
      <void property="name">
       <string>attenuation</string>
-     </void>
-     <void property="netConns">
-      <void method="add">
-       <string>relay_conn</string>
-      </void>
      </void>
      <void property="plots">
       <void method="add">
@@ -781,10 +910,13 @@ part of NeuroML or any standardised XML specification. -->
      </void>
      <void property="netConns">
       <void method="add">
-       <string>NetConn_relays_Golgi_Vervaeke</string>
+       <string>stim_Vervaeke_pf</string>
       </void>
       <void method="add">
-       <string>relay_conn</string>
+       <string>stim_reduced_pf</string>
+      </void>
+      <void method="add">
+       <string>stim_Solinas_pf</string>
       </void>
      </void>
      <void property="plots">
@@ -837,7 +969,7 @@ part of NeuroML or any standardised XML specification. -->
       </void>
      </void>
      <void property="simDuration">
-      <float>100.0</float>
+      <float>1000.0</float>
      </void>
     </object>
    </void>
@@ -896,6 +1028,194 @@ part of NeuroML or any standardised XML specification. -->
      </void>
     </object>
    </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.project.SimConfig">
+     <void property="cellGroups">
+      <void method="add">
+       <string>Golgi_Solinas</string>
+      </void>
+      <void method="add">
+       <string>Golgi_Vervaeke</string>
+      </void>
+      <void method="add">
+       <string>relays</string>
+      </void>
+      <void method="add">
+       <string>Golgi_reduced</string>
+      </void>
+     </void>
+     <void property="description">
+      <string>Studying the rate-coded input-output relationship for Poisson apical synaptic stimulation.</string>
+     </void>
+     <void property="inputs">
+      <void method="add">
+       <string>relay_stim</string>
+      </void>
+     </void>
+     <void id="MpiConfiguration1" property="mpiConf">
+      <void property="hostList">
+       <void index="0">
+        <void property="hostname">
+         <string>node0</string>
+        </void>
+       </void>
+      </void>
+      <void property="name">
+       <string>MatLem (1 x 1p)</string>
+      </void>
+      <void property="queueInfo">
+       <object class="ucl.physiol.neuroconstruct.hpc.mpi.QueueInfo">
+        <void property="account">
+         <string></string>
+        </void>
+        <void property="queueType">
+         <object idref="QueueInfo$QueueType0"/>
+        </void>
+        <void property="wallTimeMins">
+         <int>6</int>
+        </void>
+       </object>
+      </void>
+      <void property="remoteLogin">
+       <object class="ucl.physiol.neuroconstruct.hpc.mpi.RemoteLogin">
+        <void property="executables">
+         <void method="put">
+          <object idref="MpiSettings$KnownSimulators0"/>
+          <string>/share/apps/neuro/moose/moose</string>
+         </void>
+         <void method="put">
+          <object idref="MpiSettings$KnownSimulators1"/>
+          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv -python</string>
+         </void>
+         <void method="put">
+          <object idref="MpiSettings$KnownSimulators2"/>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
+         </void>
+         <void method="put">
+          <object idref="MpiSettings$KnownSimulators3"/>
+          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv</string>
+         </void>
+        </void>
+        <void property="hostname">
+         <string>128.16.14.177</string>
+        </void>
+        <void property="userName">
+         <string>ucbtepi</string>
+        </void>
+        <void property="workDir">
+         <string>/home/ucbtepi/nCsims</string>
+        </void>
+       </object>
+      </void>
+      <void property="useScp">
+       <boolean>true</boolean>
+      </void>
+     </void>
+     <void property="mpiConf">
+      <object idref="MpiConfiguration1"/>
+     </void>
+     <void property="name">
+      <string>IO_synaptic_stimulation_pf</string>
+     </void>
+     <void property="netConns">
+      <void method="add">
+       <string>stim_Solinas_pf</string>
+      </void>
+      <void method="add">
+       <string>stim_reduced_pf</string>
+      </void>
+      <void method="add">
+       <string>stim_Vervaeke_pf</string>
+      </void>
+     </void>
+     <void property="plots">
+      <void method="add">
+       <string>spikes_reduced</string>
+      </void>
+      <void method="add">
+       <string>spikes_vervaeke</string>
+      </void>
+      <void method="add">
+       <string>spikes_solinas</string>
+      </void>
+      <void method="add">
+       <string>Golgi_detailed_v</string>
+      </void>
+      <void method="add">
+       <string>Golgi_Solinas_v</string>
+      </void>
+      <void method="add">
+       <string>Golgi_reduced_v</string>
+      </void>
+     </void>
+     <void property="simDuration">
+      <float>1000.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.project.SimConfig">
+     <void property="cellGroups">
+      <void method="add">
+       <string>Golgi_Solinas</string>
+      </void>
+      <void method="add">
+       <string>Golgi_Vervaeke</string>
+      </void>
+      <void method="add">
+       <string>relays</string>
+      </void>
+      <void method="add">
+       <string>Golgi_reduced</string>
+      </void>
+     </void>
+     <void property="description">
+      <string>Studying the rate-coded input-output relationship for Poisson basolateral synaptic stimulation.</string>
+     </void>
+     <void property="inputs">
+      <void method="add">
+       <string>relay_stim</string>
+      </void>
+     </void>
+     <void property="name">
+      <string>IO_synaptic_stimulation_mf</string>
+     </void>
+     <void property="netConns">
+      <void method="add">
+       <string>stim_Solinas_mf</string>
+      </void>
+      <void method="add">
+       <string>stim_Vervaeke_mf</string>
+      </void>
+      <void method="add">
+       <string>stim_reduced_mf</string>
+      </void>
+     </void>
+     <void property="plots">
+      <void method="add">
+       <string>spikes_reduced</string>
+      </void>
+      <void method="add">
+       <string>spikes_vervaeke</string>
+      </void>
+      <void method="add">
+       <string>spikes_solinas</string>
+      </void>
+      <void method="add">
+       <string>Golgi_detailed_v</string>
+      </void>
+      <void method="add">
+       <string>Golgi_Solinas_v</string>
+      </void>
+      <void method="add">
+       <string>Golgi_reduced_v</string>
+      </void>
+     </void>
+     <void property="simDuration">
+      <float>1000.0</float>
+     </void>
+    </object>
+   </void>
   </void>
  </object>
  <object class="ucl.physiol.neuroconstruct.project.SimpleNetworkConnectionsInfo">
@@ -903,14 +1223,38 @@ part of NeuroML or any standardised XML specification. -->
    <void method="get">
     <string>Name</string>
     <void method="add">
-     <string>relay_conn</string>
+     <string>stim_Vervaeke_pf</string>
     </void>
     <void method="add">
-     <string>NetConn_relays_Golgi_Vervaeke</string>
+     <string>stim_Solinas_pf</string>
+    </void>
+    <void method="add">
+     <string>stim_reduced_pf</string>
+    </void>
+    <void method="add">
+     <string>stim_Vervaeke_mf</string>
+    </void>
+    <void method="add">
+     <string>stim_Solinas_mf</string>
+    </void>
+    <void method="add">
+     <string>stim_reduced_mf</string>
     </void>
    </void>
    <void method="get">
     <string>AP speed</string>
+    <void method="add">
+     <float>3.4028235E38</float>
+    </void>
+    <void method="add">
+     <float>3.4028235E38</float>
+    </void>
+    <void method="add">
+     <float>3.4028235E38</float>
+    </void>
+    <void method="add">
+     <float>3.4028235E38</float>
+    </void>
     <void method="add">
      <float>3.4028235E38</float>
     </void>
@@ -935,13 +1279,37 @@ part of NeuroML or any standardised XML specification. -->
          </object>
         </void>
         <void property="synapseType">
-         <string>MultiDecaySyn_VervaekeEtAl_GJCompensate</string>
-        </void>
-        <void property="threshold">
-         <double>-20.0</double>
+         <string>Golgi_AMPA_pf</string>
         </void>
         <void property="weightsGenerator">
          <object class="ucl.physiol.neuroconstruct.utils.WeightGenerator">
+          <void property="numberType">
+           <int>11</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void method="add">
+       <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
+        <void property="delayGenerator">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator">
+          <void property="fixedNum">
+           <float>0.0</float>
+          </void>
+          <void property="numberType">
+           <int>11</int>
+          </void>
+         </object>
+        </void>
+        <void property="synapseType">
+         <string>Golgi_NMDA_pf</string>
+        </void>
+        <void property="weightsGenerator">
+         <object class="ucl.physiol.neuroconstruct.utils.WeightGenerator">
+          <void property="fixedNum">
+           <float>0.0</float>
+          </void>
           <void property="numberType">
            <int>11</int>
           </void>
@@ -966,13 +1334,257 @@ part of NeuroML or any standardised XML specification. -->
          </object>
         </void>
         <void property="synapseType">
-         <string>MultiDecaySyn_VervaekeEtAl_GJCompensate</string>
-        </void>
-        <void property="threshold">
-         <double>-20.0</double>
+         <string>Golgi_AMPA_pf</string>
         </void>
         <void property="weightsGenerator">
          <object class="ucl.physiol.neuroconstruct.utils.WeightGenerator">
+          <void property="numberType">
+           <int>11</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void method="add">
+       <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
+        <void property="delayGenerator">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator">
+          <void property="fixedNum">
+           <float>0.0</float>
+          </void>
+          <void property="numberType">
+           <int>11</int>
+          </void>
+         </object>
+        </void>
+        <void property="synapseType">
+         <string>Golgi_NMDA_pf</string>
+        </void>
+        <void property="weightsGenerator">
+         <object class="ucl.physiol.neuroconstruct.utils.WeightGenerator">
+          <void property="fixedNum">
+           <float>0.0</float>
+          </void>
+          <void property="numberType">
+           <int>11</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="java.util.Vector">
+      <void method="add">
+       <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
+        <void property="delayGenerator">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator">
+          <void property="fixedNum">
+           <float>0.0</float>
+          </void>
+          <void property="numberType">
+           <int>11</int>
+          </void>
+         </object>
+        </void>
+        <void property="synapseType">
+         <string>Golgi_AMPA_pf</string>
+        </void>
+        <void property="weightsGenerator">
+         <object class="ucl.physiol.neuroconstruct.utils.WeightGenerator">
+          <void property="numberType">
+           <int>11</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void method="add">
+       <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
+        <void property="delayGenerator">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator">
+          <void property="fixedNum">
+           <float>0.0</float>
+          </void>
+          <void property="numberType">
+           <int>11</int>
+          </void>
+         </object>
+        </void>
+        <void property="synapseType">
+         <string>Golgi_NMDA_pf</string>
+        </void>
+        <void property="weightsGenerator">
+         <object class="ucl.physiol.neuroconstruct.utils.WeightGenerator">
+          <void property="fixedNum">
+           <float>0.0</float>
+          </void>
+          <void property="numberType">
+           <int>11</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="java.util.Vector">
+      <void method="add">
+       <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
+        <void property="delayGenerator">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator">
+          <void property="fixedNum">
+           <float>0.0</float>
+          </void>
+          <void property="numberType">
+           <int>11</int>
+          </void>
+         </object>
+        </void>
+        <void property="synapseType">
+         <string>Golgi_AMPA_mf</string>
+        </void>
+        <void property="weightsGenerator">
+         <object class="ucl.physiol.neuroconstruct.utils.WeightGenerator">
+          <void property="numberType">
+           <int>11</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void method="add">
+       <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
+        <void property="delayGenerator">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator">
+          <void property="fixedNum">
+           <float>0.0</float>
+          </void>
+          <void property="numberType">
+           <int>11</int>
+          </void>
+         </object>
+        </void>
+        <void property="synapseType">
+         <string>Golgi_NMDA_mf</string>
+        </void>
+        <void property="weightsGenerator">
+         <object class="ucl.physiol.neuroconstruct.utils.WeightGenerator">
+          <void property="fixedNum">
+           <float>0.0</float>
+          </void>
+          <void property="numberType">
+           <int>11</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="java.util.Vector">
+      <void method="add">
+       <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
+        <void property="delayGenerator">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator">
+          <void property="fixedNum">
+           <float>0.0</float>
+          </void>
+          <void property="numberType">
+           <int>11</int>
+          </void>
+         </object>
+        </void>
+        <void property="synapseType">
+         <string>Golgi_AMPA_mf</string>
+        </void>
+        <void property="weightsGenerator">
+         <object class="ucl.physiol.neuroconstruct.utils.WeightGenerator">
+          <void property="numberType">
+           <int>11</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void method="add">
+       <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
+        <void property="delayGenerator">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator">
+          <void property="fixedNum">
+           <float>0.0</float>
+          </void>
+          <void property="numberType">
+           <int>11</int>
+          </void>
+         </object>
+        </void>
+        <void property="synapseType">
+         <string>Golgi_NMDA_mf</string>
+        </void>
+        <void property="weightsGenerator">
+         <object class="ucl.physiol.neuroconstruct.utils.WeightGenerator">
+          <void property="fixedNum">
+           <float>0.0</float>
+          </void>
+          <void property="numberType">
+           <int>11</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="java.util.Vector">
+      <void method="add">
+       <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
+        <void property="delayGenerator">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator">
+          <void property="fixedNum">
+           <float>0.0</float>
+          </void>
+          <void property="numberType">
+           <int>11</int>
+          </void>
+         </object>
+        </void>
+        <void property="synapseType">
+         <string>Golgi_AMPA_mf</string>
+        </void>
+        <void property="weightsGenerator">
+         <object class="ucl.physiol.neuroconstruct.utils.WeightGenerator">
+          <void property="numberType">
+           <int>11</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void method="add">
+       <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
+        <void property="delayGenerator">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator">
+          <void property="fixedNum">
+           <float>0.0</float>
+          </void>
+          <void property="numberType">
+           <int>11</int>
+          </void>
+         </object>
+        </void>
+        <void property="synapseType">
+         <string>Golgi_NMDA_mf</string>
+        </void>
+        <void property="weightsGenerator">
+         <object class="ucl.physiol.neuroconstruct.utils.WeightGenerator">
+          <void property="fixedNum">
+           <float>0.0</float>
+          </void>
           <void property="numberType">
            <int>11</int>
           </void>
@@ -985,6 +1597,18 @@ part of NeuroML or any standardised XML specification. -->
    </void>
    <void method="get">
     <string>Max/min</string>
+    <void method="add">
+     <object class="ucl.physiol.neuroconstruct.project.MaxMinLength"/>
+    </void>
+    <void method="add">
+     <object class="ucl.physiol.neuroconstruct.project.MaxMinLength"/>
+    </void>
+    <void method="add">
+     <object class="ucl.physiol.neuroconstruct.project.MaxMinLength"/>
+    </void>
+    <void method="add">
+     <object class="ucl.physiol.neuroconstruct.project.MaxMinLength"/>
+    </void>
     <void method="add">
      <object class="ucl.physiol.neuroconstruct.project.MaxMinLength"/>
     </void>
@@ -1008,9 +1632,49 @@ part of NeuroML or any standardised XML specification. -->
       </void>
      </object>
     </void>
+    <void method="add">
+     <object class="ucl.physiol.neuroconstruct.project.SearchPattern">
+      <void property="type">
+       <int>0</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="ucl.physiol.neuroconstruct.project.SearchPattern">
+      <void property="type">
+       <int>0</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="ucl.physiol.neuroconstruct.project.SearchPattern">
+      <void property="type">
+       <int>0</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="ucl.physiol.neuroconstruct.project.SearchPattern">
+      <void property="type">
+       <int>0</int>
+      </void>
+     </object>
+    </void>
    </void>
    <void method="get">
     <string>Source</string>
+    <void method="add">
+     <string>relays</string>
+    </void>
+    <void method="add">
+     <string>relays</string>
+    </void>
+    <void method="add">
+     <string>relays</string>
+    </void>
+    <void method="add">
+     <string>relays</string>
+    </void>
     <void method="add">
      <string>relays</string>
     </void>
@@ -1026,9 +1690,6 @@ part of NeuroML or any standardised XML specification. -->
        <boolean>false</boolean>
       </void>
       <void property="prePostAllowedLoc">
-       <void property="axonsAllowedPre">
-        <boolean>false</boolean>
-       </void>
        <void property="somaAllowedPost">
         <boolean>false</boolean>
        </void>
@@ -1047,14 +1708,59 @@ part of NeuroML or any standardised XML specification. -->
       </void>
      </object>
     </void>
+    <void method="add">
+     <object class="ucl.physiol.neuroconstruct.project.ConnectivityConditions">
+      <void property="allowAutapses">
+       <boolean>false</boolean>
+      </void>
+      <void property="prePostAllowedLoc">
+       <void property="somaAllowedPost">
+        <boolean>false</boolean>
+       </void>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="ucl.physiol.neuroconstruct.project.ConnectivityConditions">
+      <void property="allowAutapses">
+       <boolean>false</boolean>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="ucl.physiol.neuroconstruct.project.ConnectivityConditions">
+      <void property="allowAutapses">
+       <boolean>false</boolean>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="ucl.physiol.neuroconstruct.project.ConnectivityConditions">
+      <void property="allowAutapses">
+       <boolean>false</boolean>
+      </void>
+     </object>
+    </void>
    </void>
    <void method="get">
     <string>Target</string>
+    <void method="add">
+     <string>Golgi_Vervaeke</string>
+    </void>
+    <void method="add">
+     <string>Golgi_Solinas</string>
+    </void>
     <void method="add">
      <string>Golgi_reduced</string>
     </void>
     <void method="add">
      <string>Golgi_Vervaeke</string>
+    </void>
+    <void method="add">
+     <string>Golgi_Solinas</string>
+    </void>
+    <void method="add">
+     <string>Golgi_reduced</string>
     </void>
    </void>
   </void>

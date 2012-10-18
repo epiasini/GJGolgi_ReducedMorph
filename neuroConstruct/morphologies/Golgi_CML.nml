@@ -215,6 +215,22 @@
             </biophysics>
 
             <connectivity>
+                <net:potential_syn_loc synapse_type="Golgi_AMPA_mf" synapse_direction="post">
+                    <net:group>dendrite_group</net:group>
+                </net:potential_syn_loc>
+            
+                <net:potential_syn_loc synapse_type="Golgi_AMPA_pf" synapse_direction="post">
+                    <net:group>dendrite_group</net:group>
+                </net:potential_syn_loc>
+            
+                <net:potential_syn_loc synapse_type="Golgi_NMDA_mf" synapse_direction="post">
+                    <net:group>dendrite_group</net:group>
+                </net:potential_syn_loc>
+            
+                <net:potential_syn_loc synapse_type="Golgi_NMDA_pf" synapse_direction="post">
+                    <net:group>dendrite_group</net:group>
+                </net:potential_syn_loc>
+            
                 <net:potential_syn_loc synapse_type="Syn" synapse_direction="post">
                     <net:group>dendrite_group</net:group>
                 </net:potential_syn_loc>

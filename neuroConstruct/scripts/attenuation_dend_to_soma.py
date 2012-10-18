@@ -75,11 +75,11 @@ rec_dists_detailed = [0.] + [ancestor_dists[s]+vervaeke_cell_type.getSegmentWith
 project.generatedNetworkConnections.reset()
 
 # connect the spike relay at the specified point on the golgi dendrite
-project.generatedNetworkConnections.addSynapticConnection('relay_conn',
+project.generatedNetworkConnections.addSynapticConnection('stim_reduced_pf',
 							  0, 0, 0, 0.5, 0,
 							  stim_seg_reduced,
 							  0.5, 0, None)
-project.generatedNetworkConnections.addSynapticConnection('NetConn_relays_Golgi_Vervaeke',
+project.generatedNetworkConnections.addSynapticConnection('stim_vervaeke_pf',
 							  0, 0, 0, 0.5, 0,
 							  stim_seg_detailed,
 							  0.5, 0, None)

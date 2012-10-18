@@ -21,7 +21,7 @@ sim_config_name = 'fi_comparison'
 sim_config = project.simConfigInfo.getSimConfig(sim_config_name)
 project.neuronSettings.setNoConsole()
 
-current_amplitude_range = [-10., -5., 0., 5., 10., 15., 20.]
+current_amplitude_range = range(0., 440., 40.)
 
 
 # generate
