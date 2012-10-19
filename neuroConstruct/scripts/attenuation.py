@@ -1,3 +1,15 @@
+"""
+Simulation set-up for a comparison of dendritic attenuation in the
+detailed (Vervaeke2012) and reduced morphology models of the Golgi
+cell.
+
+Attenuation is defined in the following way: stimulate a dendrite with
+an aEPSP at a given distance from the soma, and measure the voltage
+response at the injection site and at the soma. The attenuation is the
+ratio between the peak of the somatic and the dendritic response.
+
+Note that this is _not_ how Vervaeke2012 defines dendritic attenuation.
+"""
 import os
 import random
 import time
@@ -16,7 +28,7 @@ project_path = '../GJGolgi_ReducedMorph.ncx'
 project_file = File(project_path)
 project = pm.loadProject(project_file)
 
-sim_config_name = 'attenuation_comparison'
+sim_config_name = 'dendritic_attenuation'
 
 sim_config = project.simConfigInfo.getSimConfig(sim_config_name)
 project.neuronSettings.setNoConsole()
@@ -75,11 +87,11 @@ for distance_index in range(n_points):
     project.generatedNetworkConnections.reset()
 
     # connect the spike relay at the specified point on the golgi dendrite
-    project.generatedNetworkConnections.addSynapticConnection('stim_reduced_pf',
+    project.generatedNetworkConnections.addSynapticConnection('aEPSP_reduced_pf',
 							      0, 0, 0, 0.5, 0,
 							      seg_id_reduced,
 							      0.5, 0, None)
-    project.generatedNetworkConnections.addSynapticConnection('stim_Vervaeke_pf',
+    project.generatedNetworkConnections.addSynapticConnection('aEPSP_Vervaeke_pf',
 							      0, 0, 0, 0.5, 0,
 							      seg_id_detailed,
 							      0.5, 0, None)

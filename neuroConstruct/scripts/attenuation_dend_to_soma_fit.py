@@ -9,6 +9,9 @@ an aEPSP far away from the soma (~200um), and measure the voltage
 response at various points along the path connecting the stimulation
 point to the soma. The attenuation is the ratio between the peak of
 the somatic and the dendritic response.
+
+This definition of attenuation is the one that's used in figure 3C in
+Vervaeke2012.
 """
 import sys
 import numpy as np

@@ -8,6 +8,8 @@ Attenuation is defined in the following way: stimulate a dendrite with
 an aEPSP at a given distance from the soma, and measure the voltage
 response at the injection site and at the soma. The attenuation is the
 ratio between the peak of the somatic and the dendritic response.
+
+Note that this is _not_ how Vervaeke2012 defines dendritic attenuation.
 """
 import sys
 import numpy as np
@@ -69,14 +71,14 @@ for k,cell_type in enumerate(data.keys()):
 					     amplitudes[cell_type]['soma']/amplitudes[cell_type]['dend']))
     positions = np.array([0.] + [float(data[cell_type][dist_index][0]) for dist_index in range(n_points)])
 
-    ax.plot(positions,
-	    attenuation[cell_type],
-	    marker='o', color=colors[k],
-	    label=cell_type)
     l = curve_fit(attenuation_function,
 		  positions,
 		  attenuation[cell_type],
 		  [initial_l])[0]
+    ax.plot(positions,
+	    attenuation[cell_type],
+	    marker='o', color=colors[k],
+	    label=cell_type)
     print(cell_type, l)
     values = np.array([attenuation_function(x, l) for x in np.arange(0,200,0.1)])
     ax.plot(np.arange(0,200,0.1), values, color='black', linestyle=':')
