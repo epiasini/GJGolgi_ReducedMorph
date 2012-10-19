@@ -45,12 +45,12 @@
 
                 <mml:segment id="9" name="Dend_bl_1" parent="0" cable="7">
                     <mml:proximal x="0.0" y="0.0" z="0.0" diameter="1.0"/>
-                    <mml:distal x="50.0" y="-150.0" z="0.0" diameter="1.0"/>
+                    <mml:distal x="30.0" y="-20.0" z="0.0" diameter="1.0"/>
                 </mml:segment>
 
                 <mml:segment id="10" name="Dend_bl_2" parent="0" cable="8">
                     <mml:proximal x="0.0" y="0.0" z="0.0" diameter="1.0"/>
-                    <mml:distal x="-50.0" y="-150.0" z="0.0" diameter="1.0"/>
+                    <mml:distal x="-30.0" y="-20.0" z="0.0" diameter="1.0"/>
                 </mml:segment>
 
                 <mml:segment id="11" name="Axon" parent="0" cable="9">

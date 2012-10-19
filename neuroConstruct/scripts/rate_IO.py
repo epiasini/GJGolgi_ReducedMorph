@@ -21,7 +21,7 @@ project_path = '../GJGolgi_ReducedMorph.ncx'
 project_file = File(project_path)
 project = pm.loadProject(project_file)
 
-sim_config_name = 'IO_synaptic_stimulation_mf'
+sim_config_name = 'IO_synaptic_stimulation_pf'
 
 sim_config = project.simConfigInfo.getSimConfig(sim_config_name)
 project.neuronSettings.setNoConsole()
@@ -57,7 +57,7 @@ for rate in stim_rate_range:
     if compile_success:
 	print "Submitting simulation reference " + sim_ref
 	pm.doRunNeuron(sim_config)
-	time.sleep(5) # Wait for sim to be kicked off
+	time.sleep(2) # Wait for sim to be kicked off
 	if not sim_config.getMpiConf().isRemotelyExecuted():
 	    # if running locally, never have more than one sim running
 	    # at the same time
@@ -77,7 +77,7 @@ while sim_refs and sim_config.getMpiConf().isRemotelyExecuted():
     subprocess.call([pullsimfile_path])
     if not os.path.exists(timefile_path):
 	sim_refs.append(sim_ref)
-    time.sleep(5)
+    time.sleep(2)
 
 print('batch reference a' + timestamp)
 System.exit(0)
