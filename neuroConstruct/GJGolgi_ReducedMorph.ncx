@@ -1054,6 +1054,94 @@ part of NeuroML or any standardised XML specification. -->
      </void>
     </object>
    </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.simulation.RandomSpikeTrainSettings">
+     <void property="cellChooser">
+      <object class="ucl.physiol.neuroconstruct.project.cellchoice.IndividualCells">
+       <void property="parameterList">
+        <void index="0">
+         <void property="stringValue">
+          <string>0,1,2,3,4,5,6,7,8,9,10,11,12,13,14</string>
+         </void>
+        </void>
+       </void>
+      </object>
+     </void>
+     <void property="cellGroup">
+      <string>Golgi_network_Vervaeke</string>
+     </void>
+     <void property="rate">
+      <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator">
+       <void property="fixedNum">
+        <float>0.05</float>
+       </void>
+       <void property="numberType">
+        <int>11</int>
+       </void>
+      </object>
+     </void>
+     <void property="reference">
+      <string>network_Vervaeke_pf_AMPAonly</string>
+     </void>
+     <void property="segChooser">
+      <object class="ucl.physiol.neuroconstruct.project.segmentchoice.GroupDistributedSegments">
+       <void property="group">
+        <string>parfiber</string>
+       </void>
+       <void property="numberOfSegments">
+        <int>30</int>
+       </void>
+      </object>
+     </void>
+     <void property="synapseType">
+      <string>Golgi_AMPA_pf</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.simulation.RandomSpikeTrainSettings">
+     <void property="cellChooser">
+      <object class="ucl.physiol.neuroconstruct.project.cellchoice.IndividualCells">
+       <void property="parameterList">
+        <void index="0">
+         <void property="stringValue">
+          <string>0,1,2,3,4,5,6,7,8,9,10,11,12,13,14</string>
+         </void>
+        </void>
+       </void>
+      </object>
+     </void>
+     <void property="cellGroup">
+      <string>Golgi_network_reduced</string>
+     </void>
+     <void property="rate">
+      <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator">
+       <void property="fixedNum">
+        <float>0.05</float>
+       </void>
+       <void property="numberType">
+        <int>11</int>
+       </void>
+      </object>
+     </void>
+     <void property="reference">
+      <string>network_reduced_pf_AMPAonly</string>
+     </void>
+     <void property="segChooser">
+      <object class="ucl.physiol.neuroconstruct.project.segmentchoice.GroupDistributedSegments">
+       <void property="group">
+        <string>parallel_fibres</string>
+       </void>
+       <void property="numberOfSegments">
+        <int>30</int>
+       </void>
+      </object>
+     </void>
+     <void property="synapseType">
+      <string>Golgi_AMPA_pf</string>
+     </void>
+    </object>
+   </void>
   </void>
  </object>
  <object class="ucl.physiol.neuroconstruct.project.SimConfigInfo">
@@ -1107,30 +1195,30 @@ part of NeuroML or any standardised XML specification. -->
          <void method="put">
           <object id="MpiSettings$KnownSimulators0" class="java.lang.Enum" method="valueOf">
            <class>ucl.physiol.neuroconstruct.hpc.mpi.MpiSettings$KnownSimulators</class>
-           <string>MOOSE</string>
-          </object>
-          <string>/share/apps/neuro/moose/moose</string>
-         </void>
-         <void method="put">
-          <object id="MpiSettings$KnownSimulators1" class="java.lang.Enum" method="valueOf">
-           <class>ucl.physiol.neuroconstruct.hpc.mpi.MpiSettings$KnownSimulators</class>
            <string>PY_NEURON</string>
           </object>
           <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv -python</string>
          </void>
          <void method="put">
-          <object id="MpiSettings$KnownSimulators2" class="java.lang.Enum" method="valueOf">
+          <object id="MpiSettings$KnownSimulators1" class="java.lang.Enum" method="valueOf">
            <class>ucl.physiol.neuroconstruct.hpc.mpi.MpiSettings$KnownSimulators</class>
-           <string>NEURON</string>
+           <string>MOOSE</string>
           </object>
-          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv</string>
+          <string>/share/apps/neuro/moose/moose</string>
          </void>
          <void method="put">
-          <object id="MpiSettings$KnownSimulators3" class="java.lang.Enum" method="valueOf">
+          <object id="MpiSettings$KnownSimulators2" class="java.lang.Enum" method="valueOf">
            <class>ucl.physiol.neuroconstruct.hpc.mpi.MpiSettings$KnownSimulators</class>
            <string>GENESIS</string>
           </object>
           <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
+         </void>
+         <void method="put">
+          <object id="MpiSettings$KnownSimulators3" class="java.lang.Enum" method="valueOf">
+           <class>ucl.physiol.neuroconstruct.hpc.mpi.MpiSettings$KnownSimulators</class>
+           <string>NEURON</string>
+          </object>
+          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv</string>
          </void>
         </void>
         <void property="hostname">
@@ -1366,19 +1454,19 @@ part of NeuroML or any standardised XML specification. -->
         <void property="executables">
          <void method="put">
           <object idref="MpiSettings$KnownSimulators0"/>
-          <string>/share/apps/neuro/moose/moose</string>
-         </void>
-         <void method="put">
-          <object idref="MpiSettings$KnownSimulators1"/>
           <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv -python</string>
          </void>
          <void method="put">
+          <object idref="MpiSettings$KnownSimulators1"/>
+          <string>/share/apps/neuro/moose/moose</string>
+         </void>
+         <void method="put">
           <object idref="MpiSettings$KnownSimulators2"/>
-          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv</string>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators3"/>
-          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
+          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv</string>
          </void>
         </void>
         <void property="hostname">
@@ -1480,19 +1568,19 @@ part of NeuroML or any standardised XML specification. -->
         <void property="executables">
          <void method="put">
           <object idref="MpiSettings$KnownSimulators0"/>
-          <string>/share/apps/neuro/moose/moose</string>
-         </void>
-         <void method="put">
-          <object idref="MpiSettings$KnownSimulators1"/>
           <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv -python</string>
          </void>
          <void method="put">
+          <object idref="MpiSettings$KnownSimulators1"/>
+          <string>/share/apps/neuro/moose/moose</string>
+         </void>
+         <void method="put">
           <object idref="MpiSettings$KnownSimulators2"/>
-          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv</string>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators3"/>
-          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
+          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv</string>
          </void>
         </void>
         <void property="hostname">
@@ -1605,19 +1693,19 @@ part of NeuroML or any standardised XML specification. -->
         <void property="executables">
          <void method="put">
           <object idref="MpiSettings$KnownSimulators0"/>
-          <string>/share/apps/neuro/moose/moose</string>
-         </void>
-         <void method="put">
-          <object idref="MpiSettings$KnownSimulators1"/>
           <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv -python</string>
          </void>
          <void method="put">
+          <object idref="MpiSettings$KnownSimulators1"/>
+          <string>/share/apps/neuro/moose/moose</string>
+         </void>
+         <void method="put">
           <object idref="MpiSettings$KnownSimulators2"/>
-          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv</string>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators3"/>
-          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
+          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv</string>
          </void>
         </void>
         <void property="hostname">
@@ -1781,19 +1869,19 @@ part of NeuroML or any standardised XML specification. -->
         <void property="executables">
          <void method="put">
           <object idref="MpiSettings$KnownSimulators0"/>
-          <string>/share/apps/neuro/moose/moose</string>
-         </void>
-         <void method="put">
-          <object idref="MpiSettings$KnownSimulators1"/>
           <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv -python</string>
          </void>
          <void method="put">
+          <object idref="MpiSettings$KnownSimulators1"/>
+          <string>/share/apps/neuro/moose/moose</string>
+         </void>
+         <void method="put">
           <object idref="MpiSettings$KnownSimulators3"/>
-          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
+          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators2"/>
-          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv</string>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
          </void>
         </void>
         <void property="hostname">
@@ -1816,6 +1904,134 @@ part of NeuroML or any standardised XML specification. -->
      </void>
      <void property="name">
       <string>network_IO_mf</string>
+     </void>
+     <void property="netConns">
+      <void method="add">
+       <string>GJ_reduced_GCL</string>
+      </void>
+      <void method="add">
+       <string>GJ_Vervaeke_ML3</string>
+      </void>
+      <void method="add">
+       <string>GJ_Vervaeke_ML2</string>
+      </void>
+      <void method="add">
+       <string>GJ_Vervaeke_ML1</string>
+      </void>
+      <void method="add">
+       <string>GJ_reduced_ML3</string>
+      </void>
+      <void method="add">
+       <string>GJ_reduced_ML2</string>
+      </void>
+      <void method="add">
+       <string>GJ_reduced_ML1</string>
+      </void>
+      <void method="add">
+       <string>GJ_Vervaeke_GCL</string>
+      </void>
+     </void>
+     <void property="plots">
+      <void method="add">
+       <string>Golgi_network_Vervaeke_spikes</string>
+      </void>
+      <void method="add">
+       <string>Golgi_network_reduced_spikes</string>
+      </void>
+     </void>
+     <void property="simDuration">
+      <float>1000.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.project.SimConfig">
+     <void property="cellGroups">
+      <void method="add">
+       <string>Golgi_network_Vervaeke</string>
+      </void>
+      <void method="add">
+       <string>Golgi_network_reduced</string>
+      </void>
+     </void>
+     <void property="description">
+      <string>Full network simulation with rate-coded stimulus incoming from parallel fibres, for detailed and reduced cells. </string>
+     </void>
+     <void property="inputs">
+      <void method="add">
+       <string>network_reduced_pf_AMPAonly</string>
+      </void>
+      <void method="add">
+       <string>network_Vervaeke_pf_AMPAonly</string>
+      </void>
+     </void>
+     <void id="MpiConfiguration5" property="mpiConf">
+      <void property="hostList">
+       <void index="0">
+        <void property="hostname">
+         <string>node0</string>
+        </void>
+        <void property="numProcessors">
+         <int>4</int>
+        </void>
+       </void>
+      </void>
+      <void property="name">
+       <string>MatLem (1 x 4p)</string>
+      </void>
+      <void property="queueInfo">
+       <object class="ucl.physiol.neuroconstruct.hpc.mpi.QueueInfo">
+        <void property="account">
+         <string></string>
+        </void>
+        <void property="queueType">
+         <object idref="QueueInfo$QueueType0"/>
+        </void>
+        <void property="wallTimeMins">
+         <int>6</int>
+        </void>
+       </object>
+      </void>
+      <void property="remoteLogin">
+       <object class="ucl.physiol.neuroconstruct.hpc.mpi.RemoteLogin">
+        <void property="executables">
+         <void method="put">
+          <object idref="MpiSettings$KnownSimulators1"/>
+          <string>/share/apps/neuro/moose/moose</string>
+         </void>
+         <void method="put">
+          <object idref="MpiSettings$KnownSimulators0"/>
+          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv -python</string>
+         </void>
+         <void method="put">
+          <object idref="MpiSettings$KnownSimulators2"/>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
+         </void>
+         <void method="put">
+          <object idref="MpiSettings$KnownSimulators3"/>
+          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv</string>
+         </void>
+        </void>
+        <void property="hostname">
+         <string>128.16.14.177</string>
+        </void>
+        <void property="userName">
+         <string>ucbtepi</string>
+        </void>
+        <void property="workDir">
+         <string>/home/ucbtepi/nCsims</string>
+        </void>
+       </object>
+      </void>
+      <void property="useScp">
+       <boolean>true</boolean>
+      </void>
+     </void>
+     <void property="mpiConf">
+      <object idref="MpiConfiguration5"/>
+     </void>
+     <void property="name">
+      <string>network_IO_pf</string>
      </void>
      <void property="netConns">
       <void method="add">

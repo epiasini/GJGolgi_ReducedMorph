@@ -21,8 +21,8 @@ project_path = '../GJGolgi_ReducedMorph.ncx'
 project_file = File(project_path)
 project = pm.loadProject(project_file)
 
-timestamp_prefix = 'net'
-stim_source = 'mf'
+stim_source = 'pf'
+timestamp_prefix = 'net_' + stim_source
 
 sim_config_name = 'network_IO_' + stim_source
 sim_config = project.simConfigInfo.getSimConfig(sim_config_name)
@@ -83,5 +83,5 @@ while sim_refs and sim_config.getMpiConf().isRemotelyExecuted():
 	sim_refs.append(sim_ref)
     time.sleep(5)
 
-print('batch reference net' + timestamp)
+print('batch reference ' + timestamp_prefix + timestamp)
 System.exit(0)

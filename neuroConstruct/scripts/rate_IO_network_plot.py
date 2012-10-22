@@ -29,7 +29,10 @@ for cell_type in cell_types:
 											    cell_type,
 											    cell_n,
 											    threshold)
-	    cell_rate = len(np.loadtxt(filename))
+	    try:
+		cell_rate = len(np.loadtxt(filename))
+	    except TypeError:
+		cell_rate = 0
 	    if cell_n < 15:
 		innervated_rates.append(cell_rate)
 	    else:
