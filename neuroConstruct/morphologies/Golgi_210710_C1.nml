@@ -10190,6 +10190,22 @@ Value for scaling factor to apply to current to get change in conc should be
                     <net:group>apical_dend_3</net:group>
                 </net:potential_syn_loc>
             
+                <net:potential_syn_loc synapse_type="Golgi_gap_GCL">
+                    <net:group>GCL</net:group>
+                </net:potential_syn_loc>
+            
+                <net:potential_syn_loc synapse_type="Golgi_gap_ML1">
+                    <net:group>ML1</net:group>
+                </net:potential_syn_loc>
+            
+                <net:potential_syn_loc synapse_type="Golgi_gap_ML2">
+                    <net:group>ML2</net:group>
+                </net:potential_syn_loc>
+            
+                <net:potential_syn_loc synapse_type="Golgi_gap_ML3">
+                    <net:group>ML3</net:group>
+                </net:potential_syn_loc>
+            
                 <net:potential_syn_loc synapse_type="MultiDecaySyn_VervaekeEtAl_GJCompensate">
                     <net:group>mossy</net:group>
                 
