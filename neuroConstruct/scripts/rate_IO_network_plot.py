@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 ## Network I/O plotting script.
 import sys
-import glob
 import numpy as np
 from matplotlib import pyplot as plt
 

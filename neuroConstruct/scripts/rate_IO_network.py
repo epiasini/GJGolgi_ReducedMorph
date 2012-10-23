@@ -21,7 +21,7 @@ project_path = '../GJGolgi_ReducedMorph.ncx'
 project_file = File(project_path)
 project = pm.loadProject(project_file)
 
-stim_source = 'pf'
+stim_source = 'mf'
 timestamp_prefix = 'net_' + stim_source
 
 sim_config_name = 'network_IO_' + stim_source
@@ -52,7 +52,7 @@ for rate in stim_rate_range:
 	project.elecInputInfo.updateStim(stim)
     # generate and compile neuron files
     print "Generating NEURON scripts..."
-    project.neuronFileManager.setSuggestedRemoteRunTime(20)
+    project.neuronFileManager.setSuggestedRemoteRunTime(30)
     simulator_seed = random.getrandbits(32)
     project.neuronFileManager.generateTheNeuronFiles(sim_config, None, NeuronFileManager.RUN_HOC,simulator_seed)
     compile_process = ProcessManager(project.neuronFileManager.getMainHocFile())
@@ -61,7 +61,7 @@ for rate in stim_rate_range:
     if compile_success:
 	print "Submitting simulation reference " + sim_ref
 	pm.doRunNeuron(sim_config)
-	time.sleep(2) # Wait for sim to be kicked off
+	time.sleep(5) # Wait for sim to be kicked off
 	if not sim_config.getMpiConf().isRemotelyExecuted():
 	    # if running locally, never have more than one sim running
 	    # at the same time
