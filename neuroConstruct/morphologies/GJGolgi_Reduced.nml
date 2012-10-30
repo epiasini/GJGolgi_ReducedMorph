@@ -304,6 +304,10 @@
                     <net:group>parallel_fibres</net:group>
                 </net:potential_syn_loc>
             
+                <net:potential_syn_loc synapse_type="Golgi_gap_2010" synapse_direction="post">
+                    <net:group>dendrite_group</net:group>
+                </net:potential_syn_loc>
+            
                 <net:potential_syn_loc synapse_type="Golgi_gap_GCL">
                     <net:group>GCL</net:group>
                 </net:potential_syn_loc>
