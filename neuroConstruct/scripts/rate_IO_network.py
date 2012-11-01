@@ -4,16 +4,15 @@
 import os
 import random
 import time
-import subprocess
-from collections import deque
 from java.lang import System
 from java.io import File
 
 from ucl.physiol.neuroconstruct.project import ProjectManager
 from ucl.physiol.neuroconstruct.neuron import NeuronFileManager
 from ucl.physiol.neuroconstruct.nmodleditor.processes import ProcessManager
-from ucl.physiol.neuroconstruct.cell.utils import CellTopologyHelper
 from ucl.physiol.neuroconstruct.utils import NumberGenerator
+
+from utils import wait_and_pull_remote
 
 timestamp = str(time.time())
 pm = ProjectManager(None, None)
@@ -37,7 +36,7 @@ while pm.isGenerating():
     time.sleep(0.02)
 print('network generated')
 
-sim_refs = deque()
+sim_refs = []
 for rate in stim_rate_range:
     sim_ref = timestamp_prefix + timestamp + '_' + str(int(round(rate)))
     sim_refs.append(sim_ref)
@@ -70,18 +69,8 @@ for rate in stim_rate_range:
 	    while not os.path.exists(timefile_path):
 		time.sleep(5)
 
-while sim_refs and sim_config.getMpiConf().isRemotelyExecuted():
-    # keep on going through the queue of running sims, and try to pull
-    # the results from the cluster
-    sim_ref = sim_refs.popleft()
-    sim_path = '../simulations/' + sim_ref
-    pullsimfile_path = sim_path + '/pullsim.sh'
-    timefile_path = sim_path + '/time.dat'
-    print('Pulling from ' + sim_ref)
-    subprocess.call([pullsimfile_path])
-    if not os.path.exists(timefile_path):
-	sim_refs.append(sim_ref)
-    time.sleep(5)
+if sim_config.getMpiConf().isRemotelyExecuted():
+    wait_and_pull_remote(sim_refs)
 
 print('batch reference ' + timestamp_prefix + timestamp)
 System.exit(0)
