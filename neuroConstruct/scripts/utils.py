@@ -17,3 +17,6 @@ def wait_and_pull_remote(sim_refs, sleep_time=5, general_sim_dir='../simulations
 	if not os.path.exists(timefile_path):
 	    sim_refs.append(sim_ref)
 	time.sleep(sleep_time)
+
+def ir_sim_ref(timestamp, gj_conn_type, amplitude, trial):
+    return 'ir' + '_' + timestamp + '_' + gj_conn_type + '_' + str(int(round(amplitude))) + '_t' + str(trial)

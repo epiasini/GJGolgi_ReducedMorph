@@ -1,6 +1,7 @@
-# Measuring the input resistance (at soma) heterogeneity for detailed
-# and reduced morphology cells embedded in a network with different
-# 2010 and 2012-style gap junctions.
+# Measuring the current-voltage relation (at soma) for detailed and
+# reduced morphology cells embedded in a network with different 2010
+# and 2012-style gap junctions. Simulating with different
+# randomly-generated networks to test for heterogeneity.
 
 import os
 import random
@@ -13,7 +14,7 @@ from ucl.physiol.neuroconstruct.neuron import NeuronFileManager
 from ucl.physiol.neuroconstruct.nmodleditor.processes import ProcessManager
 from ucl.physiol.neuroconstruct.utils import NumberGenerator
 
-from utils import wait_and_pull_remote
+import utils
 
 timestamp = str(time.time())
 #timestamp = '1351784362.54'
@@ -40,7 +41,10 @@ for gj_conn_type in ['2010', '2012']:
 	print('network generated')
 
 	for amplitude in stim_amplitude_range:
-	    sim_ref = timestamp_prefix + timestamp + '_' + gj_conn_type + '_' + str(int(round(amplitude))) + '_t' + str(trial)
+	    sim_ref = utils.ir_sim_ref(timestamp,
+				       gj_conn_type,
+				       amplitude,
+				       trial)
 	    sim_refs.append(sim_ref)
 	    sim_path = '../simulations/' + sim_ref
 	    project.simulationParameters.setReference(sim_ref)
@@ -71,7 +75,7 @@ for gj_conn_type in ['2010', '2012']:
 			time.sleep(5)
 
 if sim_config.getMpiConf().isRemotelyExecuted():
-    wait_and_pull_remote(sim_refs, sleep_time=5)
+    utils.wait_and_pull_remote(sim_refs, sleep_time=5)
 
 print('batch reference ' + timestamp_prefix + timestamp)
 System.exit(0)
