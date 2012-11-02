@@ -20,3 +20,6 @@ def wait_and_pull_remote(sim_refs, sleep_time=5, general_sim_dir='../simulations
 
 def ir_sim_ref(timestamp, gj_conn_type, amplitude, trial):
     return 'ir' + '_' + timestamp + '_' + gj_conn_type + '_' + str(int(round(amplitude))) + '_t' + str(trial)
+
+def cs_sim_ref(timestamp, gj_conn_type, cell, trial):
+    return 'cs' + '_' + timestamp + '_' + gj_conn_type + '_c' + str(cell) + '_t' + str(trial)
