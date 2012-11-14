@@ -3,6 +3,13 @@ import time
 import subprocess
 from collections import deque
 
+def pull_remotes(sim_refs, general_sim_dir='../simulations/'):
+    for sim_ref in sim_refs:
+	sim_path = general_sim_dir + sim_ref
+	pullsimfile_path = sim_path + '/pullsim.sh'
+	print('Pulling from ' + sim_ref)
+	subprocess.call([pullsimfile_path])
+
 def wait_and_pull_remote(sim_refs, sleep_time=5, general_sim_dir='../simulations/'):
     sim_refs = deque(sim_refs)
     while sim_refs:
@@ -21,5 +28,11 @@ def wait_and_pull_remote(sim_refs, sleep_time=5, general_sim_dir='../simulations
 def ir_sim_ref(timestamp, gj_conn_type, amplitude, trial):
     return 'ir' + '_' + timestamp + '_' + gj_conn_type + '_' + str(int(round(amplitude))) + '_t' + str(trial)
 
+def ir_single_cell_sim_ref(timestamp, amplitude):
+    return 'ir_sc' + '_' + timestamp + '_' + str(int(round(amplitude)))
+
 def cs_sim_ref(timestamp, gj_conn_type, cell, trial):
     return 'cs' + '_' + timestamp + '_' + gj_conn_type + '_c' + str(cell) + '_t' + str(trial)
+
+def coupling_coefficient(r01, rl0, rl1, dv, I):
+    return (rl1/(rl1+r01)) - dv*r01*(rl0+rl1+r01) / ((rl1+r01) * (I*rl0*(rl1+r01) + dv*rl0))
