@@ -10150,6 +10150,10 @@ Value for scaling factor to apply to current to get change in conc should be
                     <net:group>mossy</net:group>
                 </net:potential_syn_loc>
             
+                <net:potential_syn_loc synapse_type="GapJuncDiscrete" synapse_direction="post">
+                    <net:group>dendrite_group</net:group>
+                </net:potential_syn_loc>
+            
                 <net:potential_syn_loc synapse_type="GapJuncGCL">
                     <net:group>GCL</net:group>
                 </net:potential_syn_loc>

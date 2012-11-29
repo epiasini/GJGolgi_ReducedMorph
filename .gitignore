@@ -8,5 +8,6 @@ generatedMOOSE
 generatedPSICS
 generatedFigures
 simulations
+old_simulations
 *.bak
 *py.class
