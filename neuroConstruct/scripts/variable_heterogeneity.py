@@ -4,16 +4,17 @@ import random
 import networkx as nx
 from math import fabs
 
-from java.lang import System
+from java.lang import System, Float
 from java.io import File
-from java.util import Vector
+from java.util import Vector, ArrayList
 
 from ucl.physiol import neuroconstruct as nc
 
 import utils
 
-deg_mean_range = [10,35]
-deg_sigma_cv_range = [1./20, 1./4, 1./2]
+deg_mean_range = [35]
+deg_sigma_cv_range = [1./3]
+syn_strength_noise = 0.6
 
 timestamp = str(time.time())
 pm = nc.project.ProjectManager(None,None)
@@ -32,12 +33,6 @@ print('network generated')
 
 for deg_mean in deg_mean_range:
     # adjust synaptic strenght to keep average coupling conductance constant
-    synaptic_weight = 35./deg_mean
-    synaptic_properties = nc.project.SynapticProperties('GapJuncDiscrete')
-    synaptic_properties.setWeightsGenerator(nc.utils.NumberGenerator(synaptic_weight))
-    synaptic_properties_list = Vector([synaptic_properties])
-    project.morphNetworkConnectionsInfo.setSynapseList('variable_heterogeneity_gj',
-						   synaptic_properties_list)
     deg_sigma_range = [x*deg_mean for x in deg_sigma_cv_range]
 
     for deg_sigma in deg_sigma_range:
@@ -47,6 +42,8 @@ for deg_mean in deg_mean_range:
 	project.simulationParameters.setReference(sim_ref)
 	# delete all existing connections
 	project.generatedNetworkConnections.reset()
+	project.morphNetworkConnectionsInfo.deleteAllNetConns()
+        sim_config.setNetConns(ArrayList())
 	# generate a degree sequence from the appropriate distribution
 	deg_seq = []
 	is_good_sequence = False
@@ -59,9 +56,16 @@ for deg_mean in deg_mean_range:
 	gj_graph.remove_edges_from(gj_graph.selfloop_edges())
 	# generate connections according to graph
 	for i,j in gj_graph.edges():
-	    project.generatedNetworkConnections.addSynapticConnection('variable_heterogeneity_gj',
-								      i,
-								      j)
+	    conn_name = 'gj_'+str(i)+'_'+str(j)
+	    synaptic_weight = 35./deg_mean
+	    synaptic_properties = nc.project.SynapticProperties('GapJuncDiscrete')
+	    synaptic_properties.setWeightsGenerator(nc.utils.NumberGenerator(synaptic_weight*(1+(random.random()-0.5)*syn_strength_noise)))
+	    synaptic_properties_list = Vector([synaptic_properties])
+            conn_conditions = nc.project.ConnectivityConditions()
+            conn_conditions.setNumConnsInitiatingCellGroup(nc.utils.NumberGenerator(0))
+	    project.morphNetworkConnectionsInfo.addRow(conn_name, 'Golgi_network_reduced', 'Golgi_network_reduced', synaptic_properties_list, nc.project.SearchPattern.getRandomSearchPattern(), nc.project.MaxMinLength(Float.MAX_VALUE, 0, 'r', 100), conn_conditions, Float.MAX_VALUE)
+	    sim_config.addNetConn(conn_name)
+	    project.generatedNetworkConnections.addSynapticConnection(conn_name, i, j)
 	# generate and compile neuron files
 	print "Generating NEURON scripts..."
 	project.neuronFileManager.setSuggestedRemoteRunTime(40)
