@@ -4,6 +4,7 @@ import random
 import networkx as nx
 from math import fabs
 
+from java.awt import Color
 from java.lang import System, Float
 from java.io import File
 from java.util import Vector, ArrayList
@@ -12,9 +13,8 @@ from ucl.physiol import neuroconstruct as nc
 
 import utils
 
-deg_mean_range = [35]
+deg_mean_range = [8]
 deg_sigma_cv_range = [1./3]
-syn_strength_noise = 0.6
 
 timestamp = str(time.time())
 pm = nc.project.ProjectManager(None,None)
@@ -25,6 +25,77 @@ project = pm.loadProject(project_file)
 sim_config_name = 'variable_heterogeneity'
 sim_config = project.simConfigInfo.getSimConfig(sim_config_name)
 project.neuronSettings.setNoConsole()
+
+# introduce single-cell-level heterogeneity in somatic leak conductance
+golgi_reference_cell = project.cellManager.getCell('GJGolgi_Reduced')
+region_name = 'Regions_1'
+colour = Color(255, 51, 51)
+one_cell_chooser = nc.project.cellchoice.FixedNumberCells(1)
+adapter = nc.project.packing.RandomCellPackingAdapter()
+adapter.setParameter(nc.project.packing.RandomCellPackingAdapter.CELL_NUMBER_POLICY, 1)
+
+for i in range(45):
+    type_name = unicode('golgi_'+str(i))
+    group_name = unicode('golgi_group_'+str(i))
+    bl_stim_name = unicode('golgi_stim_'+str(i)+'_bl')
+    ap_stim_name = unicode('golgi_stim_'+str(i)+'_ap')
+
+    # create and add new cell type
+    new_cell_type = golgi_reference_cell.clone()
+    new_cell_type.setInstanceName(type_name)
+    project.cellManager.addCellType(new_cell_type)
+    # create and add new cell group
+    project.cellGroupsInfo.addCellGroup(group_name,
+                                        type_name,
+                                        region_name,
+                                        colour,
+                                        adapter,
+                                        i)
+    sim_config.addCellGroup(group_name)
+    # create and add new stimuli
+    if i<10:
+	bl_delay = nc.utils.NumberGenerator()
+	bl_delay.initialiseAsRandomFloatGenerator(1640., 1645.)
+	bl_segment_chooser = nc.project.segmentchoice.GroupDistributedSegments('basolateral_soma', 8)
+	bl_stim = nc.simulation.RandomSpikeTrainExtSettings(bl_stim_name,
+							    group_name,
+							    one_cell_chooser,
+							    bl_segment_chooser,
+							    nc.utils.NumberGenerator(0.2),
+							    'Golgi_AMPA_mf',
+							    bl_delay,
+							    nc.utils.NumberGenerator(10),
+							    False)
+	project.elecInputInfo.addStim(bl_stim)
+	sim_config.addInput(bl_stim.getReference())
+	ap_delay = nc.utils.NumberGenerator()
+	ap_delay.initialiseAsRandomFloatGenerator(1642., 1647.)
+	ap_segment_chooser = nc.project.segmentchoice.GroupDistributedSegments('parallel_fibres', 50)
+	ap_stim = nc.simulation.RandomSpikeTrainExtSettings(ap_stim_name,
+							    group_name,
+							    one_cell_chooser,
+							    bl_segment_chooser,
+							    nc.utils.NumberGenerator(0.2),
+							    'Golgi_AMPA_mf',
+							    ap_delay,
+							    nc.utils.NumberGenerator(15),
+							    False)
+
+	project.elecInputInfo.addStim(ap_stim)
+	sim_config.addInput(ap_stim.getReference())
+    # create and add new plot/save objects
+    plot = nc.project.SimPlot(type_name + '_v',
+			      type_name + '_v',
+			      group_name,
+			      '0',
+			      '0',
+			      nc.project.SimPlot.VOLTAGE,
+			      -90,
+			      50,
+			      nc.project.SimPlot.SAVE_ONLY)
+    project.simPlotInfo.addSimPlot(plot)
+    sim_config.addPlot(type_name + '_v')
+
 # generate
 pm.doGenerate(sim_config_name, 1234)
 while pm.isGenerating():
@@ -33,8 +104,9 @@ print('network generated')
 
 for deg_mean in deg_mean_range:
     # adjust synaptic strenght to keep average coupling conductance constant
-    deg_sigma_range = [x*deg_mean for x in deg_sigma_cv_range]
+    synaptic_weight = 35./deg_mean
 
+    deg_sigma_range = [x*deg_mean for x in deg_sigma_cv_range]
     for deg_sigma in deg_sigma_range:
 	sim_ref = utils.variable_heterogeneity(timestamp,
 					       deg_mean,
@@ -57,13 +129,12 @@ for deg_mean in deg_mean_range:
 	# generate connections according to graph
 	for i,j in gj_graph.edges():
 	    conn_name = 'gj_'+str(i)+'_'+str(j)
-	    synaptic_weight = 35./deg_mean
 	    synaptic_properties = nc.project.SynapticProperties('GapJuncDiscrete')
-	    synaptic_properties.setWeightsGenerator(nc.utils.NumberGenerator(synaptic_weight*(1+(random.random()-0.5)*syn_strength_noise)))
+	    synaptic_properties.setWeightsGenerator(nc.utils.NumberGenerator(synaptic_weight))
 	    synaptic_properties_list = Vector([synaptic_properties])
             conn_conditions = nc.project.ConnectivityConditions()
             conn_conditions.setNumConnsInitiatingCellGroup(nc.utils.NumberGenerator(0))
-	    project.morphNetworkConnectionsInfo.addRow(conn_name, 'Golgi_network_reduced', 'Golgi_network_reduced', synaptic_properties_list, nc.project.SearchPattern.getRandomSearchPattern(), nc.project.MaxMinLength(Float.MAX_VALUE, 0, 'r', 100), conn_conditions, Float.MAX_VALUE)
+	    project.morphNetworkConnectionsInfo.addRow(conn_name, 'golgi_group_'+str(i), 'golgi_group_'+str(j), synaptic_properties_list, nc.project.SearchPattern.getRandomSearchPattern(), nc.project.MaxMinLength(Float.MAX_VALUE, 0, 'r', 100), conn_conditions, Float.MAX_VALUE)
 	    sim_config.addNetConn(conn_name)
 	    project.generatedNetworkConnections.addSynapticConnection(conn_name, i, j)
 	# generate and compile neuron files
