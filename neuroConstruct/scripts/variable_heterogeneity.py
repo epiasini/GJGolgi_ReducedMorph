@@ -13,8 +13,8 @@ from ucl.physiol import neuroconstruct as nc
 
 import utils
 
-deg_mean_range = [8]
-deg_sigma_cv_range = [1./3]
+deg_mean_range = [18]
+deg_sigma_cv_range = [.8]
 
 timestamp = str(time.time())
 pm = nc.project.ProjectManager(None,None)
@@ -136,7 +136,7 @@ for deg_mean in deg_mean_range:
             conn_conditions.setNumConnsInitiatingCellGroup(nc.utils.NumberGenerator(0))
 	    project.morphNetworkConnectionsInfo.addRow(conn_name, 'golgi_group_'+str(i), 'golgi_group_'+str(j), synaptic_properties_list, nc.project.SearchPattern.getRandomSearchPattern(), nc.project.MaxMinLength(Float.MAX_VALUE, 0, 'r', 100), conn_conditions, Float.MAX_VALUE)
 	    sim_config.addNetConn(conn_name)
-	    project.generatedNetworkConnections.addSynapticConnection(conn_name, i, j)
+	    project.generatedNetworkConnections.addSynapticConnection(conn_name, 0, 0)
 	# generate and compile neuron files
 	print "Generating NEURON scripts..."
 	project.neuronFileManager.setSuggestedRemoteRunTime(40)
