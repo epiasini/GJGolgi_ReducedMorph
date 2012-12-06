@@ -13,8 +13,9 @@ from ucl.physiol import neuroconstruct as nc
 
 import utils
 
-deg_mean_range = [18]
-deg_sigma_cv_range = [.8]
+deg_mean_range = [10]
+deg_sigma_cv_range = [.5]
+leak_variation_fraction = .2
 
 timestamp = str(time.time())
 pm = nc.project.ProjectManager(None,None)
@@ -26,14 +27,16 @@ sim_config_name = 'variable_heterogeneity'
 sim_config = project.simConfigInfo.getSimConfig(sim_config_name)
 project.neuronSettings.setNoConsole()
 
-# introduce single-cell-level heterogeneity in somatic leak conductance
+## ==== introduce single-cell-level heterogeneity in somatic leak conductance ===
+# boilerplate stuff
 golgi_reference_cell = project.cellManager.getCell('GJGolgi_Reduced')
 region_name = 'Regions_1'
 colour = Color(255, 51, 51)
 one_cell_chooser = nc.project.cellchoice.FixedNumberCells(1)
 adapter = nc.project.packing.RandomCellPackingAdapter()
 adapter.setParameter(nc.project.packing.RandomCellPackingAdapter.CELL_NUMBER_POLICY, 1)
-
+base_golgi_leak = [c.getDensity() for c in golgi_reference_cell.getChanMechsForGroup('all') if c.getName()=='LeakCond'][0]
+print base_golgi_leak
 for i in range(45):
     type_name = unicode('golgi_'+str(i))
     group_name = unicode('golgi_group_'+str(i))
@@ -52,8 +55,16 @@ for i in range(45):
                                         adapter,
                                         i)
     sim_config.addCellGroup(group_name)
+    # set cell-specific value for somatic leak conductance
+    max_leak_cond_delta = base_golgi_leak*leak_variation_fraction
+    for chan in new_cell_type.getChanMechsForGroup('soma_group'):
+	if chan.getName() == 'VariableLeakConductance':
+	    chan.setDensity(random.uniform(-max_leak_cond_delta,
+					   max_leak_cond_delta))
+	    new_cell_type.associateGroupWithChanMech('soma_group', chan)
     # create and add new stimuli
     if i<10:
+	# basolateral stimulus
 	bl_delay = nc.utils.NumberGenerator()
 	bl_delay.initialiseAsRandomFloatGenerator(1640., 1645.)
 	bl_segment_chooser = nc.project.segmentchoice.GroupDistributedSegments('basolateral_soma', 8)
@@ -64,10 +75,11 @@ for i in range(45):
 							    nc.utils.NumberGenerator(0.2),
 							    'Golgi_AMPA_mf',
 							    bl_delay,
-							    nc.utils.NumberGenerator(10),
+							    nc.utils.NumberGenerator(400),
 							    False)
 	project.elecInputInfo.addStim(bl_stim)
 	sim_config.addInput(bl_stim.getReference())
+	# apical stimulus
 	ap_delay = nc.utils.NumberGenerator()
 	ap_delay.initialiseAsRandomFloatGenerator(1642., 1647.)
 	ap_segment_chooser = nc.project.segmentchoice.GroupDistributedSegments('parallel_fibres', 50)
@@ -78,7 +90,7 @@ for i in range(45):
 							    nc.utils.NumberGenerator(0.2),
 							    'Golgi_AMPA_mf',
 							    ap_delay,
-							    nc.utils.NumberGenerator(15),
+							    nc.utils.NumberGenerator(400),
 							    False)
 
 	project.elecInputInfo.addStim(ap_stim)
@@ -102,6 +114,7 @@ while pm.isGenerating():
     time.sleep(0.02)
 print('network generated')
 
+##=== set up gj network ===
 for deg_mean in deg_mean_range:
     # adjust synaptic strenght to keep average coupling conductance constant
     synaptic_weight = 35./deg_mean

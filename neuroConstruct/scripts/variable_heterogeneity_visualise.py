@@ -8,8 +8,8 @@ from matplotlib import pyplot as plt
 import utils
 
 timestamp = sys.argv[1]
-deg_mean_range = [18]
-deg_sigma_cv_range = [.8]
+deg_mean_range = [10]
+deg_sigma_cv_range = [.5]
 
 for deg_mean in deg_mean_range:
     deg_sigma_range = [x*deg_mean for x in deg_sigma_cv_range]
