@@ -96,7 +96,7 @@ for i in range(45):
 							    one_cell_chooser,
 							    bl_segment_chooser,
 							    nc.utils.NumberGenerator(0.2),
-							    'Golgi_AMPA_mf',
+							    'Golgi_AMPA_pf',
 							    ap_delay,
 							    nc.utils.NumberGenerator(400),
 							    False)
