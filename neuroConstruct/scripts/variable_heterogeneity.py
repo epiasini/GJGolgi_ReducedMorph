@@ -15,7 +15,7 @@ import utils
 
 deg_mean_range = [10]
 deg_sigma_cv_range = [.5]
-leak_variation_fraction = .2
+leak_variation_fraction = 0.2
 
 timestamp = str(time.time())
 pm = nc.project.ProjectManager(None,None)
@@ -30,19 +30,26 @@ project.neuronSettings.setNoConsole()
 ## ==== introduce single-cell-level heterogeneity in somatic leak conductance ===
 # boilerplate stuff
 golgi_reference_cell = project.cellManager.getCell('GJGolgi_Reduced')
+#golgi_reference_cell = project.cellManager.getCell('Golgi_210710_C1')
 region_name = 'Regions_1'
+leak_cond_name = 'LeakCond'
 colour = Color(255, 51, 51)
 one_cell_chooser = nc.project.cellchoice.FixedNumberCells(1)
 adapter = nc.project.packing.RandomCellPackingAdapter()
 adapter.setParameter(nc.project.packing.RandomCellPackingAdapter.CELL_NUMBER_POLICY, 1)
-base_golgi_leak = [c.getDensity() for c in golgi_reference_cell.getChanMechsForGroup('all') if c.getName()=='LeakCond'][0]
-print base_golgi_leak
+# subtract maximum variation in leak conductance from base value
+base_golgi_leak = [c.getDensity() for c in golgi_reference_cell.getChanMechsForGroup('all') if c.getName()==leak_cond_name][0]
+max_leak_cond_delta = base_golgi_leak*leak_variation_fraction
+new_golgi_leak = base_golgi_leak - max_leak_cond_delta
+for chan in golgi_reference_cell.getChanMechsForGroup('all'):
+    if chan.getName() == leak_cond_name:
+	chan.setDensity(new_golgi_leak)
+	golgi_reference_cell.associateGroupWithChanMech('all', chan)
 for i in range(45):
     type_name = unicode('golgi_'+str(i))
     group_name = unicode('golgi_group_'+str(i))
     bl_stim_name = unicode('golgi_stim_'+str(i)+'_bl')
     ap_stim_name = unicode('golgi_stim_'+str(i)+'_ap')
-
     # create and add new cell type
     new_cell_type = golgi_reference_cell.clone()
     new_cell_type.setInstanceName(type_name)
@@ -56,18 +63,18 @@ for i in range(45):
                                         i)
     sim_config.addCellGroup(group_name)
     # set cell-specific value for somatic leak conductance
-    max_leak_cond_delta = base_golgi_leak*leak_variation_fraction
-    for chan in new_cell_type.getChanMechsForGroup('soma_group'):
+    for chan in new_cell_type.getChanMechsForGroup('all'):
 	if chan.getName() == 'VariableLeakConductance':
-	    chan.setDensity(random.uniform(-max_leak_cond_delta,
-					   max_leak_cond_delta))
-	    new_cell_type.associateGroupWithChanMech('soma_group', chan)
+	    chan.setDensity(random.uniform(0.,
+					   2.*max_leak_cond_delta))
+	    new_cell_type.associateGroupWithChanMech('all', chan)
     # create and add new stimuli
     if i<10:
 	# basolateral stimulus
 	bl_delay = nc.utils.NumberGenerator()
 	bl_delay.initialiseAsRandomFloatGenerator(1640., 1645.)
 	bl_segment_chooser = nc.project.segmentchoice.GroupDistributedSegments('basolateral_soma', 8)
+	#bl_segment_chooser = nc.project.segmentchoice.GroupDistributedSegments('mossy', 8)
 	bl_stim = nc.simulation.RandomSpikeTrainExtSettings(bl_stim_name,
 							    group_name,
 							    one_cell_chooser,
@@ -83,6 +90,7 @@ for i in range(45):
 	ap_delay = nc.utils.NumberGenerator()
 	ap_delay.initialiseAsRandomFloatGenerator(1642., 1647.)
 	ap_segment_chooser = nc.project.segmentchoice.GroupDistributedSegments('parallel_fibres', 50)
+	#ap_segment_chooser = nc.project.segmentchoice.GroupDistributedSegments('parfiber', 50)
 	ap_stim = nc.simulation.RandomSpikeTrainExtSettings(ap_stim_name,
 							    group_name,
 							    one_cell_chooser,
@@ -147,7 +155,14 @@ for deg_mean in deg_mean_range:
 	    synaptic_properties_list = Vector([synaptic_properties])
             conn_conditions = nc.project.ConnectivityConditions()
             conn_conditions.setNumConnsInitiatingCellGroup(nc.utils.NumberGenerator(0))
-	    project.morphNetworkConnectionsInfo.addRow(conn_name, 'golgi_group_'+str(i), 'golgi_group_'+str(j), synaptic_properties_list, nc.project.SearchPattern.getRandomSearchPattern(), nc.project.MaxMinLength(Float.MAX_VALUE, 0, 'r', 100), conn_conditions, Float.MAX_VALUE)
+	    project.morphNetworkConnectionsInfo.addRow(conn_name,
+						       'golgi_group_'+str(i),
+						       'golgi_group_'+str(j),
+						       synaptic_properties_list,
+						       nc.project.SearchPattern.getRandomSearchPattern(),
+						       nc.project.MaxMinLength(Float.MAX_VALUE, 0, 'r', 100),
+						       conn_conditions,
+						       Float.MAX_VALUE)
 	    sim_config.addNetConn(conn_name)
 	    project.generatedNetworkConnections.addSynapticConnection(conn_name, 0, 0)
 	# generate and compile neuron files

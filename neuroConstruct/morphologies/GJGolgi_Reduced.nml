@@ -233,10 +233,10 @@
 
                 <bio:mechanism name="VariableLeakConductance" type="Channel Mechanism" passive_conductance="true">
                     <bio:parameter name="e" value="-55.0">
-                        <bio:group>soma_group</bio:group>
+                        <bio:group>all</bio:group>
                     </bio:parameter>
                     <bio:parameter name="gmax" value="0.0">
-                        <bio:group>soma_group</bio:group>
+                        <bio:group>all</bio:group>
                     </bio:parameter>
                 </bio:mechanism>
 
