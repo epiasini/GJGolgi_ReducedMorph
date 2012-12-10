@@ -13,8 +13,8 @@ from ucl.physiol import neuroconstruct as nc
 
 import utils
 
-deg_mean_range = [10]
-deg_sigma_cv_range = [.5]
+deg_mean_range = [7]
+deg_sigma_cv_range = [.35]
 leak_variation_fraction = 0.2
 
 timestamp = str(time.time())
@@ -48,6 +48,8 @@ for chan in golgi_reference_cell.getChanMechsForGroup('all'):
 for i in range(45):
     type_name = unicode('golgi_'+str(i))
     group_name = unicode('golgi_group_'+str(i))
+    bl_noise_name = unicode('golgi_noise_'+str(i)+'_bl')
+    ap_noise_name = unicode('golgi_noise_'+str(i)+'_ap')
     bl_stim_name = unicode('golgi_stim_'+str(i)+'_bl')
     ap_stim_name = unicode('golgi_stim_'+str(i)+'_ap')
     # create and add new cell type
@@ -68,11 +70,31 @@ for i in range(45):
 	    chan.setDensity(random.uniform(0.,
 					   2.*max_leak_cond_delta))
 	    new_cell_type.associateGroupWithChanMech('all', chan)
-    # create and add new stimuli
-    if i<10:
+    ## =create and add new stimuli=
+    # basolateral background
+    bl_noise_segchooser = nc.project.segmentchoice.GroupDistributedSegments('basolateral_soma', 20)
+    bl_noise = nc.simulation.RandomSpikeTrainSettings(bl_noise_name,
+						      group_name,
+						      one_cell_chooser,
+						      bl_noise_segchooser,
+						      nc.utils.NumberGenerator(0.002),
+						      'Golgi_AMPA_mf')
+    project.elecInputInfo.addStim(bl_noise)
+    sim_config.addInput(bl_noise.getReference())
+    # apical background
+    ap_noise_segchooser = nc.project.segmentchoice.GroupDistributedSegments('parallel_fibres', 100)
+    ap_noise = nc.simulation.RandomSpikeTrainSettings(ap_noise_name,
+						      group_name,
+						      one_cell_chooser,
+						      ap_noise_segchooser,
+						      nc.utils.NumberGenerator(0.0005),
+						      'Golgi_AMPA_pf')
+    project.elecInputInfo.addStim(ap_noise)
+    sim_config.addInput(ap_noise.getReference())
+    if i<5:
 	# basolateral stimulus
 	bl_delay = nc.utils.NumberGenerator()
-	bl_delay.initialiseAsRandomFloatGenerator(1640., 1645.)
+	bl_delay.initialiseAsRandomFloatGenerator(640., 645.)
 	bl_segment_chooser = nc.project.segmentchoice.GroupDistributedSegments('basolateral_soma', 8)
 	#bl_segment_chooser = nc.project.segmentchoice.GroupDistributedSegments('mossy', 8)
 	bl_stim = nc.simulation.RandomSpikeTrainExtSettings(bl_stim_name,
@@ -88,14 +110,14 @@ for i in range(45):
 	sim_config.addInput(bl_stim.getReference())
 	# apical stimulus
 	ap_delay = nc.utils.NumberGenerator()
-	ap_delay.initialiseAsRandomFloatGenerator(1642., 1647.)
+	ap_delay.initialiseAsRandomFloatGenerator(642., 647.)
 	ap_segment_chooser = nc.project.segmentchoice.GroupDistributedSegments('parallel_fibres', 50)
 	#ap_segment_chooser = nc.project.segmentchoice.GroupDistributedSegments('parfiber', 50)
 	ap_stim = nc.simulation.RandomSpikeTrainExtSettings(ap_stim_name,
 							    group_name,
 							    one_cell_chooser,
-							    bl_segment_chooser,
-							    nc.utils.NumberGenerator(0.2),
+							    ap_segment_chooser,
+							    nc.utils.NumberGenerator(0.35),
 							    'Golgi_AMPA_pf',
 							    ap_delay,
 							    nc.utils.NumberGenerator(400),
@@ -122,10 +144,16 @@ while pm.isGenerating():
     time.sleep(0.02)
 print('network generated')
 
+# prepare data on spatial distribution of gjs on dendritic tree
+groups_with_gjs = ['GCL', 'ML1', 'ML2', 'ML3']
+group_prob = (11./36, 16./36, 7./36, 2./36)
+segments_with_gjs = [golgi_reference_cell.getSegmentsInGroup(gr) for gr in groups_with_gjs]
+cum_group_prob = tuple(sum(group_prob[:k]) for k in range(len(group_prob))) # cumulative
+
 ##=== set up gj network ===
 for deg_mean in deg_mean_range:
     # adjust synaptic strenght to keep average coupling conductance constant
-    synaptic_weight = 35./deg_mean
+    #synaptic_weight = 35./deg_mean
 
     deg_sigma_range = [x*deg_mean for x in deg_sigma_cv_range]
     for deg_sigma in deg_sigma_range:
@@ -149,6 +177,16 @@ for deg_mean in deg_mean_range:
 	gj_graph.remove_edges_from(gj_graph.selfloop_edges())
 	# generate connections according to graph
 	for i,j in gj_graph.edges():
+	    # select random source and destination segments according to spatial distribution of gjs
+	    source_rand = random.random()
+	    source_segment_group = [k for k, p in enumerate(cum_group_prob) if source_rand>=p][-1]
+	    source_segment = random.choice(segments_with_gjs[source_segment_group]).getSegmentId()
+	    dest_rand = random.random()
+	    dest_segment_group = [k for k, p in enumerate(cum_group_prob) if dest_rand>=p][-1]
+	    dest_segment = random.choice(segments_with_gjs[dest_segment_group]).getSegmentId()
+	    print str(i) + ',' + str(j) + ' segments ' + str(source_segment) + ',' + str(dest_segment)
+	    #synaptic_weight = fabs(random.gauss(mu=20./deg_mean, sigma=0.5*20./deg_mean))
+	    synaptic_weight = 35./deg_mean
 	    conn_name = 'gj_'+str(i)+'_'+str(j)
 	    synaptic_properties = nc.project.SynapticProperties('GapJuncDiscrete')
 	    synaptic_properties.setWeightsGenerator(nc.utils.NumberGenerator(synaptic_weight))
@@ -164,7 +202,16 @@ for deg_mean in deg_mean_range:
 						       conn_conditions,
 						       Float.MAX_VALUE)
 	    sim_config.addNetConn(conn_name)
-	    project.generatedNetworkConnections.addSynapticConnection(conn_name, 0, 0)
+	    project.generatedNetworkConnections.addSynapticConnection(conn_name,
+								      0,
+								      0,
+								      source_segment,
+								      0.5,
+								      0,
+								      dest_segment,
+								      0.5,
+								      0,
+								      None)
 	# generate and compile neuron files
 	print "Generating NEURON scripts..."
 	project.neuronFileManager.setSuggestedRemoteRunTime(40)

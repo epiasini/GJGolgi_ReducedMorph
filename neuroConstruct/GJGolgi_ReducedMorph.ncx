@@ -3452,7 +3452,7 @@ part of NeuroML or any standardised XML specification. -->
       <string>variable_heterogeneity</string>
      </void>
      <void property="simDuration">
-      <float>3000.0</float>
+      <float>2500.0</float>
      </void>
     </object>
    </void>
