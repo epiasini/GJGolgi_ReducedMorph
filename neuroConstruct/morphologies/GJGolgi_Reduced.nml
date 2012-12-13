@@ -301,6 +301,10 @@
             </biophysics>
 
             <connectivity>
+                <net:potential_syn_loc synapse_type="ApicalSyn">
+                    <net:group>parallel_fibres</net:group>
+                </net:potential_syn_loc>
+            
                 <net:potential_syn_loc synapse_type="GapJuncDiscrete">
                     <net:group>ML1</net:group>
                 </net:potential_syn_loc>

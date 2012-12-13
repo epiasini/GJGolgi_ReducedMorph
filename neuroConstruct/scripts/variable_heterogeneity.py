@@ -16,6 +16,7 @@ import utils
 deg_mean_range = [7]
 deg_sigma_cv_range = [.35]
 leak_variation_fraction = 0.2
+sim_duration = 4000
 
 timestamp = str(time.time())
 pm = nc.project.ProjectManager(None,None)
@@ -25,6 +26,7 @@ project = pm.loadProject(project_file)
 
 sim_config_name = 'variable_heterogeneity'
 sim_config = project.simConfigInfo.getSimConfig(sim_config_name)
+sim_config.setSimDuration(sim_duration)
 project.neuronSettings.setNoConsole()
 
 ## ==== introduce single-cell-level heterogeneity in somatic leak conductance ===
@@ -88,15 +90,14 @@ for i in range(45):
 						      one_cell_chooser,
 						      ap_noise_segchooser,
 						      nc.utils.NumberGenerator(0.0005),
-						      'Golgi_AMPA_pf')
+						      'ApicalSyn')
     project.elecInputInfo.addStim(ap_noise)
     sim_config.addInput(ap_noise.getReference())
     if i<5:
 	# basolateral stimulus
 	bl_delay = nc.utils.NumberGenerator()
-	bl_delay.initialiseAsRandomFloatGenerator(640., 645.)
+	bl_delay.initialiseAsRandomFloatGenerator(1680., 1685.)
 	bl_segment_chooser = nc.project.segmentchoice.GroupDistributedSegments('basolateral_soma', 8)
-	#bl_segment_chooser = nc.project.segmentchoice.GroupDistributedSegments('mossy', 8)
 	bl_stim = nc.simulation.RandomSpikeTrainExtSettings(bl_stim_name,
 							    group_name,
 							    one_cell_chooser,
@@ -104,23 +105,22 @@ for i in range(45):
 							    nc.utils.NumberGenerator(0.2),
 							    'Golgi_AMPA_mf',
 							    bl_delay,
-							    nc.utils.NumberGenerator(400),
+							    nc.utils.NumberGenerator(10),
 							    False)
 	project.elecInputInfo.addStim(bl_stim)
 	sim_config.addInput(bl_stim.getReference())
 	# apical stimulus
 	ap_delay = nc.utils.NumberGenerator()
-	ap_delay.initialiseAsRandomFloatGenerator(642., 647.)
+	ap_delay.initialiseAsRandomFloatGenerator(1682., 1687.)
 	ap_segment_chooser = nc.project.segmentchoice.GroupDistributedSegments('parallel_fibres', 50)
-	#ap_segment_chooser = nc.project.segmentchoice.GroupDistributedSegments('parfiber', 50)
 	ap_stim = nc.simulation.RandomSpikeTrainExtSettings(ap_stim_name,
 							    group_name,
 							    one_cell_chooser,
 							    ap_segment_chooser,
 							    nc.utils.NumberGenerator(0.35),
-							    'Golgi_AMPA_pf',
+							    'ApicalSyn',
 							    ap_delay,
-							    nc.utils.NumberGenerator(400),
+							    nc.utils.NumberGenerator(15),
 							    False)
 
 	project.elecInputInfo.addStim(ap_stim)
@@ -152,9 +152,6 @@ cum_group_prob = tuple(sum(group_prob[:k]) for k in range(len(group_prob))) # cu
 
 ##=== set up gj network ===
 for deg_mean in deg_mean_range:
-    # adjust synaptic strenght to keep average coupling conductance constant
-    #synaptic_weight = 35./deg_mean
-
     deg_sigma_range = [x*deg_mean for x in deg_sigma_cv_range]
     for deg_sigma in deg_sigma_range:
 	sim_ref = utils.variable_heterogeneity(timestamp,
@@ -185,8 +182,12 @@ for deg_mean in deg_mean_range:
 	    dest_segment_group = [k for k, p in enumerate(cum_group_prob) if dest_rand>=p][-1]
 	    dest_segment = random.choice(segments_with_gjs[dest_segment_group]).getSegmentId()
 	    print str(i) + ',' + str(j) + ' segments ' + str(source_segment) + ',' + str(dest_segment)
-	    #synaptic_weight = fabs(random.gauss(mu=20./deg_mean, sigma=0.5*20./deg_mean))
-	    synaptic_weight = 35./deg_mean
+	    # adjust synaptic weight parameter depending on the mean
+	    # of the degree distribution so that in average we have 35
+	    # gjs per cell, but allowing for some variability on the
+	    # number of gjs per connected pair.
+	    mean_gj_number = int(round(35./deg_mean))
+	    synaptic_weight = random.randrange(mean_gj_number-2, mean_gj_number+3, 1)
 	    conn_name = 'gj_'+str(i)+'_'+str(j)
 	    synaptic_properties = nc.project.SynapticProperties('GapJuncDiscrete')
 	    synaptic_properties.setWeightsGenerator(nc.utils.NumberGenerator(synaptic_weight))

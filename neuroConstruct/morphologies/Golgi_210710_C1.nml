@@ -10155,6 +10155,10 @@ Value for scaling factor to apply to current to get change in conc should be
             </biophysics>
 
             <connectivity>
+                <net:potential_syn_loc synapse_type="ApicalSyn">
+                    <net:group>parfiber</net:group>
+                </net:potential_syn_loc>
+            
                 <net:potential_syn_loc synapse_type="GABA">
                     <net:group>mossy</net:group>
                 </net:potential_syn_loc>
