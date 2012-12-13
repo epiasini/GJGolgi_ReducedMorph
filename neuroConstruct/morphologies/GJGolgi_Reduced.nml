@@ -305,8 +305,12 @@
                     <net:group>parallel_fibres</net:group>
                 </net:potential_syn_loc>
             
-                <net:potential_syn_loc synapse_type="GapJuncDiscrete">
-                    <net:group>ML1</net:group>
+                <net:potential_syn_loc synapse_type="GapJuncDiscrete" synapse_direction="post">
+                    <net:group>dendrite_group</net:group>
+                </net:potential_syn_loc>
+            
+                <net:potential_syn_loc synapse_type="GapJuncGCL">
+                    <net:group>GCL</net:group>
                 </net:potential_syn_loc>
             
                 <net:potential_syn_loc synapse_type="Golgi_AMPA_mf">
