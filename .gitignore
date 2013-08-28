@@ -11,3 +11,5 @@ simulations
 old_simulations
 *.bak
 *py.class
+cellProcesses
+dataSets
