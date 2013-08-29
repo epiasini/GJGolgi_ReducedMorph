@@ -28,16 +28,11 @@ def load_edge_lengths(timestamp, gj_conn_type, trial):
     distances = distance.squareform(distance.pdist(positions))
     return distances
 
-def non_diagonal_entries(a):
-    return np.concatenate([a[np.triu_indices(a.shape[0], k=1)],
-                           a[np.tril_indices(a.shape[0], k=-1)]])
-
 # basic controls
 timestamp = sys.argv[1]
 gj_conn_types = ['2010', '2012']
 n_cells = 45
 n_trials = 1
-
 
 # load experimental data
 exp_couplings = np.loadtxt('../dataSets/koen_data/golgi_pair_couplings.csv')/100
@@ -52,10 +47,12 @@ degrees = {} # degree sequences
 
 # initialise plotting objects
 colours = {'2010':'k', '2012':'g'}
+colormaps = {'2010': 'Greys', '2012': 'Greens'}
 cc_axes = {}
 cc_ims = {}
 cc_fig, (cc_axes['2010'], cc_axes['2012']) = plt.subplots(ncols=2)
-cc_vs_d_fig, cc_vs_d_ax = plt.subplots()
+cc_vs_d_axes = {}
+cc_vs_d_fig, (cc_vs_d_axes['2010'], cc_vs_d_axes['2012']) = plt.subplots(ncols=2)
 deg_hist_fig, deg_hist_ax = plt.subplots()
 cc_hist_fig, cc_hist_ax = plt.subplots()
 
@@ -100,17 +97,25 @@ for gj_conn_type in gj_conn_types:
         cc_conn[gj_conn_type].extend([couplings[i,j] for (i,j) in adjacency_list])
 
     ##=== network-instantiation specific analysis ===
-    # cc_vs_d_ax.scatter(edge_lengths[gj_conn_type].flat,
-    #                    coupling_coefficients[gj_conn_type].flat,
-    #                    c=colours[gj_conn_type],
-    #                    alpha=0.5,
-    #                    linewidths=0)
-    distinct_cells_idxs = np.logical_and(edge_lengths[gj_conn_type].flat > 0,
+    # only include cell pairs whose distance is less than 160um when
+    # estimating the "cc vs distance" relationship
+    cells_idxs = np.logical_and(edge_lengths[gj_conn_type].flat > 0,
                                          edge_lengths[gj_conn_type].flat < 160)
-    cc_vs_d_ax.hexbin(edge_lengths[gj_conn_type].flat[distinct_cells_idxs],
-                      coupling_coefficients[gj_conn_type].flat[distinct_cells_idxs])
+    cc_vs_d_axes[gj_conn_type].hexbin(edge_lengths[gj_conn_type].flat[cells_idxs],
+                                      coupling_coefficients[gj_conn_type].flat[cells_idxs],
+                                      cmap='bone')
+    cc_vs_d_axes[gj_conn_type].scatter(exp_distances,
+                                       exp_couplings,
+                                       c='r',
+                                       alpha=0.5,
+                                       linewidths=0)
+    exp_fit_x = np.arange(10, 160, 0.1)
+    cc_vs_d_axes[gj_conn_type].plot(exp_fit_x,
+                                    0.01*(-2.3+29.7*np.exp(-exp_fit_x/70.4)),
+                                    c='r',
+                                    linewidth=1.5)
     
-    cc_ims[gj_conn_type] = cc_axes[gj_conn_type].imshow(coupling_coefficients[gj_conn_type][0], interpolation='none', cmap='coolwarm')
+    cc_ims[gj_conn_type] = cc_axes[gj_conn_type].imshow(coupling_coefficients[gj_conn_type][0], interpolation='none', cmap='bone')
     cc_ims[gj_conn_type]
     cc_axes[gj_conn_type].set_title(gj_conn_type)
 
@@ -118,17 +123,6 @@ for gj_conn_type in gj_conn_types:
 
 
 ##=== plotting ===
-cc_vs_d_ax.scatter(exp_distances,
-                   exp_couplings,
-                   c='r',
-                   alpha=0.5,
-                   linewidths=0)
-exp_fit_x = np.arange(10, 160, 0.1)
-cc_vs_d_ax.plot(exp_fit_x,
-                0.01*(-2.3+29.7*np.exp(-exp_fit_x/70.4)),
-                c='r',
-                linewidth=1.5)
-
 cc_hist_ax.hist([cc_conn['2010'], cc_conn['2012']],
                 bins=10,
                 color=['k', 'g'],
