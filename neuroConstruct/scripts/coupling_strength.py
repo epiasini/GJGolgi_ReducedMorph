@@ -6,6 +6,7 @@ import os
 import random
 import time
 import csv
+import shutil
 
 from java.lang import System, Long
 from java.io import File
@@ -118,10 +119,12 @@ for gj_conn_type in ['2010', '2012']:
 		    timefile_path = '../simulations/' + sim_ref + '/time.dat'
 		    while not os.path.exists(timefile_path):
 			time.sleep(0.5)
+                    shutil.move('../simulations/'+sim_ref,
+                                '../scriptedSimulations/'+sim_ref)
 
 
 if sim_config.getMpiConf().isRemotelyExecuted():
     utils.wait_and_pull_remote(sim_refs, sleep_time=0.5)
-
+    
 print('timestamp ' + timestamp)
 System.exit(0)
