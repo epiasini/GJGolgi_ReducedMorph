@@ -11,9 +11,6 @@ from scipy.spatial import distance
 
 import utils
 
-def entropy(p):
-    return -(p[p>0]*np.log2(p[p>0])).sum()
-
 def load_ordered_edge_list(timestamp, gj_conn_type, trial):
     edge_list = np.loadtxt(utils.cs_edge_list_file(timestamp, gj_conn_type, trial),
                            delimiter=",",
@@ -31,11 +28,20 @@ def load_edge_lengths(timestamp, gj_conn_type, trial):
     distances = distance.squareform(distance.pdist(positions))
     return distances
 
+def non_diagonal_entries(a):
+    return np.concatenate([a[np.triu_indices(a.shape[0], k=1)],
+                           a[np.tril_indices(a.shape[0], k=-1)]])
+
 # basic controls
 timestamp = sys.argv[1]
 gj_conn_types = ['2010', '2012']
 n_cells = 45
 n_trials = 1
+
+
+# load experimental data
+exp_couplings = np.loadtxt('../dataSets/koen_data/golgi_pair_couplings.csv')/100
+exp_distances = np.loadtxt('../dataSets/koen_data/golgi_pair_distances.csv')
 
 # initialise data structures for storing results
 coupling_coefficients = {} # coupling coefficients of all cell pairs
@@ -44,7 +50,7 @@ edge_lengths = {} # pairwise distances between all cell pairs
 graphs = {} # abstract graphs representing network realisations
 degrees = {} # degree sequences
 
-# plotting objects
+# initialise plotting objects
 colours = {'2010':'k', '2012':'g'}
 cc_axes = {}
 cc_ims = {}
@@ -86,27 +92,47 @@ for gj_conn_type in gj_conn_types:
                 except IOError:
                     print('Data file not found: {0}'.format(sim_ref))
                     responses[-1][stim_cell, rec_cell] = np.NaN
+        ##=== trial-specific analysis ===
         voltage_deltas = np.abs(responses[0] - responses[0].max()) #correct if hyperpolarising cell
         couplings = voltage_deltas/voltage_deltas.max(axis=1)
         couplings[np.diag_indices(n_cells)] = 0
         coupling_coefficients[gj_conn_type][trial] = couplings
         cc_conn[gj_conn_type].extend([couplings[i,j] for (i,j) in adjacency_list])
-    
 
-    cc_vs_d_ax.scatter(edge_lengths[gj_conn_type].flat,
-                       coupling_coefficients[gj_conn_type].flat,
-                       c=colours[gj_conn_type],
-                       alpha=0.3,
-                       linewidths=0)
+    ##=== network-instantiation specific analysis ===
+    # cc_vs_d_ax.scatter(edge_lengths[gj_conn_type].flat,
+    #                    coupling_coefficients[gj_conn_type].flat,
+    #                    c=colours[gj_conn_type],
+    #                    alpha=0.5,
+    #                    linewidths=0)
+    distinct_cells_idxs = np.logical_and(edge_lengths[gj_conn_type].flat > 0,
+                                         edge_lengths[gj_conn_type].flat < 160)
+    cc_vs_d_ax.hexbin(edge_lengths[gj_conn_type].flat[distinct_cells_idxs],
+                      coupling_coefficients[gj_conn_type].flat[distinct_cells_idxs])
     
     cc_ims[gj_conn_type] = cc_axes[gj_conn_type].imshow(coupling_coefficients[gj_conn_type][0], interpolation='none', cmap='coolwarm')
     cc_ims[gj_conn_type]
     cc_axes[gj_conn_type].set_title(gj_conn_type)
 
+##=== global analysis ===
+
+
+##=== plotting ===
+cc_vs_d_ax.scatter(exp_distances,
+                   exp_couplings,
+                   c='r',
+                   alpha=0.5,
+                   linewidths=0)
+exp_fit_x = np.arange(10, 160, 0.1)
+cc_vs_d_ax.plot(exp_fit_x,
+                0.01*(-2.3+29.7*np.exp(-exp_fit_x/70.4)),
+                c='r',
+                linewidth=1.5)
 
 cc_hist_ax.hist([cc_conn['2010'], cc_conn['2012']],
                 bins=10,
                 color=['k', 'g'],
+                alpha=0.6,
                 label=['2010: {:.4f}$\pm${:.4f}'.format(np.mean(cc_conn['2010']),
                                                         np.std(cc_conn['2010'])),
                        '2012: {:.4f}$\pm${:.4f}'.format(np.mean(cc_conn['2012']),
@@ -116,6 +142,7 @@ cc_hist_ax.legend(loc='best')
 deg_hist_ax.hist([degrees['2010'], degrees['2012']],
                 bins=10,
                 color=['k', 'g'],
+                alpha=0.6,
                 label=['2010: {:.1f}$\pm${:.1f}'.format(degrees['2010'].mean(), degrees['2010'].std()),
                        '2012: {:.1f}$\pm${:.1f}'.format(degrees['2012'].mean(), degrees['2012'].std())])
 deg_hist_ax.legend(loc='best')
