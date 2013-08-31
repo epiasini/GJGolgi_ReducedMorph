@@ -32,7 +32,7 @@ def load_edge_lengths(timestamp, gj_conn_type, trial):
 timestamp = sys.argv[1]
 gj_conn_types = ['2010', '2012']
 n_cells = 45
-n_trials = 1
+n_trials = 10
 
 # load experimental data
 exp_couplings = np.loadtxt('../dataSets/koen_data/golgi_pair_couplings.csv')/100
@@ -57,7 +57,6 @@ deg_hist_fig, deg_hist_ax = plt.subplots()
 cc_hist_fig, cc_hist_ax = plt.subplots()
 
 for gj_conn_type in gj_conn_types:
-    responses = []
     graphs[gj_conn_type] = []
     degrees[gj_conn_type] = np.zeros((n_trials, n_cells))
     coupling_coefficients[gj_conn_type] = np.zeros((n_trials, n_cells, n_cells))
@@ -76,7 +75,7 @@ for gj_conn_type in gj_conn_types:
                                                               gj_conn_type,
                                                               trial)
         # load voltage responses
-        responses.append(np.zeros(shape=(n_cells,n_cells), dtype=np.float))
+        responses = np.zeros(shape=(n_cells,n_cells), dtype=np.float)
         for stim_cell in range(n_cells):
             sim_ref = utils.cs_sim_ref(timestamp,
                                        gj_conn_type,
@@ -85,12 +84,12 @@ for gj_conn_type in gj_conn_types:
             for rec_cell in range(n_cells):
                 filename = '../scriptedSimulations/{0}/Golgi_network_reduced_TTX_{1}.dat'.format(sim_ref, rec_cell)
                 try:
-                    responses[-1][stim_cell, rec_cell] = np.loadtxt(filename)[-1]
+                    responses[stim_cell, rec_cell] = np.loadtxt(filename)[-1]
                 except IOError:
                     print('Data file not found: {0}'.format(sim_ref))
-                    responses[-1][stim_cell, rec_cell] = np.NaN
+                    responses[stim_cell, rec_cell] = np.NaN
         ##=== trial-specific analysis ===
-        voltage_deltas = np.abs(responses[0] - responses[0].max()) #correct if hyperpolarising cell
+        voltage_deltas = np.abs(responses - responses.max()) #correct if hyperpolarising cell
         couplings = voltage_deltas/voltage_deltas.max(axis=1)
         couplings[np.diag_indices(n_cells)] = 0
         coupling_coefficients[gj_conn_type][trial] = couplings
@@ -99,11 +98,12 @@ for gj_conn_type in gj_conn_types:
     ##=== network-instantiation specific analysis ===
     # only include cell pairs whose distance is less than 160um when
     # estimating the "cc vs distance" relationship
-    cells_idxs = np.logical_and(edge_lengths[gj_conn_type].flat > 0,
-                                         edge_lengths[gj_conn_type].flat < 160)
-    cc_vs_d_axes[gj_conn_type].hexbin(edge_lengths[gj_conn_type].flat[cells_idxs],
-                                      coupling_coefficients[gj_conn_type].flat[cells_idxs],
-                                      cmap='bone')
+    cell_idxs = edge_lengths[gj_conn_type].flat > 0
+    cc_vs_d_axes[gj_conn_type].scatter(edge_lengths[gj_conn_type].flat[cell_idxs],
+                                       coupling_coefficients[gj_conn_type].flat[cell_idxs],
+                                       c=colours[gj_conn_type],
+                                       alpha=0.2,
+                                       linewidths=0)
     cc_vs_d_axes[gj_conn_type].scatter(exp_distances,
                                        exp_couplings,
                                        c='r',
