@@ -27,7 +27,7 @@ project_file = File(project_path)
 project = pm.loadProject(project_file)
 
 
-n_trials = 10
+n_trials = 25
 sim_refs = []
 
 for gj_conn_type in ['2010', '2012']:

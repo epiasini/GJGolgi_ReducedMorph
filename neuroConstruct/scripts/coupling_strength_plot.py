@@ -24,10 +24,14 @@ def load_unique_edge_list(timestamp, gj_conn_type, trial):
     return np.array(list(set([tuple(x) for x in edge_list])))
 
 def load_edge_lengths(timestamp, gj_conn_type, trial):
-    positions = np.loadtxt(utils.cs_cell_positions_file(timestamp, gj_conn_type, trial),
-                           delimiter=",")
+    positions = load_positions(timestamp, gj_conn_type, trial)
     distances = distance.squareform(distance.pdist(positions))
     return distances
+
+def load_positions(timestamp, gj_conn_type, trial):
+    positions = np.loadtxt(utils.cs_cell_positions_file(timestamp, gj_conn_type, trial),
+                           delimiter=",")
+    return positions
 
 def exp_decay(x, a, b):
     return a*np.exp(-b * x)
@@ -46,15 +50,19 @@ n_cells = 45
 n_trials = 25
 
 # load experimental data
-exp_couplings = np.loadtxt('../dataSets/koen_data/golgi_pair_couplings.csv')/100
-exp_distances = np.loadtxt('../dataSets/koen_data/golgi_pair_distances.csv')
+exp_couplings = np.loadtxt('../dataSets/koen_data/golgi_pair_couplings_nonzero.csv')/100
+exp_distances = np.loadtxt('../dataSets/koen_data/golgi_pair_distances_nonzero.csv')
 
 # initialise data structures for storing results
 coupling_coefficients = {} # coupling coefficients of all cell pairs
 cc_conn = {} # coupling coefficients of anatomically connected cell pairs
 edge_lengths = {} # pairwise distances between all cell pairs
+dist_conn = {} # distances between anatomically connected cells
 graphs = {} # abstract graphs representing network realisations
-graphs_weighted = {}
+graphs_weighted = {} # graphs containing information on cell positions
+                     # and connection strengths. These can be saved as
+                     # graphml files and imported eg in Gephi for
+                     # plotting.
 degrees = {} # degree sequences
 
 # initialise plotting objects
@@ -74,9 +82,13 @@ for gj_conn_type in gj_conn_types:
     degrees[gj_conn_type] = np.zeros((n_trials, n_cells))
     coupling_coefficients[gj_conn_type] = np.zeros((n_trials, n_cells, n_cells))
     cc_conn[gj_conn_type] = []
+    dist_conn[gj_conn_type] = []
     edge_lengths[gj_conn_type] = np.zeros((n_trials, n_cells, n_cells))
     for trial in range(n_trials):
         # load network structure
+        positions = load_positions(timestamp,
+                                   gj_conn_type,
+                                   trial)
         adjacency_list = load_unique_edge_list(timestamp,
                                                gj_conn_type,
                                                trial)
@@ -84,6 +96,9 @@ for gj_conn_type in gj_conn_types:
         g.add_edges_from(adjacency_list)
         graphs[gj_conn_type].append(g)
         graphs_weighted[gj_conn_type].append(g)
+        for node in range(n_cells):
+            g.node[node]['x'] = positions[node][0]
+            g.node[node]['y'] = positions[node][2]
         degrees[gj_conn_type][trial] = np.array(nx.degree(g).values())
         edge_lengths[gj_conn_type][trial] = load_edge_lengths(timestamp,
                                                               gj_conn_type,
@@ -103,28 +118,34 @@ for gj_conn_type in gj_conn_types:
                     print('Data file not found: {0}'.format(sim_ref))
                     responses[stim_cell, rec_cell] = np.NaN
         ##=== trial-specific analysis ===
-        voltage_deltas = np.abs(responses - responses.max()) #correct if hyperpolarising cell
+        voltage_deltas = np.abs(responses - responses.max()) #correct if hyperpolarising cell and if there is at least a pair of cells with near-zero coupling
         couplings = voltage_deltas/voltage_deltas.max(axis=1)
         couplings[np.diag_indices(n_cells)] = 0
         coupling_coefficients[gj_conn_type][trial] = couplings
         cc_conn[gj_conn_type].extend([couplings[i,j] for (i,j) in adjacency_list])
+        dist_conn[gj_conn_type].extend([edge_lengths[gj_conn_type][trial][i,j] for (i,j) in adjacency_list])
         for (i,j) in adjacency_list:
             graphs_weighted[gj_conn_type][trial][i][j]['weight'] = couplings[i,j]
 
-    ##=== network-instantiation specific analysis ===
+    ##=== connection type-specific analysis ===
     # only include cell pairs whose distance is less than 160um when
     # estimating the "cc vs distance" relationship
-    cell_idxs = edge_lengths[gj_conn_type].flat > 0
-    cc_vs_d_axes[gj_conn_type].scatter(edge_lengths[gj_conn_type].flat[cell_idxs],
-                                       coupling_coefficients[gj_conn_type].flat[cell_idxs],
+    # cell_idxs = edge_lengths[gj_conn_type].flat > 0
+    # cc_vs_d_axes[gj_conn_type].scatter(edge_lengths[gj_conn_type].flat[cell_idxs],
+    #                                    coupling_coefficients[gj_conn_type].flat[cell_idxs],
+    #                                    c=colours[gj_conn_type],
+    #                                    alpha=0.2,
+    #                                    linewidths=0)
+    cc_vs_d_axes[gj_conn_type].scatter(dist_conn[gj_conn_type],
+                                       cc_conn[gj_conn_type],
                                        c=colours[gj_conn_type],
                                        alpha=0.2,
                                        linewidths=0)
     a, b = curve_fit(exp_decay,
-                     edge_lengths[gj_conn_type].flat[cell_idxs],
-                     coupling_coefficients[gj_conn_type].flat[cell_idxs],
+                     np.array(dist_conn[gj_conn_type]),
+                     np.array(cc_conn[gj_conn_type]),
                      p0=[0.5, 1./60])[0]
-    fit_x_model = np.arange(10, 320, 0.1)
+    fit_x_model = np.arange(10, 160, 0.1)
     cc_vs_d_axes[gj_conn_type].plot(fit_x_model,
                                     exp_decay(fit_x_model, a, b),
                                     c='y',
@@ -166,12 +187,14 @@ for gj_conn_type in gj_conn_types:
 cc_hist_ax.hist([cc_conn['2010'], cc_conn['2012']],
                 bins=15,
                 normed=True,
+                histtype='bar',
                 color=['k', 'g'],
                 alpha=0.6,
                 label=['2010: {:.4f}$\pm${:.4f}'.format(np.mean(cc_conn['2010']),
                                                         np.std(cc_conn['2010'])),
                        '2012: {:.4f}$\pm${:.4f}'.format(np.mean(cc_conn['2012']),
                                                         np.std(cc_conn['2012']))])
+cc_hist_ax.set_xlabel('coupling coefficient')
 cc_hist_fig.suptitle('Coupling coefficient for directly connected pairs')
 cc_hist_ax.legend(loc='best')
 prettify_axes(cc_hist_ax)
@@ -181,11 +204,13 @@ max_degree = max(degrees['2010'].max(), degrees['2012'].max())
 deg_hist_ax.hist([degrees['2010'], degrees['2012']],
                 bins=max_degree-min_degree+1,
                 range=(min_degree-0.5, max_degree+0.5),
+                histtype='bar',
                 normed=True,
                 color=['k', 'g'],
                 alpha=0.6,
                 label=['2010: {:.1f}$\pm${:.1f}'.format(degrees['2010'].mean(), degrees['2010'].std()),
                        '2012: {:.1f}$\pm${:.1f}'.format(degrees['2012'].mean(), degrees['2012'].std())])
+deg_hist_ax.set_xlabel('degree')
 deg_hist_fig.suptitle('Degree distribution')
 deg_hist_ax.legend(loc='best')
 prettify_axes(deg_hist_ax)
