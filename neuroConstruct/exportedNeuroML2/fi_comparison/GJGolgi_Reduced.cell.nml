@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2  https://raw.github.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta1.xsd" id="GJGolgi_Reduced">
+
+    <include href="CaHVA_CML.channel.nml"/>
+
+    <include href="CaLVA_CML.channel.nml"/>
+
+    <include href="Golgi_CALC_ca2_CML.channel.nml"/>
+
+    <include href="Golgi_CALC_CML.channel.nml"/>
+
+    <include href="hcn1f_CML.channel.nml"/>
+
+    <include href="hcn1s_CML.channel.nml"/>
+
+    <include href="hcn2f_CML.channel.nml"/>
+
+    <include href="hcn2s_CML.channel.nml"/>
+
+    <include href="KA_CML.channel.nml"/>
+
+    <include href="KAHP_CML.channel.nml"/>
+
+    <include href="KC_CML.channel.nml"/>
+
+    <include href="Kslow_CML.channel.nml"/>
+
+    <include href="KV_CML.channel.nml"/>
+
+    <include href="LeakCond.channel.nml"/>
+
+    <include href="NaP_CML.channel.nml"/>
+
+    <include href="NaR_CML.channel.nml"/>
+
+    <include href="NaT_CML.channel.nml"/>
+
+    <include href="VariableLeakConductance.channel.nml"/>
+
+    <cell id="GJGolgi_Reduced">
+
+        <notes>A single segment/compartment cell</notes>
+
+        <morphology id="morphology_GJGolgi_Reduced">
+
+            <segment id="0" name="Soma">
+                <proximal x="0.0" y="0.0" z="0.0" diameter="20.0"/>
+                <distal x="0.0" y="0.0" z="0.0" diameter="20.0"/>
+            </segment>
+
+            <segment id="3" name="Dend_ap_1_1">
+                <parent segment="0" fractionAlong="0.5"/>
+                <proximal x="0.0" y="0.0" z="0.0" diameter="1.1"/>
+                <distal x="-50.0" y="50.0" z="0.0" diameter="0.9"/>
+            </segment>
+
+            <segment id="4" name="Dend_ap_2_1">
+                <parent segment="0" fractionAlong="0.5"/>
+                <proximal x="0.0" y="0.0" z="0.0" diameter="1.1"/>
+                <distal x="50.0" y="50.0" z="0.0" diameter="0.9"/>
+            </segment>
+
+            <segment id="5" name="Dend_ap_2_2">
+                <parent segment="4"/>
+                <proximal x="50.0" y="50.0" z="0.0" diameter="0.9"/>
+                <distal x="100.0" y="100.0" z="0.0" diameter="0.7"/>
+            </segment>
+
+            <segment id="6" name="Dend_ap_2_3">
+                <parent segment="5"/>
+                <proximal x="100.0" y="100.0" z="0.0" diameter="0.7"/>
+                <distal x="150.0" y="150.0" z="0.0" diameter="0.7"/>
+            </segment>
+
+            <segment id="7" name="Dend_ap_1_2">
+                <parent segment="3"/>
+                <proximal x="-50.0" y="50.0" z="0.0" diameter="0.9"/>
+                <distal x="-100.0" y="100.0" z="0.0" diameter="0.7"/>
+            </segment>
+
+            <segment id="8" name="Dend_ap_1_3">
+                <parent segment="7"/>
+                <proximal x="-100.0" y="100.0" z="0.0" diameter="0.7"/>
+                <distal x="-150.0" y="150.0" z="0.0" diameter="0.7"/>
+            </segment>
+
+            <segment id="9" name="Dend_bl_1">
+                <parent segment="0" fractionAlong="0.5"/>
+                <proximal x="0.0" y="0.0" z="0.0" diameter="1.0"/>
+                <distal x="30.0" y="-20.0" z="0.0" diameter="1.0"/>
+            </segment>
+
+            <segment id="10" name="Dend_bl_2">
+                <parent segment="0" fractionAlong="0.5"/>
+                <proximal x="0.0" y="0.0" z="0.0" diameter="1.0"/>
+                <distal x="-30.0" y="-20.0" z="0.0" diameter="1.0"/>
+            </segment>
+
+            <segment id="11" name="Axon">
+                <parent segment="0" fractionAlong="0.5"/>
+                <proximal x="0.0" y="0.0" z="0.0" diameter="1.4"/>
+                <distal x="0.0" y="-200.0" z="0.0" diameter="1.4"/>
+            </segment>
+
+            <segmentGroup id="Soma">
+                <member segment="0"/>
+            </segmentGroup>
+
+            <segmentGroup id="Dend_ap_1">
+                <member segment="3"/>
+            </segmentGroup>
+
+            <segmentGroup id="Dend_ap_2">
+                <member segment="4"/>
+            </segmentGroup>
+
+            <segmentGroup id="Dend_ap_2_2">
+                <member segment="5"/>
+            </segmentGroup>
+
+            <segmentGroup id="Dend_ap_2_3">
+                <member segment="6"/>
+            </segmentGroup>
+
+            <segmentGroup id="Dend_ap_1_2">
+                <member segment="7"/>
+            </segmentGroup>
+
+            <segmentGroup id="Dend_ap_1_3">
+                <member segment="8"/>
+            </segmentGroup>
+
+            <segmentGroup id="Dend_bl_1">
+                <member segment="9"/>
+            </segmentGroup>
+
+            <segmentGroup id="Dend_bl_2">
+                <member segment="10"/>
+            </segmentGroup>
+
+            <segmentGroup id="Axon">
+                <member segment="11"/>
+            </segmentGroup>
+
+            <segmentGroup id="all">
+                <include segmentGroup="Soma"/>
+                <include segmentGroup="Dend_ap_1"/>
+                <include segmentGroup="Dend_ap_2"/>
+                <include segmentGroup="Dend_ap_2_2"/>
+                <include segmentGroup="Dend_ap_2_3"/>
+                <include segmentGroup="Dend_ap_1_2"/>
+                <include segmentGroup="Dend_ap_1_3"/>
+                <include segmentGroup="Dend_bl_1"/>
+                <include segmentGroup="Dend_bl_2"/>
+                <include segmentGroup="Axon"/>
+            </segmentGroup>
+
+            <segmentGroup id="soma_group">
+                <include segmentGroup="Soma"/>
+            </segmentGroup>
+
+            <segmentGroup id="basolateral_soma">
+                <include segmentGroup="Soma"/>
+                <include segmentGroup="Dend_bl_1"/>
+                <include segmentGroup="Dend_bl_2"/>
+            </segmentGroup>
+
+            <segmentGroup id="dendrite_group">
+                <include segmentGroup="Dend_ap_1"/>
+                <include segmentGroup="Dend_ap_2"/>
+                <include segmentGroup="Dend_ap_2_2"/>
+                <include segmentGroup="Dend_ap_2_3"/>
+                <include segmentGroup="Dend_ap_1_2"/>
+                <include segmentGroup="Dend_ap_1_3"/>
+                <include segmentGroup="Dend_bl_1"/>
+                <include segmentGroup="Dend_bl_2"/>
+            </segmentGroup>
+
+            <segmentGroup id="apical">
+                <include segmentGroup="Dend_ap_1"/>
+                <include segmentGroup="Dend_ap_2"/>
+                <include segmentGroup="Dend_ap_2_2"/>
+                <include segmentGroup="Dend_ap_2_3"/>
+                <include segmentGroup="Dend_ap_1_2"/>
+                <include segmentGroup="Dend_ap_1_3"/>
+            </segmentGroup>
+
+            <segmentGroup id="GCL">
+                <include segmentGroup="Dend_ap_1"/>
+                <include segmentGroup="Dend_ap_2"/>
+                <include segmentGroup="Dend_bl_1"/>
+                <include segmentGroup="Dend_bl_2"/>
+            </segmentGroup>
+
+            <segmentGroup id="parallel_fibres">
+                <include segmentGroup="Dend_ap_2_2"/>
+                <include segmentGroup="Dend_ap_2_3"/>
+                <include segmentGroup="Dend_ap_1_2"/>
+                <include segmentGroup="Dend_ap_1_3"/>
+            </segmentGroup>
+
+            <segmentGroup id="ML1">
+                <include segmentGroup="Dend_ap_2_2"/>
+                <include segmentGroup="Dend_ap_1_2"/>
+            </segmentGroup>
+
+            <segmentGroup id="ML2_3">
+                <include segmentGroup="Dend_ap_2_3"/>
+                <include segmentGroup="Dend_ap_1_3"/>
+            </segmentGroup>
+
+            <segmentGroup id="ML2">
+                <include segmentGroup="Dend_ap_2_3"/>
+                <include segmentGroup="Dend_ap_1_3"/>
+            </segmentGroup>
+
+            <segmentGroup id="ML3">
+                <include segmentGroup="Dend_ap_2_3"/>
+                <include segmentGroup="Dend_ap_1_3"/>
+            </segmentGroup>
+
+            <segmentGroup id="basolateral">
+                <include segmentGroup="Dend_bl_1"/>
+                <include segmentGroup="Dend_bl_2"/>
+            </segmentGroup>
+
+            <segmentGroup id="axon_group">
+                <include segmentGroup="Axon"/>
+            </segmentGroup>
+
+            
+        </morphology>
+
+            <!--Adding the biophysical parameters-->
+
+        <biophysicalProperties id="biophys">
+
+            <membraneProperties>
+
+                <channelDensity condDensity="0.25 mS_per_cm2" id="CaLVA_CML_soma_group" ionChannel="CaLVA_CML" segmentGroup="soma_group" ion="ca2" erev="132.458 mV"/>
+
+                <channelDensity condDensity="0.05 mS_per_cm2" id="hcn1f_CML_soma_group" ionChannel="hcn1f_CML" segmentGroup="soma_group" ion="h" erev="-20.0 mV"/>
+
+                <channelDensity condDensity="0.05 mS_per_cm2" id="hcn1s_CML_soma_group" ionChannel="hcn1s_CML" segmentGroup="soma_group" ion="h" erev="-20.0 mV"/>
+
+                <channelDensity condDensity="0.08 mS_per_cm2" id="hcn2f_CML_soma_group" ionChannel="hcn2f_CML" segmentGroup="soma_group" ion="h" erev="-20.0 mV"/>
+
+                <channelDensity condDensity="0.08 mS_per_cm2" id="hcn2s_CML_soma_group" ionChannel="hcn2s_CML" segmentGroup="soma_group" ion="h" erev="-20.0 mV"/>
+
+                <channelDensity condDensity="8.0 mS_per_cm2" id="KA_CML_soma_group" ionChannel="KA_CML" segmentGroup="soma_group" ion="k" erev="-84.69 mV"/>
+
+                <channelDensity condDensity="38.0 mS_per_cm2" id="KAHP_CML_soma_group" ionChannel="KAHP_CML" segmentGroup="soma_group" ion="k" erev="-84.69 mV"/>
+
+                <channelDensity condDensity="3.0 mS_per_cm2" id="KC_CML_soma_group" ionChannel="KC_CML" segmentGroup="soma_group" ion="k" erev="-85.0 mV"/>
+
+                <channelDensity condDensity="1.0 mS_per_cm2" id="Kslow_CML_soma_group" ionChannel="Kslow_CML" segmentGroup="soma_group" ion="k" erev="-85.0 mV"/>
+
+                <channelDensity condDensity="32.0 mS_per_cm2" id="KV_CML_soma_group" ionChannel="KV_CML" segmentGroup="soma_group" ion="k" erev="-84.69 mV"/>
+
+                <channelDensity condDensity="0.0667 mS_per_cm2" id="LeakCond_all" ionChannel="LeakCond" erev="-55.0 mV"/>
+
+                <channelDensity condDensity="0.19 mS_per_cm2" id="NaP_CML_soma_group" ionChannel="NaP_CML" segmentGroup="soma_group" ion="na" erev="-85.0 mV"/>
+
+                <channelDensity condDensity="1.7 mS_per_cm2" id="NaR_CML_soma_group" ionChannel="NaR_CML" segmentGroup="soma_group" ion="na" erev="-85.0 mV"/>
+
+                <channelDensity condDensity="48.0 mS_per_cm2" id="NaT_CML_soma_group" ionChannel="NaT_CML" segmentGroup="soma_group" ion="na" erev="-85.0 mV"/>
+
+                <channelDensity condDensity="0.0 mS_per_cm2" id="VariableLeakConductance_all" ionChannel="VariableLeakConductance" erev="-55.0 mV" ion="non_specific"/>
+
+                    <!--Reversal potential for ca in CaHVA_CML will be calculated by Nernst equation from internal & external calcium-->
+
+
+                <channelDensityNernst condDensity="0.46 mS_per_cm2" id="CaHVA_CML_soma_group" ionChannel="CaHVA_CML" segmentGroup="soma_group" ion="ca"/>
+
+                
+
+                <spikeThresh value="0 mV"/>
+
+                <specificCapacitance value="1.0 uF_per_cm2"/>
+
+                <initMembPotential value="-60.0 mV"/>
+
+            </membraneProperties>
+
+            <intracellularProperties>
+
+                <species segmentGroup="soma_group" thickness="0.20304" id="ca" ion="ca" concentrationModel="Golgi_CALC_CML">    <!--Note: Units of extra parameters are not known, except if it's e or erev!!-->
+</species>
+
+                <species segmentGroup="soma_group" thickness="0.20304" id="ca2" ion="ca2" concentrationModel="Golgi_CALC_ca2_CML">    <!--Note: Units of extra parameters are not known, except if it's e or erev!!-->
+</species>
+
+                <resistivity value="0.28 kohm_cm"/>
+
+            </intracellularProperties>
+
+        </biophysicalProperties>
+
+    </cell>
+    
+</neuroml>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2  https://raw.github.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta1.xsd" id="network_GJGolgi_ReducedMorph">
+
+    <notes>
+
+Network structure (NeuroML 2beta1) for project: GJGolgi_ReducedMorph saved with neuroConstruct v1.7.0 on: 10:44:36, 10-Dec-13
+
+Cell Group: Golgi_Solinas contains 1 cells
+Cell Group: Golgi_Vervaeke contains 1 cells
+Cell Group: Golgi_reduced contains 1 cells
+
+
+
+    </notes>
+
+
+    <include href="Ca_HVA.warning"/>
+    <include href="Ca_LVA.warning"/>
+    <include href="CaHVA_CML.channel.nml"/>
+    <include href="CALC.warning"/>
+    <include href="CALC_ca2.warning"/>
+    <include href="CaLVA_CML.channel.nml"/>
+    <include href="GJGolgi_Reduced.cell.nml"/>
+    <include href="Golgi_210710_C1.cell.nml"/>
+    <include href="Golgi_CALC_ca2_CML.nml"/>
+    <include href="Golgi_CALC_CML.nml"/>
+    <include href="Golgi_CML.cell.nml"/>
+    <include href="HCN1.warning"/>
+    <include href="hcn1f_CML.channel.nml"/>
+    <include href="hcn1s_CML.channel.nml"/>
+    <include href="HCN2.warning"/>
+    <include href="hcn2f_CML.channel.nml"/>
+    <include href="hcn2s_CML.channel.nml"/>
+    <include href="KA.warning"/>
+    <include href="KA_CML.channel.nml"/>
+    <include href="KAHP_CML.channel.nml"/>
+    <include href="KBK.warning"/>
+    <include href="KC_CML.channel.nml"/>
+    <include href="KM.warning"/>
+    <include href="KSK.warning"/>
+    <include href="Kslow_CML.channel.nml"/>
+    <include href="KV.warning"/>
+    <include href="KV_CML.channel.nml"/>
+    <include href="LeakCond.channel.nml"/>
+    <include href="LeakConductance.channel.nml"/>
+    <include href="NaP.warning"/>
+    <include href="NaP_CML.channel.nml"/>
+    <include href="NaR.warning"/>
+    <include href="NaR_CML.channel.nml"/>
+    <include href="NaT.warning"/>
+    <include href="NaT_CML.channel.nml"/>
+    <include href="VariableLeakConductance.channel.nml"/>
+
+    <pulseGenerator id="cclamp_solinas" delay="0.0s" duration="1.0s" amplitude="2.0E-10A"/>
+
+    
+
+    <pulseGenerator id="cclamp_reduced" delay="0.0s" duration="1.0s" amplitude="2.0E-10A"/>
+
+    
+
+    <pulseGenerator id="cclamp_vervaeke" delay="0.0s" duration="1.0s" amplitude="2.0E-10A"/>
+
+    
+    <network id="network_GJGolgi_ReducedMorph" type="networkWithTemperature" temperature="23.0 degC">
+
+        
+
+        <population id="Golgi_Solinas" component="Golgi_CML" type="populationList" size="1">
+            <instance id="0" node_id="0">
+                <location x="138.96768" y="31.8686" z="309.0653"/>
+            </instance>
+        </population>
+
+        <population id="Golgi_Vervaeke" component="Golgi_210710_C1" type="populationList" size="1">
+            <instance id="0" node_id="0">
+                <location x="37.961693" y="17.896572" z="21.087202"/>
+            </instance>
+        </population>
+
+        <population id="Golgi_reduced" component="GJGolgi_Reduced" type="populationList" size="1">
+            <instance id="0" node_id="0">
+                <location x="17.28928" y="68.70041" z="88.03763"/>
+            </instance>
+        </population>
+
+
+
+            <!--There are no synaptic connections present in the network-->
+
+
+        <inputList id="cclamp_solinas" component="cclamp_solinas" population="Golgi_Solinas">
+            <input id="0" target="../Golgi_Solinas/0/Golgi_CML" destination="synapses"/>
+        </inputList>
+
+
+
+        <inputList id="cclamp_reduced" component="cclamp_reduced" population="Golgi_reduced">
+            <input id="0" target="../Golgi_reduced/0/GJGolgi_Reduced" destination="synapses"/>
+        </inputList>
+
+
+
+        <inputList id="cclamp_vervaeke" component="cclamp_vervaeke" population="Golgi_Vervaeke">
+            <input id="0" target="../Golgi_Vervaeke/0/Golgi_210710_C1" destination="synapses"/>
+        </inputList>
+
+
+
+
+
+    </network>
+
+</neuroml>

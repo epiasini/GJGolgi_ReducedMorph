@@ -1,0 +1,86 @@
+<Lems xmlns="http://www.neuroml.org/lems/0.7.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.neuroml.org/lems/0.7.2  https://raw.github.com/LEMS/LEMS/development/Schemas/LEMS/LEMS_v0.7.2.xsd">
+
+    <Target component="sim1" reportFile="/home/eugenio/phd/nC_projects/GJGolgi_ReducedMorph/neuroConstruct/simulations/Sim_228/simulator.props" timesFile="/home/eugenio/phd/nC_projects/GJGolgi_ReducedMorph/neuroConstruct/simulations/Sim_228/time.dat"/>
+
+        <!--Include standard NeuroML 2 ComponentType definitions-->
+
+    <Include file="Cells.xml"/>
+    <Include file="Networks.xml"/>
+    <Include file="Simulation.xml"/>
+
+    <Include file="PyNN.xml"/>
+
+    
+
+        <!--Include the generated NeuroML 2 files-->
+
+
+        <!--   Channel/synapse files-->
+    <Include file="Ca_HVA.warning"/>
+    <Include file="Ca_LVA.warning"/>
+    <Include file="CaHVA_CML.channel.nml"/>
+    <Include file="CALC.warning"/>
+    <Include file="CALC_ca2.warning"/>
+    <Include file="CaLVA_CML.channel.nml"/>
+    <Include file="Golgi_CALC_ca2_CML.nml"/>
+    <Include file="Golgi_CALC_CML.nml"/>
+    <Include file="HCN1.warning"/>
+    <Include file="hcn1f_CML.channel.nml"/>
+    <Include file="hcn1s_CML.channel.nml"/>
+    <Include file="HCN2.warning"/>
+    <Include file="hcn2f_CML.channel.nml"/>
+    <Include file="hcn2s_CML.channel.nml"/>
+    <Include file="KA.warning"/>
+    <Include file="KA_CML.channel.nml"/>
+    <Include file="KAHP_CML.channel.nml"/>
+    <Include file="KBK.warning"/>
+    <Include file="KC_CML.channel.nml"/>
+    <Include file="KM.warning"/>
+    <Include file="KSK.warning"/>
+    <Include file="Kslow_CML.channel.nml"/>
+    <Include file="KV.warning"/>
+    <Include file="KV_CML.channel.nml"/>
+    <Include file="LeakCond.channel.nml"/>
+    <Include file="LeakConductance.channel.nml"/>
+    <Include file="NaP.warning"/>
+    <Include file="NaP_CML.channel.nml"/>
+    <Include file="NaR.warning"/>
+    <Include file="NaR_CML.channel.nml"/>
+    <Include file="NaT.warning"/>
+    <Include file="NaT_CML.channel.nml"/>
+    <Include file="VariableLeakConductance.channel.nml"/>
+        <!--   Cell files-->
+    <Include file="GJGolgi_Reduced.cell.nml"/>
+    <Include file="Golgi_210710_C1.cell.nml"/>
+    <Include file="Golgi_CML.cell.nml"/>
+        <!--   Network file-->
+    <Include file="GJGolgi_ReducedMorph.net.nml"/>
+    
+
+        <!--Note: this could be: Simulation id="sim1" ... , but Component type="Simulation" ... 
+        is used to allow validation of this file according to the LEMS schema specified above...-->
+    <Component type="Simulation" id="sim1" length="1000.0ms" step="0.05ms" target="network_GJGolgi_ReducedMorph">
+        
+        <Display id="Golgi_Solinas_v" title="GJGolgi_ReducedMorph: fi_comparison, Golgi_Vervaeke, VOLTAGE, VOLTAGE, VOLTAGE" xmin="-0.1" xmax="1.1" ymin="-0.104" ymax="0.064" timeScale="1s">
+            <Line id="VOLTAGE-Golgi_Vervaeke_0" timeScale="1s" quantity="Golgi_Vervaeke/0/Golgi_210710_C1/v" scale="1 V" color="#000000"/>
+        
+            <Line id="VOLTAGE-Golgi_reduced_0" timeScale="1s" quantity="Golgi_reduced/0/GJGolgi_Reduced/v" scale="1 V" color="#ff0000"/>
+        
+            <Line id="VOLTAGE-Golgi_Solinas_0" timeScale="1s" quantity="Golgi_Solinas/0/Golgi_CML/v" scale="1 V" color="#0000ff"/>
+        </Display>
+    
+        <OutputFile id="Golgi_detailed_v_OF" fileName="/home/eugenio/phd/nC_projects/GJGolgi_ReducedMorph/neuroConstruct/simulations/Sim_228/Golgi_Vervaeke_0.dat">
+            <OutputColumn id="v" quantity="Golgi_Vervaeke/0/Golgi_210710_C1/v"/>
+        </OutputFile>
+    
+        <OutputFile id="Golgi_reduced_v_OF" fileName="/home/eugenio/phd/nC_projects/GJGolgi_ReducedMorph/neuroConstruct/simulations/Sim_228/Golgi_reduced_0.dat">
+            <OutputColumn id="v" quantity="Golgi_reduced/0/GJGolgi_Reduced/v"/>
+        </OutputFile>
+    
+        <OutputFile id="Golgi_Solinas_v_OF" fileName="/home/eugenio/phd/nC_projects/GJGolgi_ReducedMorph/neuroConstruct/simulations/Sim_228/Golgi_Solinas_0.dat">
+            <OutputColumn id="v" quantity="Golgi_Solinas/0/Golgi_CML/v"/>
+        </OutputFile>
+    </Component>
+
+
+</Lems>
