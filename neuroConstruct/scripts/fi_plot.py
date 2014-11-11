@@ -5,11 +5,15 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 timestamp = sys.argv[1]
-current_amplitude_range = range(0, 440, 40)
+current_amplitude_range = np.arange(-25000, 500, 500)
+sim_duration = 6. #(s)
+transient = 1. #(s)
+
+colors = ['k', 'r', 'g']
 
 fig, ax = plt.subplots()
 
-for cell_name in ['reduced', 'Vervaeke', 'Solinas']:
+for k, cell_name in enumerate(['Solinas', 'Vervaeke', 'reduced']):
     data = []
     threshold = 'min20'
     for amplitude in current_amplitude_range:
@@ -18,11 +22,23 @@ for cell_name in ['reduced', 'Vervaeke', 'Solinas']:
 										cell_name,
 										threshold)
 	try:
-	    data.append(len(np.loadtxt(filename)))
+            spikes = np.loadtxt(filename)
+            rate = np.sum(spikes > transient)/(sim_duration - transient)
+	    data.append(rate)
 	except TypeError:
 	    data.append(0)
-    ax.plot(current_amplitude_range, data, label=cell_name, marker='o')
+    ax.plot(current_amplitude_range/1000.,
+            data,
+            label=cell_name,
+            marker='o',
+            color=colors[k],
+            linestyle='')
 ax.legend(loc='best')
 ax.set_xlabel('injected current (pA)')
 ax.set_ylabel('firing rate (Hz)')
+ax.xaxis.set_ticks_position('bottom')
+ax.yaxis.set_ticks_position('left')
+ax.spines['right'].set_color('none')
+ax.spines['top'].set_color('none')
+fig.savefig('test.png')
 plt.show()

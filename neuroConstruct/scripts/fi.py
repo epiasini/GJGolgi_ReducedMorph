@@ -23,7 +23,7 @@ sim_config_name = 'fi_comparison'
 sim_config = project.simConfigInfo.getSimConfig(sim_config_name)
 project.neuronSettings.setNoConsole()
 
-current_amplitude_range = range(0., 440., 40.)
+current_amplitude_in_fa_range = range(-25000, 500, 500)
 
 
 # generate
@@ -32,14 +32,14 @@ while pm.isGenerating():
     time.sleep(0.02)
 
 sim_refs = deque()
-for amplitude in current_amplitude_range:
-    sim_ref = 'b' + timestamp + '_' + str(int(round(amplitude)))
+for amplitude_in_fa in current_amplitude_in_fa_range:
+    sim_ref = 'b' + timestamp + '_' + str(int(round(amplitude_in_fa)))
     sim_refs.append(sim_ref)
     sim_path = '../simulations/' + sim_ref
     project.simulationParameters.setReference(sim_ref)
     # set current clamp amplitude
-    amplitude_in_na = amplitude/1000.
     for cell_type in ['reduced', 'vervaeke', 'solinas']:
+        amplitude_in_na = amplitude_in_fa/1000000.
 	stim = project.elecInputInfo.getStim('cclamp_' + cell_type)
 	stim.setAmp(NumberGenerator(amplitude_in_na))
 	project.elecInputInfo.updateStim(stim)
