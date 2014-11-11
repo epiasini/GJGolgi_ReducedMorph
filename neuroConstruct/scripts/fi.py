@@ -23,7 +23,7 @@ sim_config_name = 'fi_comparison'
 sim_config = project.simConfigInfo.getSimConfig(sim_config_name)
 project.neuronSettings.setNoConsole()
 
-current_amplitude_in_fa_range = range(-25000, 500, 500)
+current_amplitude_in_fa_range = [-25.e3, -20.e3, -15.e3, -10.e3, -5.e3, 0., 50.e3, 100.e3, 150.e3, 200.e3, 250.e3]
 
 
 # generate
