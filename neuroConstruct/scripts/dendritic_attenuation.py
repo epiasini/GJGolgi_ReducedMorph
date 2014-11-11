@@ -76,7 +76,7 @@ locs = []
 detailed_seg_ids = []
 
 # basic simulation setup
-sim_ref = timestamp
+sim_ref = 'da' + timestamp
 sim_path = '../simulations/' + sim_ref
 project.simulationParameters.setReference(sim_ref)
 # pick segment to be stimulated on detailed cell
@@ -118,7 +118,7 @@ if compile_success:
     while not os.path.exists(timefile_path):
 	time.sleep(0.1)
 
-data_string = "Data reference " + timestamp
+data_string = "Data reference " + sim_ref
 for k,i in enumerate(rec_segs_detailed):
     data_string = data_string + " " + str(i) + " " + str(rec_dists_detailed[k])
 print data_string
