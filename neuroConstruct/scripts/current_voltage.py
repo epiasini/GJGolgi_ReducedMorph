@@ -25,7 +25,7 @@ project = pm.loadProject(project_file)
 timestamp_prefix = 'ir_'
 
 stim_amplitude_range = range(-200., 220., 50.)
-n_trials = 10
+n_trials = 1
 sim_refs = []
 
 for gj_conn_type in ['2010', '2012']:
