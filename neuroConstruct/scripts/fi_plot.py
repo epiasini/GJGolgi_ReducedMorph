@@ -19,9 +19,9 @@ matplotlib.rcParams['axes.labelsize'] = 'medium'
 figsize=(3.5,3)
 
 timestamp = sys.argv[1]
-current_amplitude_range = np.array([-25.e3, -20.e3, -15.e3, -10.e3, -5.e3, 0., 50.e3, 100.e3, 150.e3, 200.e3, 250.e3])#np.arange(-25000, 500, 500)
-sim_duration = 6. #(s)
-transient = 1. #(s)
+current_amplitude_range = np.array([-25.e3, -20.e3, -15.e3, -10.e3, -5.e3, 0., 50.e3, 100.e3, 150.e3, 200.e3, 250.e3]) # (fA)     #np.arange(-25000, 500, 500)
+sim_duration = 6000. #(ms)
+transient = 1000. #(ms)
 
 colors = ['k', 'r', 'g']
 
@@ -37,7 +37,7 @@ for k, cell_name in enumerate(['Solinas', 'Vervaeke', 'reduced']):
 										threshold)
 	try:
             spikes = np.loadtxt(filename)
-            rate = np.sum(spikes > transient)/(sim_duration - transient)
+            rate = 1000 * np.sum(spikes > transient)/(sim_duration - transient) # (Hz)
 	    data.append(rate)
 	except TypeError:
 	    data.append(0)
