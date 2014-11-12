@@ -7,17 +7,9 @@ from matplotlib import pyplot as plt
 
 import seaborn as sns
 
-matplotlib.rcParams['text.usetex'] = True
-matplotlib.rcParams['text.latex.preamble']=[r'\usepackage{bera}', # load bera roman, sans and mono at 90% size
-                                            r'\renewcommand{\familydefault}{\sfdefault}', # make sure bera sans is default font
-                                            r'\usepackage{eulervm}'] # use euler for math symbols, but keep default font (bera sans )for numbers
-matplotlib.rcParams['font.sans-serif'].insert(0, 'Bitstream Vera Sans') # probably redundant with latex preamble above
-matplotlib.rcParams['font.family'] = 'sans-serif' # probably redundant with latex preamble above
-matplotlib.rcParams['font.size'] = 8.0
-matplotlib.rcParams['legend.fontsize'] = 'medium'
-matplotlib.rcParams['xtick.labelsize'] = 'medium'
-matplotlib.rcParams['ytick.labelsize'] = 'medium'
-matplotlib.rcParams['axes.labelsize'] = 'medium'
+rc = matplotlib.rc_params_from_file('/home/ucbtepi/thesis/matplotlibrc.thesis',
+                                    use_default_template=False)
+matplotlib.rcParams.update(rc)
 figsize=(3.5,3)
 
 timestamp = sys.argv[1]

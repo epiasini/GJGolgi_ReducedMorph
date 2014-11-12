@@ -8,10 +8,12 @@ Attenuation is defined in the following way: stimulate a dendrite with
 an aEPSP far away from the soma (~200um), and measure the voltage
 response at various points along the path connecting the stimulation
 point to the soma. The attenuation is the ratio between the peak of
-the somatic and the dendritic response.
+the dendritic and the somatic response.
 
 This definition of attenuation is the one that's used in figure 3C in
 Vervaeke2012.
+
+Usage: pythonv dendritic_attenuation_fit.py da1415731151.61 564 0.0 549 10.5919850469 540 19.8728369474 506 31.4311226606 493 42.2954727411 481 48.7114700973 447 60.1053161472 435 70.3048134446 424 78.4546051621 406 92.3413149714 378 100.099774525 360 111.302530318 348 118.78751111 328 131.306678474 315 138.444323123 205 149.846530199 188 159.575384408 139 171.218757302 124 180.70650842 0 208.072402954
 """
 import sys
 import numpy as np
@@ -21,16 +23,9 @@ from scipy.optimize import curve_fit
 
 import seaborn as sns
 
-matplotlib.rcParams['text.usetex'] = True
-matplotlib.rcParams['text.latex.preamble']=[r'\usepackage{euler}']
-matplotlib.rcParams['font.sans-serif'].insert(0, 'Bitstream Vera Sans')
-matplotlib.rcParams['font.family'] = 'sans-serif'
-matplotlib.rcParams['font.size'] = 8.0
-matplotlib.rcParams['legend.fontsize'] = 'medium'
-matplotlib.rcParams['xtick.labelsize'] = 'medium'
-matplotlib.rcParams['ytick.labelsize'] = 'medium'
-matplotlib.rcParams['axes.labelsize'] = 'medium'
-figsize=(3.5,3)
+rc = matplotlib.rc_params_from_file('/home/ucbtepi/thesis/matplotlibrc.thesis',
+                                    use_default_template=False)
+matplotlib.rcParams.update(rc)
 
 def attenuation_function(x, l):
     return np.exp(-x/l)
@@ -57,7 +52,7 @@ traces = {'reduced':np.array([np.loadtxt('{0}/Golgi_reduced_0.{1}.dat'.format(si
 			       for seg_id in rec_segs_detailed])}
 attenuation = {}
 space_constants = {}
-fig, ax = plt.subplots(figsize=figsize)
+fig, ax = plt.subplots()
 for cell_type in ['reduced', 'Vervaeke']:
     maxima = traces[cell_type].max(axis=1)
     baselines = traces[cell_type][:,-1]
@@ -78,7 +73,9 @@ for cell_type in ['reduced', 'Vervaeke']:
 ax.set_xlabel(r"Distance ($\mu$m)")
 ax.set_ylabel("Attenuation (a.u.)")
 ax.legend(loc='best')
-ax.locator_params(tight=True, nbins=5)
+ax.locator_params(tight=False, nbins=5)
+ax.set_xlim((-5, 200))
+ax.set_ylim((0, 1.05))
 plt.tight_layout()
 
 fig.savefig("fig/dendritic_attenuation.pdf")

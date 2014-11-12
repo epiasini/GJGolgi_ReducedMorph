@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 ## Current-voltage relation plotting script for a single cell embedded
 ## in a golgi network though gap junctions as defined in Vervaeke2010
-## or Vervaeke2012.
+## or Vervaeke2012. Usage: python current_voltage_plot.py 1415727840.3
 
 import sys
 import numpy as np
@@ -11,23 +11,16 @@ from matplotlib import pyplot as plt
 
 import seaborn as sns
 
-matplotlib.rcParams['text.usetex'] = True
-matplotlib.rcParams['text.latex.preamble']=[r'\usepackage{euler}']
-matplotlib.rcParams['font.sans-serif'].insert(0, 'Bitstream Vera Sans')
-matplotlib.rcParams['font.family'] = 'sans-serif'
-matplotlib.rcParams['font.size'] = 8.0
-matplotlib.rcParams['legend.fontsize'] = 'medium'
-matplotlib.rcParams['xtick.labelsize'] = 'medium'
-matplotlib.rcParams['ytick.labelsize'] = 'medium'
-matplotlib.rcParams['axes.labelsize'] = 'medium'
-figsize=(3.5,3)
+rc = matplotlib.rc_params_from_file('/home/ucbtepi/thesis/matplotlibrc.thesis',
+                                    use_default_template=False)
+matplotlib.rcParams.update(rc)
 
 import utils
 
 timestamp = sys.argv[1]
 stim_range = range(-200, 220, 50)
 
-fig, ax = plt.subplots(figsize=figsize)
+fig, ax = plt.subplots()
 colors = sns.xkcd_palette(["windows blue", "amber", "faded green", "dusty purple"])
 #sns.set_palette("colorblind")
 #sns.palplot(sns.xkcd_palette(colors))
@@ -78,7 +71,8 @@ ax.legend(loc='best')
 ax.set_xlabel('Stimulation amplitude (pA)')
 ax.set_ylabel('Voltage response (mV)')
 #fig.suptitle('Steady-state current-voltage relations')
-ax.locator_params(tight=True, nbins=5)
+ax.locator_params(tight=False, nbins=5)
+ax.set_xlim((-210, 210))
 plt.tight_layout()
 fig.savefig("fig/current_voltage.pdf")
 plt.show()
