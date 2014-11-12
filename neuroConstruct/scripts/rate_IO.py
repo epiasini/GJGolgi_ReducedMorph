@@ -21,13 +21,12 @@ project_path = '../GJGolgi_ReducedMorph.ncx'
 project_file = File(project_path)
 project = pm.loadProject(project_file)
 
-sim_config_name = 'IO_synaptic_stimulation_pf'
-
-sim_config = project.simConfigInfo.getSimConfig(sim_config_name)
-project.neuronSettings.setNoConsole()
-
+stim_type = 'pf' # mf or pf, for mossy or parallel fibre input
 stim_rate_range = range(1., 440., 40.) # neuron doesn't like zero frequency
 
+sim_config_name = 'IO_synaptic_stimulation_' + stim_type
+sim_config = project.simConfigInfo.getSimConfig(sim_config_name)
+project.neuronSettings.setNoConsole()
 
 # generate
 pm.doGenerate(sim_config_name, 1234)
@@ -37,7 +36,7 @@ print('network generated')
 
 sim_refs = deque()
 for rate in stim_rate_range:
-    sim_ref = 'a' + timestamp + '_' + str(int(round(rate)))
+    sim_ref = 'io' + stim_type + timestamp + '_' + str(int(round(rate)))
     sim_refs.append(sim_ref)
     sim_path = '../simulations/' + sim_ref
     project.simulationParameters.setReference(sim_ref)
@@ -79,5 +78,5 @@ while sim_refs and sim_config.getMpiConf().isRemotelyExecuted():
 	sim_refs.append(sim_ref)
     time.sleep(2)
 
-print('batch reference a' + timestamp)
+print('batch reference ' + 'io' + stim_type + timestamp)
 System.exit(0)
