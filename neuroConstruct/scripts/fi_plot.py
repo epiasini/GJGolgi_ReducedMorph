@@ -1,5 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
+## plotting script for F-I analysis of single cell.
+## Usage: pythonv fi_plot.py b1415721979.9
 import sys
 import numpy as np
 import matplotlib
@@ -49,7 +51,9 @@ ax.xaxis.set_ticks_position('bottom')
 ax.yaxis.set_ticks_position('left')
 ax.spines['right'].set_color('none')
 ax.spines['top'].set_color('none')
-ax.locator_params(tight=True, nbins=5)
+ax.locator_params(tight=False, nbins=5)
+ax.set_xlim((-35, 260))
+ax.set_ylim((-2, 60))
 plt.tight_layout()
 fig.savefig('fig/fi.pdf')
 plt.show()
