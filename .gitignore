@@ -2,6 +2,7 @@
 *i686
 *x86_64
 generatedNEURON
+generatedNeuroML2
 generatedGENESIS
 generatedNeuroML
 generatedMOOSE
@@ -15,3 +16,6 @@ savedNetworks
 cellProcesses
 scriptedSimulations
 *.pxp
+*.png
+*.pdf
+dataSets/
