@@ -14,6 +14,7 @@ rc = matplotlib.rc_params_from_file('/home/ucbtepi/thesis/matplotlibrc.thesis',
 matplotlib.rcParams.update(rc)
 
 batch_ref = sys.argv[1]
+timestamp = batch_ref.strip('io')
 stim_rate_range = range(1, 440, 40)
 sim_duration = 6000. # ms
 transient = 1000. # ms
@@ -21,22 +22,21 @@ transient = 1000. # ms
 fig, ax = plt.subplots()
 
 cell_types = ['Solinas', 'Vervaeke', 'reduced']
-rates = {}
 threshold = 'min20'
 
-for cell_type in cell_types:
-    rates[cell_type] = []
-    for amplitude in stim_rate_range:
-	filename = '../simulations/{0}_{1}/Golgi_{2}_0.SPIKES_{3}.spike'.format(batch_ref,
-										amplitude,
-										cell_type,
-										threshold)
-        spikes = np.loadtxt(filename)
-        rate = 1000 * np.sum(spikes > transient)/(sim_duration - transient) # (Hz)
-        rates[cell_type].append(rate)
+for stim_type in ['pf', 'mf']:
+    for cell_type in cell_types:
+        rates = []
+        for rate in stim_rate_range:
+            sim_ref = 'io' + stim_type + timestamp + '_' + str(int(round(rate)))
+            filename = '../simulations/{0}/Golgi_{1}_0.SPIKES_{2}.spike'.format(sim_ref,
+                                                                                cell_type,
+                                                                                threshold)
+            spikes = np.loadtxt(filename)
+            rate = 1000 * np.sum(spikes > transient)/(sim_duration - transient) # (Hz)
+            rates.append(rate)
 
-
-    ax.plot(stim_rate_range, rates[cell_type], marker='o', label=cell_type)
+        ax.plot(stim_rate_range, rates, marker='o', label='{}, {}'.format(cell_type, stim_type))
 
 ax.legend(loc='best')
 ax.set_xlabel('Stimulation rate (Hz)')
@@ -46,5 +46,5 @@ ax.locator_params(axis='x', tight=False, nbins=5)
 ax.locator_params(axis='y', tight=False, nbins=5)
 ax.set_xlim((-10, 410))
 plt.tight_layout()
-fig.savefig("fig/rate_IO_{}.pdf".format(batch_ref[2:4]))
+fig.savefig("fig/rate_IO.pdf")
 plt.show()
