@@ -26,6 +26,7 @@ import seaborn as sns
 rc = matplotlib.rc_params_from_file('/home/ucbtepi/thesis/matplotlibrc.thesis',
                                     use_default_template=False)
 matplotlib.rcParams.update(rc)
+figsize = (3.5, 2)
 
 def attenuation_function(x, l):
     return np.exp(-x/l)
@@ -52,7 +53,7 @@ traces = {'reduced':np.array([np.loadtxt('{0}/Golgi_reduced_0.{1}.dat'.format(si
 			       for seg_id in rec_segs_detailed])}
 attenuation = {}
 space_constants = {}
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=figsize)
 for cell_type in ['reduced', 'Vervaeke']:
     maxima = traces[cell_type].max(axis=1)
     baselines = traces[cell_type][:,-1]
@@ -70,7 +71,7 @@ for cell_type in ['reduced', 'Vervaeke']:
     ax.plot(np.arange(0,200,0.1), values, color=color, linestyle='-',
 		label=r'$\lambda = {0:.1f}$'.format(space_constants[cell_type]))
 
-ax.set_xlabel(r"Distance ($\mu$m)")
+ax.set_xlabel(r"Distance (\si{\micro\metre})") # requires \usepackage{siunitx} in text.latex.preamble in matplotlibrc
 ax.set_ylabel("Attenuation (a.u.)")
 ax.legend(loc='best')
 ax.locator_params(tight=False, nbins=5)
