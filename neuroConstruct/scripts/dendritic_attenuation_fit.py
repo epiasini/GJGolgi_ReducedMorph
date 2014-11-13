@@ -8,7 +8,7 @@ Attenuation is defined in the following way: stimulate a dendrite with
 an aEPSP far away from the soma (~200um), and measure the voltage
 response at various points along the path connecting the stimulation
 point to the soma. The attenuation is the ratio between the peak of
-the dendritic and the somatic response.
+the somatic and the dendritic response.
 
 This definition of attenuation is the one that's used in figure 3C in
 Vervaeke2012.
@@ -69,9 +69,9 @@ for cell_type in ['reduced', 'Vervaeke']:
     values = np.array([attenuation_function(x, space_constants[cell_type])
 		       for x in np.arange(0,200,0.1)])
     ax.plot(np.arange(0,200,0.1), values, color=color, linestyle='-',
-		label=r'$\lambda = {0:.1f}$'.format(space_constants[cell_type]))
+		label=r'$\lambda = {0:.1f}\si{{\micro\metre}}$'.format(space_constants[cell_type]))
 
-ax.set_xlabel(r"Distance (\si{\micro\metre})") # requires \usepackage{siunitx} in text.latex.preamble in matplotlibrc
+ax.set_xlabel(r"Distance from soma (\si{\micro\metre})") # requires \usepackage{siunitx} in text.latex.preamble in matplotlibrc
 ax.set_ylabel("Attenuation (a.u.)")
 ax.legend(loc='best')
 ax.locator_params(tight=False, nbins=5)

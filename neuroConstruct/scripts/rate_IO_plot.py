@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
-## Single cell rate I/O plotting script. Usage: python rate_IO_plot.py iopf1415788530.0
+## Single cell rate I/O plotting script. Usage: pythonv rate_IO_plot.py io1415812932.89
 import sys
 import glob
 import numpy as np
@@ -8,7 +8,6 @@ import matplotlib
 from matplotlib import pyplot as plt
 
 import seaborn as sns
-
 rc = matplotlib.rc_params_from_file('/home/ucbtepi/thesis/matplotlibrc.thesis',
                                     use_default_template=False)
 matplotlib.rcParams.update(rc)
@@ -23,6 +22,7 @@ fig, ax = plt.subplots()
 
 cell_types = ['Solinas', 'Vervaeke', 'reduced']
 threshold = 'min20'
+stim_type_names = {'pf': 'ap', 'mf': 'bl'}
 
 for stim_type in ['pf', 'mf']:
     for cell_type in cell_types:
@@ -36,7 +36,7 @@ for stim_type in ['pf', 'mf']:
             rate = 1000 * np.sum(spikes > transient)/(sim_duration - transient) # (Hz)
             rates.append(rate)
 
-        ax.plot(stim_rate_range, rates, marker='o', label='{}, {}'.format(cell_type, stim_type))
+        ax.plot(stim_rate_range, rates, marker='o', label='{}, {}'.format(cell_type, stim_type_names[stim_type]))
 
 ax.legend(loc='best')
 ax.set_xlabel('Stimulation rate (Hz)')
