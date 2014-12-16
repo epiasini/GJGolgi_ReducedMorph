@@ -15,8 +15,13 @@ rc = matplotlib.rc_params_from_file('/home/ucbtepi/thesis/matplotlibrc.thesis',
                                     use_default_template=False)
 matplotlib.rcParams.update(rc)
 
-def fermi_function(x, a, r_0, delta):
-    return a/(np.exp((x-r_0)/delta) + 1)
+def fermi_function(r, a, r_0, delta):
+    return a/(np.exp((r-r_0)/delta) + 1)
+
+def vervaeke2010_conn_prob(r):
+    result = -17.45 + 18.36 / (np.exp((r - 267.)/39.) + 1)
+    result[result<0] = 0
+    return result
 
 
 # load experimental data
@@ -50,15 +55,20 @@ a, r_0, delta = curve_fit(fermi_function,
 print("Parameters for best fit Fermi function connection probability model:\n  a: {}\n  r₀: {}\n  Δ: {}".format(a, r_0, delta))
 
 # plot
-fig, ax = plt.subplots(figsize=(3,2.5))
-ax.fill_between(bin_centers.squeeze(), connection_probabilities.squeeze(), alpha=0.7, linewidth=2, label='Experiment')
+fig, ax = plt.subplots(figsize=(3,2))
 x_values = np.linspace(0, 200, 1000)
-ax.fill_between(x_values, fermi_function(x_values, a, r_0, delta), color=seaborn.color_palette()[2], alpha=0.6, linewidth=2, label='Model')
+# vervaeke 2010 model
+ax.fill_between(x_values, vervaeke2010_conn_prob(x_values), color=seaborn.color_palette()[1], alpha=0.6, linewidth=2)
+# experiment
+ax.fill_between(bin_centers.squeeze(), connection_probabilities.squeeze(), alpha=0.7, linewidth=2)
+# fermi function model
+ax.fill_between(x_values, fermi_function(x_values, a, r_0, delta), color=seaborn.color_palette()[2], alpha=0.6, linewidth=2)
 
 ax.set_xlabel(r"Distance (\si{\micro\metre})")
 ax.set_ylabel("Connection probability")
 ax.locator_params(tight=False, nbins=3)
+ax.set_xticks(np.insert(ax.get_xticks(), 1, 30))
 plt.tight_layout()
 
-fig.savefig("fig/connection_probability.pdf")
+fig.savefig("fig/GoC_GJ_connection_probability_fermi_fit.pdf")
 
