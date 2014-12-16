@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 ## Current-voltage relation plotting script for a single cell embedded
 ## in a golgi network though gap junctions as defined in Vervaeke2010
-## or Vervaeke2012. Usage: python current_voltage_plot.py 1415727840.3
+## or Vervaeke2012. Usage: pythonv current_voltage_plot.py 1415727840.3
 
 import sys
 import numpy as np
@@ -14,30 +14,28 @@ import seaborn as sns
 rc = matplotlib.rc_params_from_file('/home/ucbtepi/thesis/matplotlibrc.thesis',
                                     use_default_template=False)
 matplotlib.rcParams.update(rc)
+figsize = (3.5, 2)
 
 import utils
 
 timestamp = sys.argv[1]
 stim_range = range(-200, 220, 50)
 
-fig, ax = plt.subplots()
-colors = sns.xkcd_palette(["windows blue", "amber", "faded green", "dusty purple"])
-#sns.set_palette("colorblind")
-#sns.palplot(sns.xkcd_palette(colors))
-#colors = sns.palplot()
+fig, ax = plt.subplots(figsize=figsize)
 
 cell_types = ['Vervaeke','reduced']
 gj_conn_types = ['2010', '2012']
+colors = ['#55A868', '#4C72B0']
+dash_styles = [(4,1.5), (None, None)]
 n_trials = 1
 averages = {}
 sigmas = {}
+lines = []
 
-color_index = 0
-
-for gj_conn_type in gj_conn_types:
+for gj_conn_type, dashes in zip(gj_conn_types, dash_styles):
     averages[gj_conn_type] = {}
     sigmas[gj_conn_type] = {}
-    for cell_type in cell_types:
+    for cell_type, color in zip(cell_types, colors):
 	averages[gj_conn_type][cell_type] = []
 	sigmas[gj_conn_type][cell_type] = []
 	for stim_level in stim_range:
@@ -63,12 +61,12 @@ for gj_conn_type in gj_conn_types:
             ax.errorbar(stim_range, averages[gj_conn_type][cell_type],
                         yerr=sigmas[gj_conn_type][cell_type], label=label, fmt='o-')
         else:
-            ax.plot(stim_range, averages[gj_conn_type][cell_type], label=label,marker='o',linestyle='-', c=colors[color_index])
-            color_index += 1
+            lines.extend(ax.plot(stim_range, averages[gj_conn_type][cell_type], marker='o', c=color, dashes=dashes))
         
-
-ax.legend(loc='best')
-ax.set_xlabel('Stimulation amplitude (pA)')
+lines[2].set_label("Vervaeke")
+lines[3].set_label("reduced")
+ax.legend(loc='lower right')
+ax.set_xlabel('Injected current (pA)')
 ax.set_ylabel('Voltage response (mV)')
 #fig.suptitle('Steady-state current-voltage relations')
 ax.locator_params(tight=False, nbins=5)
