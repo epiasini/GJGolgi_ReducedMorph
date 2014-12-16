@@ -13,6 +13,7 @@ import seaborn
 
 rc = matplotlib.rc_params_from_file('/home/ucbtepi/thesis/matplotlibrc.thesis',
                                     use_default_template=False)
+matplotlib.rcParams.update(rc)
 
 def fermi_function(x, a, r_0, delta):
     return a/(np.exp((x-r_0)/delta) + 1)
@@ -46,15 +47,16 @@ a, r_0, delta = curve_fit(fermi_function,
                           bin_centers.transpose().squeeze(),
                           connection_probabilities.transpose().squeeze(),
                           p0=[0.856, 122., 16.9])[0]
+print("Parameters for best fit Fermi function connection probability model:\n  a: {}\n  r₀: {}\n  Δ: {}".format(a, r_0, delta))
 
 # plot
 fig, ax = plt.subplots(figsize=(3,2.5))
-ax.fill_between(bin_centers.squeeze(), connection_probabilities.squeeze(), alpha=0.7, linewidth=2)
-x_values = np.linspace(bin_centers[0], 200, 1000)
-ax.fill_between(x_values, fermi_function(x_values, a, r_0, delta), color=seaborn.color_palette()[2], alpha=0.6, linewidth=2)
+ax.fill_between(bin_centers.squeeze(), connection_probabilities.squeeze(), alpha=0.7, linewidth=2, label='Experiment')
+x_values = np.linspace(0, 200, 1000)
+ax.fill_between(x_values, fermi_function(x_values, a, r_0, delta), color=seaborn.color_palette()[2], alpha=0.6, linewidth=2, label='Model')
 
-ax.set_xlabel("Distance ($\mu$m)")
-
+ax.set_xlabel(r"Distance (\si{\micro\metre})")
+ax.set_ylabel("Connection probability")
 ax.locator_params(tight=False, nbins=3)
 plt.tight_layout()
 
