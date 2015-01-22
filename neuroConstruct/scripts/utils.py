@@ -43,5 +43,5 @@ def cs_edge_list_file(timestamp, gj_conn_type, trial):
 def coupling_coefficient(r01, rl0, rl1, dv, I):
     return (rl1/(rl1+r01)) - dv*r01*(rl0+rl1+r01) / ((rl1+r01) * (I*rl0*(rl1+r01) + dv*rl0))
 
-def variable_heterogeneity(timestamp, deg_mean, deg_sigma):
-    return 'vh' + '_' + timestamp + '_m' + str(deg_mean) + '_s' + str(deg_sigma)
+def variable_heterogeneity(timestamp, deg_mean, trial):
+    return 'vh' + '_' + timestamp + '_m' + str(deg_mean) + '_t' + str(trial)
