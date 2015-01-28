@@ -109,9 +109,37 @@ def spatial_graph_2010(cell_positions,
     g = nx.Graph()
     g.add_nodes_from(range(n_cells))
     for node in g.nodes():
-        g.node[node]['x'] = cell_positions[node][2]
-        g.node[node]['y'] = cell_positions[node][0]
-        g.node[node]['z'] = cell_positions[node][1]
+        g.node[node]['x'] = cell_positions[node][0]
+        g.node[node]['y'] = cell_positions[node][1]
+        g.node[node]['z'] = cell_positions[node][2]
     g.add_edges_from(edges)
 
     return g
+
+def nC_network_to_graphml(project, graphml_file_path='test.graphml'):
+    # create graph object
+    nonempty_group_names = [name for name in project.cellGroupsInfo.getAllCellGroupNames() if project.generatedCellPositions.getPositionRecords(name)]
+    graph = nx.Graph()
+    graph.add_nodes_from(nonempty_group_names)
+    # extract cell positions
+    # add node properties for positions
+    for group_name in nonempty_group_names:
+        positions = project.generatedCellPositions.getPositionRecords(group_name)
+        assert len(positions) == 1
+        position = positions[0]
+        graph.node[group_name]['x'] = position.z_pos
+        graph.node[group_name]['y'] = position.x_pos
+        graph.node[group_name]['z'] = position.y_pos
+    # add edges
+    for conn_name in project.generatedNetworkConnections.getNamesNonEmptyNetConns():
+        conns = project.generatedNetworkConnections.getSynapticConnections(conn_name)
+        assert len(conns) == 1
+        conn = conns[0]
+
+        source = project.morphNetworkConnectionsInfo.getSourceCellGroup(conn_name)
+        target = project.morphNetworkConnectionsInfo.getTargetCellGroup(conn_name)
+        assert conn.sourceEndPoint.cellNumber == conn.targetEndPoint.cellNumber
+        assert conn.targetEndPoint.cellNumber == 0
+        graph.add_edge(source, target, weight=conn.props[0].weight)
+    # save to disk
+    nx.write_graphml(graph, graphml_file_path)

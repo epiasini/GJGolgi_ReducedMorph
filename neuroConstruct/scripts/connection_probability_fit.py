@@ -58,11 +58,11 @@ print("Parameters for best fit Fermi function connection probability model:\n  a
 fig, ax = plt.subplots(figsize=(3,2))
 x_values = np.linspace(0, 200, 1000)
 # vervaeke 2010 model
-ax.fill_between(x_values, vervaeke2010_conn_prob(x_values), color=seaborn.color_palette()[1], alpha=0.6, linewidth=2)
+ax.fill_between(x_values, vervaeke2010_conn_prob(x_values), color=seaborn.color_palette()[1], alpha=0.5, linewidth=1)
 # experiment
-ax.fill_between(bin_centers.squeeze(), connection_probabilities.squeeze(), alpha=0.7, linewidth=2)
+ax.fill_between(bin_centers.squeeze(), connection_probabilities.squeeze(), alpha=0.5, linewidth=1)
 # fermi function model
-ax.fill_between(x_values, fermi_function(x_values, a, r_0, delta), color=seaborn.color_palette()[2], alpha=0.6, linewidth=2)
+ax.fill_between(x_values, fermi_function(x_values, a, r_0, delta), color=seaborn.color_palette()[2], alpha=0.5, linewidth=1)
 
 ax.set_xlabel(r"Distance (\si{\micro\metre})")
 ax.set_ylabel("Connection probability")

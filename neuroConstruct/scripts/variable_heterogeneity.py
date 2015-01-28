@@ -17,7 +17,7 @@ deg_mean_range = [9.25]#, 12.40]#range(2, 21, 1)
 clustering_range = [0.52]#, 0.64]
 n_trials = 1
 
-leak_variation_fraction = 0.2
+leak_variation_fraction = 0.
 sim_duration = 2000
 n_cells = 45
 n_cells_stimulated = 10
@@ -35,6 +35,7 @@ sim_config.setSimDuration(sim_duration)
 project.neuronSettings.setNoConsole()
 
 remote_sim_refs = []
+group_names = []
 
 ## ==== introduce single-cell-level heterogeneity in somatic leak conductance ===
 # boilerplate stuff
@@ -57,6 +58,7 @@ for chan in golgi_reference_cell.getChanMechsForGroup('all'):
 for i in range(n_cells):
     type_name = unicode('golgi_'+str(i))
     group_name = unicode('golgi_group_'+str(i))
+    group_names.append(group_name)
     bl_noise_name = unicode('golgi_noise_'+str(i)+'_bl')
     ap_noise_name = unicode('golgi_noise_'+str(i)+'_ap')
     bl_stim_name = unicode('golgi_stim_'+str(i)+'_bl')
@@ -87,7 +89,7 @@ for i in range(n_cells):
 						      one_cell_chooser,
 						      bl_noise_segchooser,
 						      nc.utils.NumberGenerator(0.002),
-						      'Golgi_AMPA_mf')
+						      'MultiDecaySyn')
     project.elecInputInfo.addStim(bl_noise)
     sim_config.addInput(bl_noise.getReference())
     # apical background
@@ -103,14 +105,14 @@ for i in range(n_cells):
     if i<n_cells_stimulated:
 	# basolateral stimulus
 	bl_delay = nc.utils.NumberGenerator()
-	bl_delay.initialiseAsRandomFloatGenerator(730., 735.)#(1680., 1685.)
+	bl_delay.initialiseAsRandomFloatGenerator(710., 712.)#(1680., 1685.)
 	bl_segment_chooser = nc.project.segmentchoice.GroupDistributedSegments('basolateral_soma', 8)
 	bl_stim = nc.simulation.RandomSpikeTrainExtSettings(bl_stim_name,
 							    group_name,
 							    one_cell_chooser,
 							    bl_segment_chooser,
 							    nc.utils.NumberGenerator(0.2),
-							    'Golgi_AMPA_mf',
+							    'MultiDecaySyn',
 							    bl_delay,
 							    nc.utils.NumberGenerator(10),
 							    False)
@@ -118,7 +120,7 @@ for i in range(n_cells):
 	sim_config.addInput(bl_stim.getReference())
 	# apical stimulus
 	ap_delay = nc.utils.NumberGenerator()
-	ap_delay.initialiseAsRandomFloatGenerator(732., 737.)#(1682., 1687.)
+	ap_delay.initialiseAsRandomFloatGenerator(712., 717.)#(1682., 1687.)
 	ap_segment_chooser = nc.project.segmentchoice.GroupDistributedSegments('parallel_fibres', 50)
 	ap_stim = nc.simulation.RandomSpikeTrainExtSettings(ap_stim_name,
 							    group_name,
@@ -151,7 +153,14 @@ pm.doGenerate(sim_config_name, nC_seed)
 while pm.isGenerating():
     time.sleep(0.02)
 print('network generated')
-cell_positions = [(r.x_pos, r.y_pos, r.z_pos) for r in project.generatedCellPositions.getAllPositionRecords()]
+
+cell_positions = []
+for group_name in group_names:
+    positions = project.generatedCellPositions.getPositionRecords(group_name)
+    assert len(positions) == 1
+    cell_positions.append((positions[0].z_pos,
+                           positions[0].x_pos,
+                           positions[0].y_pos))
 
 # prepare data on spatial distribution of gjs on dendritic tree
 groups_with_gjs = ['GCL', 'ML1', 'ML2', 'ML3']
@@ -162,9 +171,9 @@ group_prob = group_prob_uniform
 segments_with_gjs = [golgi_reference_cell.getSegmentsInGroup(gr) for gr in groups_with_gjs]
 cum_group_prob = tuple(sum(group_prob[:k]) for k in range(len(group_prob))) # cumulative
 
-print group_prob
-print cum_group_prob
-print segments_with_gjs
+#print group_prob
+#print cum_group_prob
+#print segments_with_gjs
 ##=== set up gj network ===
 for deg_mean in deg_mean_range:
     for clustering in clustering_range:
@@ -179,9 +188,8 @@ for deg_mean in deg_mean_range:
             # create gap junction graph object
             #edge_probability = float(deg_mean) / float(n_cells - 1) # p = number of edges / number of possible edges = (n_cells * deg_mean / 2) / (n_cells * (n_cells - 1) / 2)
             #gj_graph = nx.gnp_random_graph(n_cells, edge_probability)
-            #gj_graph = utils.clustered_poisson_graph(n_cells, deg_mean, clustering)
-            gj_graph = utils.spatial_graph_2010(cell_positions)
-            nx.write_graphml(gj_graph, 'test.graphml')
+            gj_graph = utils.clustered_poisson_graph(n_cells, deg_mean, clustering)
+            #gj_graph = utils.spatial_graph_2010(cell_positions)
             # generate connections according to graph
             for i,j,data in gj_graph.edges(data=True):
                 #print i, j, data
@@ -200,27 +208,27 @@ for deg_mean in deg_mean_range:
                 #synaptic_weight = random.randrange(mean_gj_number-2, mean_gj_number+3, 1)
                 #synaptic_weight = float(experimental_gjs_per_cell)/float(deg_mean)
                 
-                #average_syn_weight = 516.49
-                #synaptic_weight = random.expovariate(1./average_syn_weight)
-                synaptic_weight = data['weight']
+                average_syn_weight = 516.49
+                synaptic_weight = random.expovariate(1./average_syn_weight)
+                #synaptic_weight = data['weight']
                 conn_name = 'gj_'+str(i)+'_'+str(j)
                 #synaptic_properties = nc.project.SynapticProperties('GapJuncDiscrete')
                 synaptic_properties = nc.project.SynapticProperties('Golgi_gap_2010')
                 synaptic_properties.setWeightsGenerator(nc.utils.NumberGenerator(synaptic_weight))
-                synaptic_properties_list = Vector([synaptic_properties])
-
                 conn_conditions = nc.project.ConnectivityConditions()
                 conn_conditions.setNumConnsInitiatingCellGroup(nc.utils.NumberGenerator(0))
                 project.morphNetworkConnectionsInfo.addRow(conn_name,
                                                            'golgi_group_'+str(i),
                                                            'golgi_group_'+str(j),
-                                                           synaptic_properties_list,
+                                                           Vector([synaptic_properties]),
                                                            nc.project.SearchPattern.getRandomSearchPattern(),
-                                                           nc.project.MaxMinLength(Float.MAX_VALUE, 0, 'r', 100),
+                                                           nc.project.MaxMinLength(155., 0, 'r', 10),
                                                            conn_conditions,
                                                            Float.MAX_VALUE)
                 sim_config.addNetConn(conn_name)
-                print(project.morphNetworkConnectionsInfo.getSummary(conn_name))
+
+                connection_specific_syn_props = nc.project.ConnSpecificProps(conn_name)
+                connection_specific_syn_props.weight = synaptic_weight
                 project.generatedNetworkConnections.addSynapticConnection(conn_name,
                                                                           0,
                                                                           0,
@@ -229,8 +237,13 @@ for deg_mean in deg_mean_range:
                                                                           0,
                                                                           dest_segment,
                                                                           random.random(),
-                                                                          0,
-                                                                          None)
+                                                                          5.,
+                                                                          ArrayList([connection_specific_syn_props]))
+            # export intended and resultant structure to graphml
+            # file. They should coincide.
+            nx.write_graphml(gj_graph, 'test_intended.graphml')
+            utils.nC_network_to_graphml(project, 'test_resultant.graphml')
+
             # generate and compile neuron files
             print "Generating NEURON scripts..."
             project.neuronFileManager.setSuggestedRemoteRunTime(40)
