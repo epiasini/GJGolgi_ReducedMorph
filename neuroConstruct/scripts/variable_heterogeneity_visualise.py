@@ -8,12 +8,12 @@ import pyspike
 
 import utils
 
-timestamp = '1422357603.88'#'1422041472.12'#sys.argv[1]
+timestamp = '1422485021.46'#'1422041472.12'#sys.argv[1]
 deg_mean_range = [9.25]#, 12.40]
 clustering_range = [0.52]#, 0.64]
 n_trials = 1
 
-sim_duration = 2000
+sim_duration = 1200
 n_cells = 45
 
 for deg_mean in deg_mean_range:

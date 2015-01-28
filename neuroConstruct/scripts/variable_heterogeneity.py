@@ -18,10 +18,13 @@ clustering_range = [0.52]#, 0.64]
 n_trials = 1
 
 leak_variation_fraction = 0.
-sim_duration = 2000
+sim_duration = 1200
 n_cells = 45
 n_cells_stimulated = 10
 experimental_gjs_per_cell = 35.
+average_syn_strength = 516.49
+
+simulate = True
 
 timestamp = str(time.time())
 pm = nc.project.ProjectManager(None,None)
@@ -147,20 +150,6 @@ for i in range(n_cells):
     project.simPlotInfo.addSimPlot(plot)
     sim_config.addPlot(type_name + '_spikes')
 
-# generate
-nC_seed = random.getrandbits(32)
-pm.doGenerate(sim_config_name, nC_seed)
-while pm.isGenerating():
-    time.sleep(0.02)
-print('network generated')
-
-cell_positions = []
-for group_name in group_names:
-    positions = project.generatedCellPositions.getPositionRecords(group_name)
-    assert len(positions) == 1
-    cell_positions.append((positions[0].z_pos,
-                           positions[0].x_pos,
-                           positions[0].y_pos))
 
 # prepare data on spatial distribution of gjs on dendritic tree
 groups_with_gjs = ['GCL', 'ML1', 'ML2', 'ML3']
@@ -178,6 +167,23 @@ cum_group_prob = tuple(sum(group_prob[:k]) for k in range(len(group_prob))) # cu
 for deg_mean in deg_mean_range:
     for clustering in clustering_range:
         for trial in range(n_trials):
+            project.resetGenerated()
+            # generate
+            nC_seed = random.getrandbits(32)
+            pm.doGenerate(sim_config_name, nC_seed)
+            print('generating..')
+            while pm.isGenerating():
+                time.sleep(0.02)
+            print('network generated')
+
+            cell_positions = []
+            for group_name in group_names:
+                positions = project.generatedCellPositions.getPositionRecords(group_name)
+                assert len(positions) == 1
+                cell_positions.append((positions[0].z_pos,
+                                       positions[0].x_pos,
+                                       positions[0].y_pos))
+
             sim_ref = utils.variable_heterogeneity(timestamp,
                                                    deg_mean,
                                                    clustering,
@@ -188,10 +194,15 @@ for deg_mean in deg_mean_range:
             # create gap junction graph object
             #edge_probability = float(deg_mean) / float(n_cells - 1) # p = number of edges / number of possible edges = (n_cells * deg_mean / 2) / (n_cells * (n_cells - 1) / 2)
             #gj_graph = nx.gnp_random_graph(n_cells, edge_probability)
-            gj_graph = utils.clustered_poisson_graph(n_cells, deg_mean, clustering)
+            #gj_graph = utils.synthetic_graph(n_cells, deg_mean, clustering, average_syn_strength)
             #gj_graph = utils.spatial_graph_2010(cell_positions)
+            #gj_graph = utils.spatial_graph_shuffled_weights(cell_positions)
+            #gj_graph = utils.random_graph_heterogeneous_synapses(cell_positions)
+            gj_graph = utils.spatial_graph_arbitrary_variance(cell_positions, variance_scaling=1./8.)
             # generate connections according to graph
+            total_edges = 0
             for i,j,data in gj_graph.edges(data=True):
+                total_edges += 1
                 #print i, j, data
                 # select random source and destination segments according to spatial distribution of gjs
                 source_rand = random.random()
@@ -208,9 +219,7 @@ for deg_mean in deg_mean_range:
                 #synaptic_weight = random.randrange(mean_gj_number-2, mean_gj_number+3, 1)
                 #synaptic_weight = float(experimental_gjs_per_cell)/float(deg_mean)
                 
-                average_syn_weight = 516.49
-                synaptic_weight = random.expovariate(1./average_syn_weight)
-                #synaptic_weight = data['weight']
+                synaptic_weight = data['weight']
                 conn_name = 'gj_'+str(i)+'_'+str(j)
                 #synaptic_properties = nc.project.SynapticProperties('GapJuncDiscrete')
                 synaptic_properties = nc.project.SynapticProperties('Golgi_gap_2010')
@@ -241,33 +250,33 @@ for deg_mean in deg_mean_range:
                                                                           ArrayList([connection_specific_syn_props]))
             # export intended and resultant structure to graphml
             # file. They should coincide.
-            nx.write_graphml(gj_graph, 'test_intended.graphml')
-            utils.nC_network_to_graphml(project, 'test_resultant.graphml')
-
-            # generate and compile neuron files
-            print "Generating NEURON scripts..."
-            project.neuronFileManager.setSuggestedRemoteRunTime(40)
-            simulator_seed = random.getrandbits(32)
-            project.neuronFileManager.generateTheNeuronFiles(sim_config,
-                                                             None,
-                                                             nc.neuron.NeuronFileManager.RUN_HOC,
-                                                             simulator_seed)
-            compile_process = nc.nmodleditor.processes.ProcessManager(project.neuronFileManager.getMainHocFile())
-            compile_success = compile_process.compileFileWithNeuron(0,0)
-            # simulate
-            if compile_success:
-                print "Submitting simulation reference " + sim_ref
-                pm.doRunNeuron(sim_config)
-                time.sleep(2.5) # Wait for sim to be kicked off
-                if sim_config.getMpiConf().isRemotelyExecuted():
-                    remote_sim_refs.append(sim_ref)
-                else:
-                    # if running locally, never have more than one sim running
-                    # at the same time
-                    print('Simulating on the local machine.')
-                    timefile_path = '../simulations/' + sim_ref + '/time.dat'
-                    while not os.path.exists(timefile_path):
-                        time.sleep(0.5)
+            #nx.write_graphml(gj_graph, '/home/ucbtepi/thesis/data/GoC_net_structures/graph_synthetic_ncells45_trial' + str(trial) +'.graphml')
+            utils.nC_network_to_graphml(project, '/home/ucbtepi/thesis/data/GoC_net_structures/graph_synthetic_ncells45_trial' + str(trial) +'.graphml')
+            if simulate:
+                # generate and compile neuron files
+                print "Generating NEURON scripts..."
+                project.neuronFileManager.setSuggestedRemoteRunTime(40)
+                simulator_seed = random.getrandbits(32)
+                project.neuronFileManager.generateTheNeuronFiles(sim_config,
+                                                                 None,
+                                                                 nc.neuron.NeuronFileManager.RUN_HOC,
+                                                                 simulator_seed)
+                compile_process = nc.nmodleditor.processes.ProcessManager(project.neuronFileManager.getMainHocFile())
+                compile_success = compile_process.compileFileWithNeuron(0,0)
+                # simulate
+                if compile_success:
+                    print "Submitting simulation reference " + sim_ref
+                    pm.doRunNeuron(sim_config)
+                    time.sleep(2.5) # Wait for sim to be kicked off
+                    if sim_config.getMpiConf().isRemotelyExecuted():
+                        remote_sim_refs.append(sim_ref)
+                    else:
+                        # if running locally, never have more than one sim running
+                        # at the same time
+                        print('Simulating on the local machine.')
+                        timefile_path = '../simulations/' + sim_ref + '/time.dat'
+                        while not os.path.exists(timefile_path):
+                            time.sleep(0.5)
 
 if remote_sim_refs:
     utils.wait_and_pull_remote(remote_sim_refs, sleep_time=0.5)  
