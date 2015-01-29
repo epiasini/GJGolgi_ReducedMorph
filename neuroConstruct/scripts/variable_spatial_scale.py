@@ -14,7 +14,7 @@ from ucl.physiol import neuroconstruct as nc
 import utils
 
 spatial_scale_range = [0.5, 1., 2., 128.]
-n_trials = 1
+n_trials = 10
 
 sim_duration = 2000
 

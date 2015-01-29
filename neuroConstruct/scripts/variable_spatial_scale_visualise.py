@@ -18,7 +18,7 @@ timestamp = sys.argv[1]
 
 spatial_scale_range = [128., 2., 1., 0.5]
 n_models = len(spatial_scale_range)
-n_trials = 1
+n_trials = 10
 
 sim_duration = 2000
 n_cells = 45
@@ -27,6 +27,7 @@ n_excluded_cells = 10
 fig, ax = plt.subplots(figsize=(4,3),ncols=1,nrows=2, sharex=True)
 
 for i, (spatial_scale, color) in enumerate(zip(spatial_scale_range, sns.color_palette())):
+    distances = []
     for trial in range(n_trials):
         sim_ref = utils.variable_spatial_scale(timestamp,
                                                spatial_scale,
@@ -36,14 +37,22 @@ for i, (spatial_scale, color) in enumerate(zip(spatial_scale_range, sns.color_pa
         spike_trains = []
         for cell in range(n_cells):
             spikes = np.loadtxt('{}/Golgi_network_reduced_{}.SPIKES_min20.spike'.format(sim_dir, cell))
-            ax[0].scatter(spikes,
-                          np.zeros_like(spikes)+(cell+i*n_cells),
-                          marker='|',
-                          s=2,
-                          c=color)
+            if trial == 0:
+                ax[0].scatter(spikes,
+                              np.zeros_like(spikes)+(cell+i*n_cells),
+                              marker='|',
+                              s=2,
+                              c=color)
             spike_trains.append(pyspike.add_auxiliary_spikes(spikes, sim_duration))
-        x, y = pyspike.spike_profile_multi(spike_trains[n_excluded_cells:]).get_plottable_data()
-        ax[1].plot(x, 1-y, lw=2, c=color, label='{:g}'.format(spatial_scale))
+        distances.append(pyspike.spike_profile_multi(spike_trains[n_excluded_cells:]))
+    
+    # average synchrony index across trials
+    average_distance = distances[0]
+    for distance in distances[1:]:
+        average_distance.add(distance)
+    average_distance.mul_scalar(1./n_trials)
+    x, y = average_distance.get_plottable_data()
+    ax[1].plot(x, 1-y, lw=2, c=color, label='{:g}'.format(spatial_scale))
 
 ax[1].legend(loc='lower right', title='Spatial scaling')
 ax[0].locator_params(tight=True, nbins=4)
