@@ -37,58 +37,11 @@ def ir_single_cell_sim_ref(timestamp, amplitude):
 def cs_sim_ref(gj_conn_type, variance_scaling, cell, trial):
     return 'cs' + '_' + gj_conn_type + '_c' + str(cell) + '_t' + str(trial)
 
-def cs_cell_positions_file(timestamp, gj_conn_type, trial):
-    return '../scriptedSimulations/cs' + '_' + timestamp + '_' + gj_conn_type + '_t' + str(trial) + '_positions.csv'  
-
-def cs_edge_list_file(timestamp, gj_conn_type, trial):
-    return '../scriptedSimulations/cs' + '_' + timestamp + '_' + gj_conn_type + '_t' + str(trial) + '_edges.csv'  
-
 def coupling_coefficient(r01, rl0, rl1, dv, I):
     return (rl1/(rl1+r01)) - dv*r01*(rl0+rl1+r01) / ((rl1+r01) * (I*rl0*(rl1+r01) + dv*rl0))
 
 def variable_heterogeneity(timestamp, mean_scaling, variance_scaling, trial):
     return 'vh' + '_' + timestamp + '_ms' + str(mean_scaling) + '_vs' + str(variance_scaling) + '_t' + str(trial)
-
-def poisson_cumulative(k, alpha):
-    return math.exp(-alpha) * sum([alpha**i / math.factorial(i) for i in range(math.floor(k)+1)])
-
-def poisson_sample(alpha):
-    r = random.random()
-    k = 0
-    while True:
-        if r < poisson_cumulative(k, alpha):
-            break
-        k += 1
-    return k
-
-def binomial_sample(n, p):
-    return sum(random.random()<=p for _ in range(n))
-    
-
-def clustered_poisson_graph(n_nodes, mean_degree, mean_clustering):
-    is_good_triangle_sequence = False
-    while not is_good_triangle_sequence:
-        is_good_degree_sequence = False
-        while not is_good_degree_sequence:
-            degree_sequence = [poisson_sample(mean_degree) for node in range(n_nodes)]
-            is_good_degree_sequence = nx.is_valid_degree_sequence(degree_sequence)
-        triangle_sequence = [binomial_sample(int(round(k*(k-1)/2.)), mean_clustering) for k in degree_sequence]
-        is_good_triangle_sequence = (sum(triangle_sequence) % 3) == 0
-    g = nx.random_clustered_graph(zip([0]*len(degree_sequence), triangle_sequence))
-    print 'intended average degree: ' + str(sum(g.degree().values())/float(n_nodes))
-    # remove parallel edges
-    g = nx.Graph(g)
-    # remove self loops
-    g.remove_edges_from(g.selfloop_edges())
-    print str(sum(degree_sequence)/float(n_nodes))
-    print 'intended average degree: ' + str(sum(g.degree().values())/float(n_nodes))
-    return g
-
-def synthetic_graph(n_nodes, mean_degree, mean_clustering, mean_syn_strength):
-    g = clustered_poisson_graph(n_nodes, mean_degree, mean_clustering)
-    for edge in g.edges():
-        g[edge[0]][edge[1]]['weight'] = random.expovariate(1./mean_syn_strength)
-    return g
 
 def distance(p, q):
     return math.sqrt(sum([(a - b)**2 for a,b in zip(p,q)]))
@@ -99,16 +52,16 @@ def connection_probability_2010(r, a=0.8223, delta=19.78, r_0=125.5):
 def connection_probability_vervaeke_2010(r):
     return - 17.45 + 18.36 / (math.exp((r-267.)/39.) + 1)
 
-def coupling_coefficient_2010(r):
+def coupling_coefficient_vervaeke_2010(r):
     return - 2.3 + 29.7 * math.exp(-r/70.4)
 
-def synaptic_weight_2010(r):
-    cc = coupling_coefficient_2010(r)
+def synaptic_weight_vervaeke_2010(r):
+    cc = coupling_coefficient_vervaeke_2010(r)
     return 1000. * (0.576 * math.exp(cc / 12.4) + 0.000590 * math.exp(cc / 2.79) - 0.564)
 
 def spatial_graph_2010(cell_positions,
                        connection_probability=connection_probability_vervaeke_2010,
-                       synaptic_weight=synaptic_weight_2010):
+                       synaptic_weight=synaptic_weight_vervaeke_2010):
     n_cells = len(cell_positions)
     edges = []
     for i, p in enumerate(cell_positions):
@@ -149,8 +102,6 @@ def spatial_graph_shuffled_weights(cell_positions):
         g[e[0]][e[1]]['weight'] = weights[k]
     return g
 
-
-
 def random_graph_heterogeneous_synapses(cell_positions):
     h = spatial_graph_2010(cell_positions)
     weights = [e[2]['weight'] for e in h.edges(data=True)]
@@ -161,7 +112,6 @@ def random_graph_heterogeneous_synapses(cell_positions):
         g[e[0]][e[1]]['weight'] = weights[k]
     return g
     
-
 def nC_network_to_graphml(project, graphml_file_path='test.graphml'):
     # extract cell position records
     cell_positions = [(pos_record.x_pos, pos_record.y_pos, pos_record.z_pos) for pos_record in project.generatedCellPositions.getAllPositionRecords()]
@@ -192,4 +142,55 @@ def nC_network_to_graphml(project, graphml_file_path='test.graphml'):
     
     return graph
 
-#def nC_create_gj_network_from_graph(cell_model, )
+def nC_generate_gj_network_from_graph(project,
+                                      sim_config,
+                                      graph,
+                                      cell_group_name,
+                                      cell_model_name,
+                                      segment_group_names,
+                                      synapse_model_name):
+    from java.lang import Float
+    from java.util import Vector, ArrayList
+    from ucl.physiol import neuroconstruct as nc
+
+    cell_model = project.cellManager.getCell(cell_model_name)
+    dendritic_segments = []
+    for gr in segment_group_names:
+        dendritic_segments.extend(cell_model.getSegmentsInGroup(gr))
+
+    for source_cell, target_cell, data in graph.edges(data=True):
+        synaptic_weight = data['weight']
+        # select random source and destination segments for
+        # synaptic connection
+        source_segment = random.choice(dendritic_segments).getSegmentId()
+        target_segment = random.choice(dendritic_segments).getSegmentId()
+
+        conn_name = 'gj_'+str(source_cell)+'_'+str(target_cell)
+
+        synaptic_properties = nc.project.SynapticProperties(synapse_model_name)
+        synaptic_properties.setWeightsGenerator(nc.utils.NumberGenerator(synaptic_weight))
+        conn_conditions = nc.project.ConnectivityConditions()
+        conn_conditions.setNumConnsInitiatingCellGroup(nc.utils.NumberGenerator(0))
+        project.morphNetworkConnectionsInfo.addRow(conn_name,
+                                                   cell_group_name,
+                                                   cell_group_name,
+                                                   Vector([synaptic_properties]),
+                                                   nc.project.SearchPattern.getRandomSearchPattern(),
+                                                   nc.project.MaxMinLength(Float.MAX_VALUE, 0, 'r', 10),
+                                                   conn_conditions,
+                                                   Float.MAX_VALUE)
+        sim_config.addNetConn(conn_name)
+
+        connection_specific_syn_props = nc.project.ConnSpecificProps(conn_name)
+        connection_specific_syn_props.weight = synaptic_weight
+        project.generatedNetworkConnections.addSynapticConnection(conn_name,
+                                                                  0,
+                                                                  source_cell,
+                                                                  source_segment,
+                                                                  random.random(),
+                                                                  target_cell,
+                                                                  target_segment,
+                                                                  random.random(),
+                                                                  5.,
+                                                                  ArrayList([connection_specific_syn_props]))
+        

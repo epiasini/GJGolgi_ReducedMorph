@@ -13,8 +13,8 @@ from ucl.physiol import neuroconstruct as nc
 
 import utils
 
-mean_scaling_range = [1., 1.2]
-variance_scaling_range = [0.125, 1., 8.]
+mean_scaling_range = [1.]
+variance_scaling_range = [1., 8.]
 n_trials = 1
 
 sim_duration = 2000
@@ -35,14 +35,6 @@ project.neuronSettings.setNoConsole()
 remote_sim_refs = []
 
 
-cell_model = project.cellManager.getCell('GJGolgi_Reduced')
-
-
-# prepare data on spatial distribution of gjs on dendritic tree
-dendritic_segments = []
-for gr in ['GCL', 'ML1', 'ML2', 'ML3']:
-    dendritic_segments.extend(cell_model.getSegmentsInGroup(gr))
-
 for mean_scaling in mean_scaling_range:
     for variance_scaling in variance_scaling_range:
         for trial in range(n_trials):
@@ -62,51 +54,23 @@ for mean_scaling in mean_scaling_range:
                                                    variance_scaling,
                                                    trial)
             project.simulationParameters.setReference(sim_ref)
-            # delete all existing synaptic connections and associated information
-            project.generatedNetworkConnections.reset()
-            project.morphNetworkConnectionsInfo.deleteAllNetConns()
             # create gap junction graph object
             gj_graph = utils.spatial_graph_arbitrary_variance(cell_positions,
                                                               mean_scaling,
                                                               variance_scaling)
+            # delete all existing synaptic connections and associated information
+            project.generatedNetworkConnections.reset()
+            project.morphNetworkConnectionsInfo.deleteAllNetConns()
             # generate connections according to graph
-            for source_cell, target_cell, data in gj_graph.edges(data=True):
-                synaptic_weight = data['weight']
-                # select random source and destination segments for
-                # synaptic connection
-                source_segment = random.choice(dendritic_segments).getSegmentId()
-                target_segment = random.choice(dendritic_segments).getSegmentId()
-
-                conn_name = 'gj_'+str(source_cell)+'_'+str(target_cell)
-
-                synaptic_properties = nc.project.SynapticProperties('Golgi_gap_2010')
-                synaptic_properties.setWeightsGenerator(nc.utils.NumberGenerator(synaptic_weight))
-                conn_conditions = nc.project.ConnectivityConditions()
-                conn_conditions.setNumConnsInitiatingCellGroup(nc.utils.NumberGenerator(0))
-                project.morphNetworkConnectionsInfo.addRow(conn_name,
-                                                           'Golgi_network_reduced',
-                                                           'Golgi_network_reduced',
-                                                           Vector([synaptic_properties]),
-                                                           nc.project.SearchPattern.getRandomSearchPattern(),
-                                                           nc.project.MaxMinLength(155., 0, 'r', 10),
-                                                           conn_conditions,
-                                                           Float.MAX_VALUE)
-                sim_config.addNetConn(conn_name)
-
-                connection_specific_syn_props = nc.project.ConnSpecificProps(conn_name)
-                connection_specific_syn_props.weight = synaptic_weight
-                project.generatedNetworkConnections.addSynapticConnection(conn_name,
-                                                                          0,
-                                                                          source_cell,
-                                                                          source_segment,
-                                                                          random.random(),
-                                                                          target_cell,
-                                                                          target_segment,
-                                                                          random.random(),
-                                                                          5.,
-                                                                          ArrayList([connection_specific_syn_props]))
+            utils.nC_generate_gj_network_from_graph(project,
+                                                    sim_config,
+                                                    gj_graph,
+                                                    'Golgi_network_reduced',
+                                                    'GJGolgi_Reduced',
+                                                    ['GCL', 'ML1', 'ML2', 'ML3'],
+                                                    'Golgi_gap_2010')
             # export generated network structure to graphml for debugging
-            utils.nC_network_to_graphml(project, '/home/ucbtepi/thesis/data/GoC_net_structures/graph_randomised_vs' + str(variance_scaling) + '_trial' + str(trial) +'.graphml')
+            utils.nC_network_to_graphml(project, '/home/ucbtepi/thesis/data/GoC_net_structures/graph_randomised_ms' + str(mean_scaling) + '_vs' + str(variance_scaling) + '_trial' + str(trial) +'.graphml')
             if simulate:
                 # generate and compile neuron files
                 print "Generating NEURON scripts..."
