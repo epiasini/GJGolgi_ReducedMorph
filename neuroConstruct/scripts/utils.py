@@ -43,6 +43,9 @@ def coupling_coefficient(r01, rl0, rl1, dv, I):
 def variable_heterogeneity(timestamp, mean_scaling, variance_scaling, trial):
     return 'vh' + '_' + timestamp + '_ms' + str(mean_scaling) + '_vs' + str(variance_scaling) + '_t' + str(trial)
 
+def variable_spatial_scale(timestamp, spatial_scale, trial):
+    return 'vs_' + timestamp + '_ss' + str(spatial_scale) + '_t' + str(trial)
+
 def distance(p, q):
     return math.sqrt(sum([(a - b)**2 for a,b in zip(p,q)]))
 
@@ -61,7 +64,10 @@ def synaptic_weight_vervaeke_2010(r):
 
 def spatial_graph_2010(cell_positions,
                        connection_probability=connection_probability_vervaeke_2010,
-                       synaptic_weight=synaptic_weight_vervaeke_2010):
+                       synaptic_weight=synaptic_weight_vervaeke_2010,
+                       state=None):
+    if state:
+        random.setstate(state)
     n_cells = len(cell_positions)
     edges = []
     for i, p in enumerate(cell_positions):
@@ -69,6 +75,42 @@ def spatial_graph_2010(cell_positions,
             d = distance(p, q)
             if random.random() < connection_probability(d):
                 edges.append((i, i+1+j, {'weight': synaptic_weight(d)}))
+    g = nx.Graph()
+    g.add_nodes_from(range(n_cells))
+    for node in g.nodes():
+        g.node[node]['x'] = cell_positions[node][0]
+        g.node[node]['y'] = cell_positions[node][1]
+        g.node[node]['z'] = cell_positions[node][2]
+    g.add_edges_from(edges)
+    return g
+
+def spatial_graph_variable_spatial_scale(cell_positions,
+                                         spatial_scale=1.,
+                                         connection_probability=connection_probability_vervaeke_2010,
+                                         synaptic_weight=synaptic_weight_vervaeke_2010):
+    state = random.getstate()
+    g_2010 = spatial_graph_2010(cell_positions)
+    weights_2010 = [e[2]['weight'] for e in g_2010.edges(data=True)]
+    total_weight_2010 = sum(weights_2010)
+    # reset RNG to make sure we will rescale strengths fairly
+    random.setstate(state)
+
+    # generate spatial network with 2010 rules but scaling all distances
+    n_cells = len(cell_positions)
+    edges = []
+    for i, p in enumerate(cell_positions):
+        for j, q in enumerate(cell_positions[i+1:]):
+            d = distance(p, q) / spatial_scale
+            if random.random() < connection_probability(d):
+                edges.append((i, i+1+j, {'weight': synaptic_weight(d)}))
+
+    # rescale weights to keep the same total value across the network
+    weights = [e[2]['weight'] for e in edges]
+    total_weight = sum(weights)
+    for e in edges:
+        e[2]['weight'] *= total_weight_2010 / total_weight
+
+    # create graph object
     g = nx.Graph()
     g.add_nodes_from(range(n_cells))
     for node in g.nodes():
