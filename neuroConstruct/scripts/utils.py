@@ -46,8 +46,8 @@ def cs_edge_list_file(timestamp, gj_conn_type, trial):
 def coupling_coefficient(r01, rl0, rl1, dv, I):
     return (rl1/(rl1+r01)) - dv*r01*(rl0+rl1+r01) / ((rl1+r01) * (I*rl0*(rl1+r01) + dv*rl0))
 
-def variable_heterogeneity(timestamp, variance_scaling, trial):
-    return 'vh' + '_' + timestamp + '_vs' + str(variance_scaling) + '_t' + str(trial)
+def variable_heterogeneity(timestamp, mean_scaling, variance_scaling, trial):
+    return 'vh' + '_' + timestamp + '_ms' + str(mean_scaling) + '_vs' + str(variance_scaling) + '_t' + str(trial)
 
 def poisson_cumulative(k, alpha):
     return math.exp(-alpha) * sum([alpha**i / math.factorial(i) for i in range(math.floor(k)+1)])
@@ -125,7 +125,7 @@ def spatial_graph_2010(cell_positions,
     g.add_edges_from(edges)
     return g
 
-def spatial_graph_arbitrary_variance(cell_positions, variance_scaling=1.):
+def spatial_graph_arbitrary_variance(cell_positions, mean_scaling=1., variance_scaling=1.):
     # create graph with same spatial structure as 2010 model
     g = spatial_graph_2010(cell_positions)
     # define k and theta values for distribution of synaptic weights
@@ -133,7 +133,7 @@ def spatial_graph_arbitrary_variance(cell_positions, variance_scaling=1.):
     fitted_k = 1.75
     fitted_theta = 251.
     # scale k and theta according to scaling parameter
-    k = fitted_k/variance_scaling
+    k = fitted_k * mean_scaling /variance_scaling
     theta = fitted_theta * variance_scaling
     # set synaptic weights according to gamma(k,theta) 
     for e in g.edges():
@@ -162,9 +162,7 @@ def random_graph_heterogeneous_synapses(cell_positions):
     return g
     
 
-def nC_network_to_graphml(project,
-                          conn_name='GJ2010_reduced',
-                          graphml_file_path='test.graphml'):
+def nC_network_to_graphml(project, graphml_file_path='test.graphml'):
     # extract cell position records
     cell_positions = [(pos_record.x_pos, pos_record.y_pos, pos_record.z_pos) for pos_record in project.generatedCellPositions.getAllPositionRecords()]
 
@@ -181,19 +179,17 @@ def nC_network_to_graphml(project,
         graph.node[k]['z'] = position[1]
 
     # add edges
-    conns = project.generatedNetworkConnections.getSynapticConnections(conn_name)
-    for conn in conns:
-        source_cell = conn.sourceEndPoint.cellNumber
-        target_cell = conn.targetEndPoint.cellNumber
-        graph.add_edge(source_cell, target_cell, weight=conn.props[0].weight)
+    for conn_name in project.generatedNetworkConnections.getNamesNonEmptyNetConns():
+        conns = project.generatedNetworkConnections.getSynapticConnections(conn_name)
+        assert len(conns) == 1
+        conn = conns[0]
+        source = conn.sourceEndPoint.cellNumber
+        target = conn.targetEndPoint.cellNumber
+        graph.add_edge(source, target, weight=conn.props[0].weight)
 
     # save to disk
     nx.write_graphml(graph, graphml_file_path)
-
-    weights = [e[2]['weight'] for e in graph.edges(data=True)]
-    print weights
-
+    
     return graph
-
 
 #def nC_create_gj_network_from_graph(cell_model, )
