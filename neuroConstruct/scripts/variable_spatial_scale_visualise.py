@@ -18,7 +18,7 @@ timestamp = sys.argv[1]
 
 spatial_scale_range = [128., 2., 1., 0.5]
 n_models = len(spatial_scale_range)
-n_trials = 64
+n_trials = 32
 
 sim_duration = 2000
 n_cells = 45

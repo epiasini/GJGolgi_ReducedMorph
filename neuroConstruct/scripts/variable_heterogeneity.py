@@ -14,7 +14,7 @@ from ucl.physiol import neuroconstruct as nc
 import utils
 
 mean_scaling_range = [1.]
-variance_scaling_range = [1., 8.]
+variance_scaling_range = [1./64., 0.125, 1., 8.]
 n_trials = 1
 
 sim_duration = 2000
@@ -74,7 +74,7 @@ for mean_scaling in mean_scaling_range:
             if simulate:
                 # generate and compile neuron files
                 print "Generating NEURON scripts..."
-                project.neuronFileManager.setSuggestedRemoteRunTime(40)
+                project.neuronFileManager.setSuggestedRemoteRunTime(14)
                 simulator_seed = random.getrandbits(32)
                 project.neuronFileManager.generateTheNeuronFiles(sim_config,
                                                                  None,
