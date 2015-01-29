@@ -34,8 +34,8 @@ def ir_sim_ref(timestamp, gj_conn_type, amplitude, trial):
 def ir_single_cell_sim_ref(timestamp, amplitude):
     return 'ir_sc' + '_' + timestamp + '_' + str(int(round(amplitude)))
 
-def cs_sim_ref(timestamp, gj_conn_type, cell, trial):
-    return 'cs' + '_' + timestamp + '_' + gj_conn_type + '_c' + str(cell) + '_t' + str(trial)
+def cs_sim_ref(gj_conn_type, variance_scaling, cell, trial):
+    return 'cs' + '_' + gj_conn_type + '_c' + str(cell) + '_t' + str(trial)
 
 def cs_cell_positions_file(timestamp, gj_conn_type, trial):
     return '../scriptedSimulations/cs' + '_' + timestamp + '_' + gj_conn_type + '_t' + str(trial) + '_positions.csv'  
@@ -46,12 +46,11 @@ def cs_edge_list_file(timestamp, gj_conn_type, trial):
 def coupling_coefficient(r01, rl0, rl1, dv, I):
     return (rl1/(rl1+r01)) - dv*r01*(rl0+rl1+r01) / ((rl1+r01) * (I*rl0*(rl1+r01) + dv*rl0))
 
-def variable_heterogeneity(timestamp, deg_mean, clustering, trial):
-    return 'vh' + '_' + timestamp + '_m' + str(deg_mean) + '_c' + str(clustering) + '_t' + str(trial)
+def variable_heterogeneity(timestamp, variance_scaling, trial):
+    return 'vh' + '_' + timestamp + '_vs' + str(variance_scaling) + '_t' + str(trial)
 
 def poisson_cumulative(k, alpha):
     return math.exp(-alpha) * sum([alpha**i / math.factorial(i) for i in range(math.floor(k)+1)])
-
 
 def poisson_sample(alpha):
     r = random.random()
@@ -61,23 +60,34 @@ def poisson_sample(alpha):
             break
         k += 1
     return k
+
+def binomial_sample(n, p):
+    return sum(random.random()<=p for _ in range(n))
     
-def clustered_poisson_graph(n_nodes, mean_degree, clustering):
+
+def clustered_poisson_graph(n_nodes, mean_degree, mean_clustering):
     is_good_triangle_sequence = False
     while not is_good_triangle_sequence:
         is_good_degree_sequence = False
         while not is_good_degree_sequence:
             degree_sequence = [poisson_sample(mean_degree) for node in range(n_nodes)]
             is_good_degree_sequence = nx.is_valid_degree_sequence(degree_sequence)
-        triangle_sequence = [int(round(clustering * k * (k-1) / 2.)) for k in degree_sequence]
+        triangle_sequence = [binomial_sample(int(round(k*(k-1)/2.)), mean_clustering) for k in degree_sequence]
         is_good_triangle_sequence = (sum(triangle_sequence) % 3) == 0
-        print sum(triangle_sequence)
-    g = nx.random_clustered_graph(zip(degree_sequence, triangle_sequence))
+    g = nx.random_clustered_graph(zip([0]*len(degree_sequence), triangle_sequence))
+    print 'intended average degree: ' + str(sum(g.degree().values())/float(n_nodes))
     # remove parallel edges
     g = nx.Graph(g)
     # remove self loops
     g.remove_edges_from(g.selfloop_edges())
-    
+    print str(sum(degree_sequence)/float(n_nodes))
+    print 'intended average degree: ' + str(sum(g.degree().values())/float(n_nodes))
+    return g
+
+def synthetic_graph(n_nodes, mean_degree, mean_clustering, mean_syn_strength):
+    g = clustered_poisson_graph(n_nodes, mean_degree, mean_clustering)
+    for edge in g.edges():
+        g[edge[0]][edge[1]]['weight'] = random.expovariate(1./mean_syn_strength)
     return g
 
 def distance(p, q):
@@ -113,33 +123,77 @@ def spatial_graph_2010(cell_positions,
         g.node[node]['y'] = cell_positions[node][1]
         g.node[node]['z'] = cell_positions[node][2]
     g.add_edges_from(edges)
-
     return g
 
-def nC_network_to_graphml(project, graphml_file_path='test.graphml'):
-    # create graph object
-    nonempty_group_names = [name for name in project.cellGroupsInfo.getAllCellGroupNames() if project.generatedCellPositions.getPositionRecords(name)]
-    graph = nx.Graph()
-    graph.add_nodes_from(nonempty_group_names)
-    # extract cell positions
-    # add node properties for positions
-    for group_name in nonempty_group_names:
-        positions = project.generatedCellPositions.getPositionRecords(group_name)
-        assert len(positions) == 1
-        position = positions[0]
-        graph.node[group_name]['x'] = position.z_pos
-        graph.node[group_name]['y'] = position.x_pos
-        graph.node[group_name]['z'] = position.y_pos
-    # add edges
-    for conn_name in project.generatedNetworkConnections.getNamesNonEmptyNetConns():
-        conns = project.generatedNetworkConnections.getSynapticConnections(conn_name)
-        assert len(conns) == 1
-        conn = conns[0]
+def spatial_graph_arbitrary_variance(cell_positions, variance_scaling=1.):
+    # create graph with same spatial structure as 2010 model
+    g = spatial_graph_2010(cell_positions)
+    # define k and theta values for distribution of synaptic weights
+    # fitted on many realisations of the 2010 model
+    fitted_k = 1.75
+    fitted_theta = 251.
+    # scale k and theta according to scaling parameter
+    k = fitted_k/variance_scaling
+    theta = fitted_theta * variance_scaling
+    # set synaptic weights according to gamma(k,theta) 
+    for e in g.edges():
+        g[e[0]][e[1]]['weight'] = random.gammavariate(k, theta)
+    return g
 
-        source = project.morphNetworkConnectionsInfo.getSourceCellGroup(conn_name)
-        target = project.morphNetworkConnectionsInfo.getTargetCellGroup(conn_name)
-        assert conn.sourceEndPoint.cellNumber == conn.targetEndPoint.cellNumber
-        assert conn.targetEndPoint.cellNumber == 0
-        graph.add_edge(source, target, weight=conn.props[0].weight)
+def spatial_graph_shuffled_weights(cell_positions):
+    g = spatial_graph_2010(cell_positions)
+    weights = [e[2]['weight'] for e in g.edges(data=True)]
+    # shuffle edge weights
+    random.shuffle(weights)
+    for k, e in enumerate(g.edges()):
+        g[e[0]][e[1]]['weight'] = weights[k]
+    return g
+
+
+
+def random_graph_heterogeneous_synapses(cell_positions):
+    h = spatial_graph_2010(cell_positions)
+    weights = [e[2]['weight'] for e in h.edges(data=True)]
+    random.shuffle(weights)
+    edge_probability = h.size() * 2. / (h.order() * (h.order() - 1.))
+    g = nx.gnp_random_graph(h.order(), edge_probability)
+    for k, e in enumerate(g.edges()):
+        g[e[0]][e[1]]['weight'] = weights[k]
+    return g
+    
+
+def nC_network_to_graphml(project,
+                          conn_name='GJ2010_reduced',
+                          graphml_file_path='test.graphml'):
+    # extract cell position records
+    cell_positions = [(pos_record.x_pos, pos_record.y_pos, pos_record.z_pos) for pos_record in project.generatedCellPositions.getAllPositionRecords()]
+
+    # create graph object
+    graph = nx.Graph()
+    graph.add_nodes_from(range(len(cell_positions)))
+
+    # add node properties for positions. Permute x,y,z to get a nicer
+    # default visualisation in Gephi when opening the resulting
+    # graphml file.
+    for k, position in enumerate(cell_positions):
+        graph.node[k]['x'] = position[2]
+        graph.node[k]['y'] = position[0]
+        graph.node[k]['z'] = position[1]
+
+    # add edges
+    conns = project.generatedNetworkConnections.getSynapticConnections(conn_name)
+    for conn in conns:
+        source_cell = conn.sourceEndPoint.cellNumber
+        target_cell = conn.targetEndPoint.cellNumber
+        graph.add_edge(source_cell, target_cell, weight=conn.props[0].weight)
+
     # save to disk
     nx.write_graphml(graph, graphml_file_path)
+
+    weights = [e[2]['weight'] for e in graph.edges(data=True)]
+    print weights
+
+    return graph
+
+
+#def nC_create_gj_network_from_graph(cell_model, )
