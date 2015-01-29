@@ -18,7 +18,7 @@ timestamp = sys.argv[1]
 
 spatial_scale_range = [128., 2., 1., 0.5]
 n_models = len(spatial_scale_range)
-n_trials = 10
+n_trials = 64
 
 sim_duration = 2000
 n_cells = 45
@@ -37,13 +37,13 @@ for i, (spatial_scale, color) in enumerate(zip(spatial_scale_range, sns.color_pa
         spike_trains = []
         for cell in range(n_cells):
             spikes = np.loadtxt('{}/Golgi_network_reduced_{}.SPIKES_min20.spike'.format(sim_dir, cell))
-            if trial == 0:
+            spike_trains.append(pyspike.add_auxiliary_spikes(spikes, sim_duration))
+            if trial==0:
                 ax[0].scatter(spikes,
                               np.zeros_like(spikes)+(cell+i*n_cells),
                               marker='|',
                               s=2,
                               c=color)
-            spike_trains.append(pyspike.add_auxiliary_spikes(spikes, sim_duration))
         distances.append(pyspike.spike_profile_multi(spike_trains[n_excluded_cells:]))
     
     # average synchrony index across trials

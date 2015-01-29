@@ -14,7 +14,7 @@ from ucl.physiol import neuroconstruct as nc
 import utils
 
 spatial_scale_range = [0.5, 1., 2., 128.]
-n_trials = 10
+n_trials = 64
 
 sim_duration = 2000
 
@@ -70,7 +70,7 @@ for spatial_scale in spatial_scale_range:
         if simulate:
             # generate and compile neuron files
             print "Generating NEURON scripts..."
-            project.neuronFileManager.setSuggestedRemoteRunTime(40)
+            project.neuronFileManager.setSuggestedRemoteRunTime(14)
             simulator_seed = random.getrandbits(32)
             project.neuronFileManager.generateTheNeuronFiles(sim_config,
                                                              None,
