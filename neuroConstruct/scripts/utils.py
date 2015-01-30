@@ -46,6 +46,10 @@ def variable_heterogeneity(timestamp, mean_scaling, variance_scaling, trial):
 def variable_spatial_scale(timestamp, spatial_scale, trial):
     return 'vs_' + timestamp + '_ss' + str(spatial_scale) + '_t' + str(trial)
 
+def desynchronisation_small_world(timestamp, rewiring_p, trial):
+    return 'sw_' + timestamp + '_rw' + str(rewiring_p) + '_t' + str(trial)
+
+
 def distance(p, q):
     return math.sqrt(sum([(a - b)**2 for a,b in zip(p,q)]))
 
@@ -151,6 +155,12 @@ def random_graph_heterogeneous_synapses(cell_positions):
     g = nx.gnm_random_graph(h.order(), h.size())
     for k, e in enumerate(g.edges()):
         g[e[0]][e[1]]['weight'] = weights[k]
+    return g
+
+def small_world_graph(n_cells, degree, rewiring_p, tries=100):
+    g = nx.connected_watts_strogatz_graph(n_cells, degree, rewiring_p, tries)
+    for e in g.edges():
+        g[e[0]][e[1]]['weight'] = random.gammavariate(1.53, 350)
     return g
     
 def nC_network_to_graphml(project, graphml_file_path='test.graphml'):

@@ -25,6 +25,9 @@ part of NeuroML or any standardised XML specification. -->
     <void method="add">
      <string>stim_region</string>
     </void>
+    <void method="add">
+     <string>large_region</string>
+    </void>
    </void>
    <void method="get">
     <string>Colour</string>
@@ -38,6 +41,14 @@ part of NeuroML or any standardised XML specification. -->
     </void>
     <void method="add">
      <object idref="Color0"/>
+    </void>
+    <void method="add">
+     <object class="java.awt.Color">
+      <int>255</int>
+      <int>255</int>
+      <int>255</int>
+      <int>255</int>
+     </object>
     </void>
    </void>
    <void method="get">
@@ -117,6 +128,39 @@ part of NeuroML or any standardised XML specification. -->
       </void>
      </object>
     </void>
+    <void method="add">
+     <object class="ucl.physiol.neuroconstruct.project.RectangularBox">
+      <void property="parameterList">
+       <void id="InternalParameter7" index="3">
+        <void class="ucl.physiol.neuroconstruct.project.InternalParameter" method="getField">
+         <string>value</string>
+         <void method="set">
+          <object idref="InternalParameter7"/>
+          <float>1400.0</float>
+         </void>
+        </void>
+       </void>
+       <void id="InternalParameter8" index="4">
+        <void class="ucl.physiol.neuroconstruct.project.InternalParameter" method="getField">
+         <string>value</string>
+         <void method="set">
+          <object idref="InternalParameter8"/>
+          <float>80.0</float>
+         </void>
+        </void>
+       </void>
+       <void id="InternalParameter9" index="5">
+        <void class="ucl.physiol.neuroconstruct.project.InternalParameter" method="getField">
+         <string>value</string>
+         <void method="set">
+          <object idref="InternalParameter9"/>
+          <float>1400.0</float>
+         </void>
+        </void>
+       </void>
+      </void>
+     </object>
+    </void>
    </void>
   </void>
  </object>
@@ -177,6 +221,24 @@ part of NeuroML or any standardised XML specification. -->
     <void method="add">
      <object class="ucl.physiol.neuroconstruct.project.packing.RandomCellPackingAdapter"/>
     </void>
+    <void method="add">
+     <object class="ucl.physiol.neuroconstruct.project.packing.RandomCellPackingAdapter">
+      <void property="maxNumberCells">
+       <int>720</int>
+      </void>
+      <void property="parameterList">
+       <void id="InternalParameter10" index="0">
+        <void class="ucl.physiol.neuroconstruct.project.InternalParameter" method="getField">
+         <string>value</string>
+         <void method="set">
+          <object idref="InternalParameter10"/>
+          <float>0.0</float>
+         </void>
+        </void>
+       </void>
+      </void>
+     </object>
+    </void>
    </void>
    <void method="get">
     <string>Cell Type</string>
@@ -213,6 +275,9 @@ part of NeuroML or any standardised XML specification. -->
     <void method="add">
      <string>GJGolgi_Reduced_TTX</string>
     </void>
+    <void method="add">
+     <string>GJGolgi_Reduced</string>
+    </void>
    </void>
    <void method="get">
     <string>Priority</string>
@@ -248,6 +313,9 @@ part of NeuroML or any standardised XML specification. -->
     </void>
     <void method="add">
      <int>0</int>
+    </void>
+    <void method="add">
+     <int>-1</int>
     </void>
    </void>
    <void method="get">
@@ -340,6 +408,14 @@ part of NeuroML or any standardised XML specification. -->
       <int>255</int>
      </object>
     </void>
+    <void method="add">
+     <object class="java.awt.Color">
+      <int>207</int>
+      <int>167</int>
+      <int>51</int>
+      <int>255</int>
+     </object>
+    </void>
    </void>
    <void method="get">
     <string>Region Name</string>
@@ -376,6 +452,9 @@ part of NeuroML or any standardised XML specification. -->
     <void method="add">
      <string>Regions_1</string>
     </void>
+    <void method="add">
+     <string>large_region</string>
+    </void>
    </void>
    <void method="get">
     <string>Cell Group Name</string>
@@ -411,6 +490,9 @@ part of NeuroML or any standardised XML specification. -->
     </void>
     <void method="add">
      <string>Golgi_reduced_TTX</string>
+    </void>
+    <void method="add">
+     <string>Golgi_network_reduced_large</string>
     </void>
    </void>
   </void>
@@ -1017,6 +1099,65 @@ part of NeuroML or any standardised XML specification. -->
      </void>
     </object>
    </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.project.SimPlot">
+     <void property="cellGroup">
+      <string>Golgi_network_reduced_large</string>
+     </void>
+     <void property="cellNumber">
+      <string>*</string>
+     </void>
+     <void property="graphWindow">
+      <string>GraphWin_5</string>
+     </void>
+     <void property="maxValue">
+      <float>50.0</float>
+     </void>
+     <void property="minValue">
+      <float>-90.0</float>
+     </void>
+     <void property="plotAndOrSave">
+      <string>Save only</string>
+     </void>
+     <void property="plotReference">
+      <string>Golgi_network_reduced_large_spikes</string>
+     </void>
+     <void property="segmentId">
+      <string>0</string>
+     </void>
+     <void property="valuePlotted">
+      <string>SPIKES:-20</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.project.SimPlot">
+     <void property="cellGroup">
+      <string>Golgi_network_reduced_large</string>
+     </void>
+     <void property="cellNumber">
+      <string>*</string>
+     </void>
+     <void property="graphWindow">
+      <string>GraphWin_8</string>
+     </void>
+     <void property="maxValue">
+      <float>50.0</float>
+     </void>
+     <void property="minValue">
+      <float>-90.0</float>
+     </void>
+     <void property="plotAndOrSave">
+      <string>Save only</string>
+     </void>
+     <void property="plotReference">
+      <string>Golgi_network_reduced_large_v</string>
+     </void>
+     <void property="segmentId">
+      <string>0</string>
+     </void>
+    </object>
+   </void>
   </void>
  </object>
  <object class="ucl.physiol.neuroconstruct.project.ProjectProperties">
@@ -1077,11 +1218,11 @@ part of NeuroML or any standardised XML specification. -->
     <string></string>
    </void>
    <void method="put">
-    <float>1.0</float>
+    <float>-1.0</float>
     <string></string>
    </void>
    <void method="put">
-    <float>-1.0</float>
+    <float>1.0</float>
     <string></string>
    </void>
    <void method="put">
@@ -2070,6 +2211,250 @@ part of NeuroML or any standardised XML specification. -->
      </void>
     </object>
    </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.simulation.RandomSpikeTrainSettings">
+     <void property="cellGroup">
+      <string>Golgi_network_reduced_large</string>
+     </void>
+     <void property="rate">
+      <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator29">
+       <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
+        <string>numberType</string>
+        <void method="set">
+         <object idref="NumberGenerator29"/>
+         <int>11</int>
+        </void>
+       </void>
+       <void property="fixedNum">
+        <float>0.002</float>
+       </void>
+      </object>
+     </void>
+     <void property="reference">
+      <string>bl_background_reduced_large</string>
+     </void>
+     <void property="segChooser">
+      <object class="ucl.physiol.neuroconstruct.project.segmentchoice.GroupDistributedSegments">
+       <void property="group">
+        <string>basolateral_soma</string>
+       </void>
+       <void property="numberOfSegments">
+        <int>20</int>
+       </void>
+      </object>
+     </void>
+     <void property="synapseType">
+      <string>MultiDecaySyn</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.simulation.RandomSpikeTrainSettings">
+     <void property="cellGroup">
+      <string>Golgi_network_reduced_large</string>
+     </void>
+     <void property="rate">
+      <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator30">
+       <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
+        <string>numberType</string>
+        <void method="set">
+         <object idref="NumberGenerator30"/>
+         <int>11</int>
+        </void>
+       </void>
+       <void property="fixedNum">
+        <float>5.0E-4</float>
+       </void>
+      </object>
+     </void>
+     <void property="reference">
+      <string>ap_background_reduced_large</string>
+     </void>
+     <void property="segChooser">
+      <object class="ucl.physiol.neuroconstruct.project.segmentchoice.GroupDistributedSegments">
+       <void property="group">
+        <string>parallel_fibres</string>
+       </void>
+       <void property="numberOfSegments">
+        <int>100</int>
+       </void>
+      </object>
+     </void>
+     <void property="synapseType">
+      <string>ApicalSyn</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.simulation.RandomSpikeTrainExtSettings">
+     <void property="cellChooser">
+      <object class="ucl.physiol.neuroconstruct.project.cellchoice.IndividualCells">
+       <void property="parameterList">
+        <void index="0">
+         <void property="stringValue">
+          <string>0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 68, 72, 76, 80, 84, 88, 92, 96, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 148, 152, 156, 160, 164, 168, 172, 176, 180, 184, 188, 192, 196, 200, 204, 208, 212, 216, 220, 224, 228, 232, 236, 240, 244, 248, 252, 256, 260, 264, 268, 272, 276, 280, 284, 288, 292, 296, 300, 304, 308, 312, 316, 320, 324, 328, 332, 336, 340, 344, 348, 352, 356, 360, 364, 368, 372, 376, 380, 384, 388, 392, 396, 400, 404, 408, 412, 416, 420, 424, 428, 432, 436, 440, 444, 448, 452, 456, 460, 464, 468, 472, 476, 480, 484, 488, 492, 496, 500, 504, 508, 512, 516, 520, 524, 528, 532, 536, 540, 544, 548, 552, 556, 560, 564, 568, 572, 576, 580, 584, 588, 592, 596, 600, 604, 608, 612, 616, 620, 624, 628, 632, 636</string>
+         </void>
+        </void>
+       </void>
+      </object>
+     </void>
+     <void property="cellGroup">
+      <string>Golgi_network_reduced_large</string>
+     </void>
+     <void id="NumberGenerator31" property="delay">
+      <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
+       <string>distributionType</string>
+       <void method="set">
+        <object idref="NumberGenerator31"/>
+        <int>1</int>
+       </void>
+      </void>
+      <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
+       <string>numberType</string>
+       <void method="set">
+        <object idref="NumberGenerator31"/>
+        <int>11</int>
+       </void>
+      </void>
+      <void property="fixedNum">
+       <float>20.0</float>
+      </void>
+      <void property="max">
+       <float>315.0</float>
+      </void>
+      <void property="min">
+       <float>310.0</float>
+      </void>
+     </void>
+     <void id="NumberGenerator32" property="duration">
+      <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
+       <string>numberType</string>
+       <void method="set">
+        <object idref="NumberGenerator32"/>
+        <int>11</int>
+       </void>
+      </void>
+      <void property="fixedNum">
+       <float>10.0</float>
+      </void>
+     </void>
+     <void property="rate">
+      <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator33">
+       <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
+        <string>numberType</string>
+        <void method="set">
+         <object idref="NumberGenerator33"/>
+         <int>11</int>
+        </void>
+       </void>
+       <void property="fixedNum">
+        <float>0.2</float>
+       </void>
+      </object>
+     </void>
+     <void property="reference">
+      <string>bl_stim_reduced_large</string>
+     </void>
+     <void property="segChooser">
+      <object class="ucl.physiol.neuroconstruct.project.segmentchoice.GroupDistributedSegments">
+       <void property="group">
+        <string>basolateral_soma</string>
+       </void>
+       <void property="numberOfSegments">
+        <int>8</int>
+       </void>
+      </object>
+     </void>
+     <void property="synapseType">
+      <string>MultiDecaySyn</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.simulation.RandomSpikeTrainExtSettings">
+     <void property="cellChooser">
+      <object class="ucl.physiol.neuroconstruct.project.cellchoice.IndividualCells">
+       <void property="parameterList">
+        <void index="0">
+         <void property="stringValue">
+          <string>0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 68, 72, 76, 80, 84, 88, 92, 96, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 148, 152, 156, 160, 164, 168, 172, 176, 180, 184, 188, 192, 196, 200, 204, 208, 212, 216, 220, 224, 228, 232, 236, 240, 244, 248, 252, 256, 260, 264, 268, 272, 276, 280, 284, 288, 292, 296, 300, 304, 308, 312, 316, 320, 324, 328, 332, 336, 340, 344, 348, 352, 356, 360, 364, 368, 372, 376, 380, 384, 388, 392, 396, 400, 404, 408, 412, 416, 420, 424, 428, 432, 436, 440, 444, 448, 452, 456, 460, 464, 468, 472, 476, 480, 484, 488, 492, 496, 500, 504, 508, 512, 516, 520, 524, 528, 532, 536, 540, 544, 548, 552, 556, 560, 564, 568, 572, 576, 580, 584, 588, 592, 596, 600, 604, 608, 612, 616, 620, 624, 628, 632, 636</string>
+         </void>
+        </void>
+       </void>
+      </object>
+     </void>
+     <void property="cellGroup">
+      <string>Golgi_network_reduced_large</string>
+     </void>
+     <void id="NumberGenerator34" property="delay">
+      <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
+       <string>distributionType</string>
+       <void method="set">
+        <object idref="NumberGenerator34"/>
+        <int>1</int>
+       </void>
+      </void>
+      <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
+       <string>numberType</string>
+       <void method="set">
+        <object idref="NumberGenerator34"/>
+        <int>11</int>
+       </void>
+      </void>
+      <void property="fixedNum">
+       <float>20.0</float>
+      </void>
+      <void property="max">
+       <float>317.0</float>
+      </void>
+      <void property="min">
+       <float>312.0</float>
+      </void>
+     </void>
+     <void id="NumberGenerator35" property="duration">
+      <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
+       <string>numberType</string>
+       <void method="set">
+        <object idref="NumberGenerator35"/>
+        <int>11</int>
+       </void>
+      </void>
+      <void property="fixedNum">
+       <float>15.0</float>
+      </void>
+     </void>
+     <void property="rate">
+      <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator36">
+       <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
+        <string>numberType</string>
+        <void method="set">
+         <object idref="NumberGenerator36"/>
+         <int>11</int>
+        </void>
+       </void>
+       <void property="fixedNum">
+        <float>0.35</float>
+       </void>
+      </object>
+     </void>
+     <void property="reference">
+      <string>ap_stim_reduced_large</string>
+     </void>
+     <void property="segChooser">
+      <object class="ucl.physiol.neuroconstruct.project.segmentchoice.GroupDistributedSegments">
+       <void property="group">
+        <string>parallel_fibres</string>
+       </void>
+       <void property="numberOfSegments">
+        <int>50</int>
+       </void>
+      </object>
+     </void>
+     <void property="synapseType">
+      <string>ApicalSyn</string>
+     </void>
+    </object>
+   </void>
   </void>
  </object>
  <object class="ucl.physiol.neuroconstruct.project.SimConfigInfo">
@@ -2130,16 +2515,16 @@ part of NeuroML or any standardised XML specification. -->
          <void method="put">
           <object class="java.lang.Enum" id="MpiSettings$KnownSimulators1" method="valueOf">
            <class>ucl.physiol.neuroconstruct.hpc.mpi.MpiSettings$KnownSimulators</class>
-           <string>PY_NEURON</string>
+           <string>GENESIS</string>
           </object>
-          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv -python</string>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
          </void>
          <void method="put">
           <object class="java.lang.Enum" id="MpiSettings$KnownSimulators2" method="valueOf">
            <class>ucl.physiol.neuroconstruct.hpc.mpi.MpiSettings$KnownSimulators</class>
-           <string>GENESIS</string>
+           <string>PY_NEURON</string>
           </object>
-          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
+          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv -python</string>
          </void>
          <void method="put">
           <object class="java.lang.Enum" id="MpiSettings$KnownSimulators3" method="valueOf">
@@ -2441,11 +2826,11 @@ part of NeuroML or any standardised XML specification. -->
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators1"/>
-          <string>/home/ucbtepi/nrn-7.3/x86_64/bin/nrniv -python</string>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators2"/>
-          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
+          <string>/home/ucbtepi/nrn-7.3/x86_64/bin/nrniv -python</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators3"/>
@@ -2569,11 +2954,11 @@ part of NeuroML or any standardised XML specification. -->
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators1"/>
-          <string>/home/ucbtepi/nrn-7.3/x86_64/bin/nrniv -python</string>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators2"/>
-          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
+          <string>/home/ucbtepi/nrn-7.3/x86_64/bin/nrniv -python</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators3"/>
@@ -2745,11 +3130,11 @@ part of NeuroML or any standardised XML specification. -->
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators1"/>
-          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv -python</string>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators2"/>
-          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
+          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv -python</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators3"/>
@@ -2873,11 +3258,11 @@ part of NeuroML or any standardised XML specification. -->
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators1"/>
-          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv -python</string>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators2"/>
-          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
+          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv -python</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators3"/>
@@ -3145,11 +3530,11 @@ part of NeuroML or any standardised XML specification. -->
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators1"/>
-          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv -python</string>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators2"/>
-          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
+          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv -python</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators3"/>
@@ -3255,11 +3640,11 @@ part of NeuroML or any standardised XML specification. -->
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators1"/>
-          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv -python</string>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators2"/>
-          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
+          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv -python</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators3"/>
@@ -3562,11 +3947,11 @@ part of NeuroML or any standardised XML specification. -->
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators1"/>
-          <string>/home/ucbtepi/nrn-7.3/x86_64/bin/nrniv -python</string>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators2"/>
-          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
+          <string>/home/ucbtepi/nrn-7.3/x86_64/bin/nrniv -python</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators3"/>
@@ -3606,6 +3991,116 @@ part of NeuroML or any standardised XML specification. -->
      </void>
      <void property="simDuration">
       <float>700.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="ucl.physiol.neuroconstruct.project.SimConfig">
+     <void property="cellGroups">
+      <void method="add">
+       <string>Golgi_network_reduced_large</string>
+      </void>
+     </void>
+     <void property="description">
+      <string>Basic simConfig to be manipulated with external scripts for tests of desynchronisation in large networks.</string>
+     </void>
+     <void property="inputs">
+      <void method="add">
+       <string>ap_background_reduced_large</string>
+      </void>
+      <void method="add">
+       <string>ap_stim_reduced_large</string>
+      </void>
+      <void method="add">
+       <string>bl_background_reduced_large</string>
+      </void>
+      <void method="add">
+       <string>bl_stim_reduced_large</string>
+      </void>
+     </void>
+     <void id="MpiConfiguration8" property="mpiConf">
+      <void property="hostList">
+       <void index="0">
+        <void property="hostname">
+         <string>node0</string>
+        </void>
+       </void>
+      </void>
+      <void property="mpiVersion">
+       <string>OPENMPI v2.*</string>
+      </void>
+      <void property="name">
+       <string>MatLem (1 x 1p)</string>
+      </void>
+      <void property="queueInfo">
+       <object class="ucl.physiol.neuroconstruct.hpc.mpi.QueueInfo">
+        <void property="account">
+         <string></string>
+        </void>
+        <void property="queueType">
+         <object idref="QueueInfo$QueueType0"/>
+        </void>
+        <void property="wallTimeMins">
+         <int>6</int>
+        </void>
+       </object>
+      </void>
+      <void property="remoteLogin">
+       <object class="ucl.physiol.neuroconstruct.hpc.mpi.RemoteLogin">
+        <void property="executables">
+         <void method="put">
+          <object idref="MpiSettings$KnownSimulators0"/>
+          <string>/share/apps/neuro/moose/moose</string>
+         </void>
+         <void method="put">
+          <object idref="MpiSettings$KnownSimulators1"/>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
+         </void>
+         <void method="put">
+          <object idref="MpiSettings$KnownSimulators2"/>
+          <string>/home/ucbtepi/nrn-7.3/x86_64/bin/nrniv -python</string>
+         </void>
+         <void method="put">
+          <object idref="MpiSettings$KnownSimulators3"/>
+          <string>/home/ucbtepi/nrn-7.3/x86_64/bin/nrniv</string>
+         </void>
+        </void>
+        <void property="hostname">
+         <string>128.16.14.177</string>
+        </void>
+        <void property="userName">
+         <string>ucbtepi</string>
+        </void>
+        <void property="workDir">
+         <string>/home/ucbtepi/nCsims</string>
+        </void>
+       </object>
+      </void>
+      <void property="useScp">
+       <boolean>true</boolean>
+      </void>
+     </void>
+     <void property="mpiConf">
+      <object idref="MpiConfiguration8"/>
+     </void>
+     <void property="name">
+      <string>large_network_desynchronisation</string>
+     </void>
+     <void property="netConns">
+      <void method="add">
+       <string>GJ_reduced_large_network</string>
+      </void>
+     </void>
+     <void property="plots">
+      <void method="add">
+       <string>Golgi_network_reduced_large_spikes</string>
+      </void>
+      <void method="add">
+       <string>Golgi_network_reduced_large_v</string>
+      </void>
+     </void>
+     <void property="simDuration">
+      <float>100.0</float>
      </void>
     </object>
    </void>
@@ -3703,7 +4198,7 @@ part of NeuroML or any standardised XML specification. -->
      <string>GJ_reduced_TTX_ML3</string>
     </void>
     <void method="add">
-     <string>variable_heterogeneity_gj</string>
+     <string>GJ_reduced_large_network</string>
     </void>
    </void>
    <void method="get">
@@ -3806,11 +4301,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator29">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator37">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator29"/>
+            <object idref="NumberGenerator37"/>
             <int>11</int>
            </void>
           </void>
@@ -3838,11 +4333,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator30">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator38">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator30"/>
+            <object idref="NumberGenerator38"/>
             <int>11</int>
            </void>
           </void>
@@ -3877,11 +4372,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator31">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator39">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator31"/>
+            <object idref="NumberGenerator39"/>
             <int>11</int>
            </void>
           </void>
@@ -3909,11 +4404,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator32">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator40">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator32"/>
+            <object idref="NumberGenerator40"/>
             <int>11</int>
            </void>
           </void>
@@ -3948,11 +4443,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator33">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator41">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator33"/>
+            <object idref="NumberGenerator41"/>
             <int>11</int>
            </void>
           </void>
@@ -3980,11 +4475,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator34">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator42">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator34"/>
+            <object idref="NumberGenerator42"/>
             <int>11</int>
            </void>
           </void>
@@ -4019,11 +4514,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator35">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator43">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator35"/>
+            <object idref="NumberGenerator43"/>
             <int>11</int>
            </void>
           </void>
@@ -4051,11 +4546,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator36">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator44">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator36"/>
+            <object idref="NumberGenerator44"/>
             <int>11</int>
            </void>
           </void>
@@ -4090,11 +4585,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator37">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator45">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator37"/>
+            <object idref="NumberGenerator45"/>
             <int>11</int>
            </void>
           </void>
@@ -4122,11 +4617,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator38">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator46">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator38"/>
+            <object idref="NumberGenerator46"/>
             <int>11</int>
            </void>
           </void>
@@ -4161,11 +4656,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator39">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator47">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator39"/>
+            <object idref="NumberGenerator47"/>
             <int>11</int>
            </void>
           </void>
@@ -4193,11 +4688,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator40">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator48">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator40"/>
+            <object idref="NumberGenerator48"/>
             <int>11</int>
            </void>
           </void>
@@ -4232,11 +4727,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator41">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator49">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator41"/>
+            <object idref="NumberGenerator49"/>
             <int>11</int>
            </void>
           </void>
@@ -4268,11 +4763,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator42">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator50">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator42"/>
+            <object idref="NumberGenerator50"/>
             <int>11</int>
            </void>
           </void>
@@ -4304,11 +4799,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator43">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator51">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator43"/>
+            <object idref="NumberGenerator51"/>
             <int>11</int>
            </void>
           </void>
@@ -4340,11 +4835,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator44">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator52">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator44"/>
+            <object idref="NumberGenerator52"/>
             <int>11</int>
            </void>
           </void>
@@ -4565,11 +5060,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator45">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator53">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator45"/>
+            <object idref="NumberGenerator53"/>
             <int>11</int>
            </void>
           </void>
@@ -4790,11 +5285,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator46">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator54">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator46"/>
+            <object idref="NumberGenerator54"/>
             <int>11</int>
            </void>
           </void>
@@ -5015,11 +5510,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator47">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator55">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator47"/>
+            <object idref="NumberGenerator55"/>
             <int>11</int>
            </void>
           </void>
@@ -5240,11 +5735,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator48">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator56">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator48"/>
+            <object idref="NumberGenerator56"/>
             <int>11</int>
            </void>
           </void>
@@ -5465,11 +5960,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator49">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator57">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator49"/>
+            <object idref="NumberGenerator57"/>
             <int>11</int>
            </void>
           </void>
@@ -5690,11 +6185,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator50">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator58">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator50"/>
+            <object idref="NumberGenerator58"/>
             <int>11</int>
            </void>
           </void>
@@ -5915,11 +6410,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator51">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator59">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator51"/>
+            <object idref="NumberGenerator59"/>
             <int>11</int>
            </void>
           </void>
@@ -6140,11 +6635,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator52">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator60">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator52"/>
+            <object idref="NumberGenerator60"/>
             <int>11</int>
            </void>
           </void>
@@ -6645,11 +7140,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator53">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator61">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator53"/>
+            <object idref="NumberGenerator61"/>
             <int>11</int>
            </void>
           </void>
@@ -7150,11 +7645,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator54">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator62">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator54"/>
+            <object idref="NumberGenerator62"/>
             <int>11</int>
            </void>
           </void>
@@ -7655,11 +8150,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator55">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator63">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator55"/>
+            <object idref="NumberGenerator63"/>
             <int>11</int>
            </void>
           </void>
@@ -8160,11 +8655,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator56">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator64">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator56"/>
+            <object idref="NumberGenerator64"/>
             <int>11</int>
            </void>
           </void>
@@ -8385,11 +8880,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator57">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator65">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator57"/>
+            <object idref="NumberGenerator65"/>
             <int>11</int>
            </void>
           </void>
@@ -8610,11 +9105,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator58">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator66">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator58"/>
+            <object idref="NumberGenerator66"/>
             <int>11</int>
            </void>
           </void>
@@ -8835,11 +9330,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator59">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator67">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator59"/>
+            <object idref="NumberGenerator67"/>
             <int>11</int>
            </void>
           </void>
@@ -9060,11 +9555,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator60">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator68">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator60"/>
+            <object idref="NumberGenerator68"/>
             <int>11</int>
            </void>
           </void>
@@ -9285,11 +9780,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator61">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator69">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator61"/>
+            <object idref="NumberGenerator69"/>
             <int>11</int>
            </void>
           </void>
@@ -9510,11 +10005,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator62">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator70">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator62"/>
+            <object idref="NumberGenerator70"/>
             <int>11</int>
            </void>
           </void>
@@ -9735,11 +10230,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator63">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator71">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator63"/>
+            <object idref="NumberGenerator71"/>
             <int>11</int>
            </void>
           </void>
@@ -9960,11 +10455,11 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <object class="ucl.physiol.neuroconstruct.project.SynapticProperties">
         <void property="delayGenerator">
-         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator64">
+         <object class="ucl.physiol.neuroconstruct.utils.NumberGenerator" id="NumberGenerator72">
           <void class="ucl.physiol.neuroconstruct.utils.NumberGenerator" method="getField">
            <string>numberType</string>
            <void method="set">
-            <object idref="NumberGenerator64"/>
+            <object idref="NumberGenerator72"/>
             <int>11</int>
            </void>
           </void>
@@ -9974,7 +10469,7 @@ part of NeuroML or any standardised XML specification. -->
          </object>
         </void>
         <void property="synapseType">
-         <string>GapJuncDiscrete</string>
+         <string>Golgi_gap_2010</string>
         </void>
         <void property="threshold">
          <double>-20.0</double>
@@ -10663,7 +11158,7 @@ part of NeuroML or any standardised XML specification. -->
      <string>Golgi_network_reduced_TTX</string>
     </void>
     <void method="add">
-     <string>Golgi_network_reduced</string>
+     <string>Golgi_network_reduced_large</string>
     </void>
    </void>
    <void method="get">
@@ -11358,8 +11853,22 @@ part of NeuroML or any standardised XML specification. -->
       <void property="allowAutapses">
        <boolean>false</boolean>
       </void>
+      <void property="noRecurrent">
+       <boolean>true</boolean>
+      </void>
+      <void property="numConnsInitiatingCellGroup">
+       <void property="fixedNum">
+        <float>0.0</float>
+       </void>
+      </void>
+      <void property="onlyConnectToUniqueCells">
+       <boolean>true</boolean>
+      </void>
       <void property="prePostAllowedLoc">
        <void property="axonsAllowedPre">
+        <boolean>false</boolean>
+       </void>
+       <void property="dendritesAllowedPost">
         <boolean>false</boolean>
        </void>
        <void property="dendritesAllowedPre">
@@ -11465,7 +11974,7 @@ part of NeuroML or any standardised XML specification. -->
      <string>Golgi_network_reduced_TTX</string>
     </void>
     <void method="add">
-     <string>Golgi_network_reduced</string>
+     <string>Golgi_network_reduced_large</string>
     </void>
    </void>
   </void>
