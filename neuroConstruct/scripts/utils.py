@@ -148,8 +148,7 @@ def random_graph_heterogeneous_synapses(cell_positions):
     h = spatial_graph_2010(cell_positions)
     weights = [e[2]['weight'] for e in h.edges(data=True)]
     random.shuffle(weights)
-    edge_probability = h.size() * 2. / (h.order() * (h.order() - 1.))
-    g = nx.gnp_random_graph(h.order(), edge_probability)
+    g = nx.gnm_random_graph(h.order(), h.size())
     for k, e in enumerate(g.edges()):
         g[e[0]][e[1]]['weight'] = weights[k]
     return g
