@@ -125,10 +125,10 @@ def spatial_graph_arbitrary_variance(cell_positions, mean_scaling=1., variance_s
     g = spatial_graph_2010(cell_positions)
     # define k and theta values for distribution of synaptic weights
     # fitted on many realisations of the 2010 model
-    fitted_k = 1.75
-    fitted_theta = 251.
+    fitted_k = 1.53
+    fitted_theta = 350.
     # scale k and theta according to scaling parameter
-    k = fitted_k * mean_scaling /variance_scaling
+    k = fitted_k * mean_scaling / variance_scaling
     theta = fitted_theta * variance_scaling
     # set synaptic weights according to gamma(k,theta) 
     for e in g.edges():
