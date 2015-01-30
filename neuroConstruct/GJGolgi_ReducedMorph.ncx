@@ -1218,11 +1218,11 @@ part of NeuroML or any standardised XML specification. -->
     <string></string>
    </void>
    <void method="put">
-    <float>-1.0</float>
+    <float>1.0</float>
     <string></string>
    </void>
    <void method="put">
-    <float>1.0</float>
+    <float>-1.0</float>
     <string></string>
    </void>
    <void method="put">
@@ -2508,30 +2508,30 @@ part of NeuroML or any standardised XML specification. -->
          <void method="put">
           <object class="java.lang.Enum" id="MpiSettings$KnownSimulators0" method="valueOf">
            <class>ucl.physiol.neuroconstruct.hpc.mpi.MpiSettings$KnownSimulators</class>
-           <string>MOOSE</string>
+           <string>NEURON</string>
           </object>
-          <string>/share/apps/neuro/moose/moose</string>
+          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv</string>
          </void>
          <void method="put">
           <object class="java.lang.Enum" id="MpiSettings$KnownSimulators1" method="valueOf">
-           <class>ucl.physiol.neuroconstruct.hpc.mpi.MpiSettings$KnownSimulators</class>
-           <string>GENESIS</string>
-          </object>
-          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
-         </void>
-         <void method="put">
-          <object class="java.lang.Enum" id="MpiSettings$KnownSimulators2" method="valueOf">
            <class>ucl.physiol.neuroconstruct.hpc.mpi.MpiSettings$KnownSimulators</class>
            <string>PY_NEURON</string>
           </object>
           <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv -python</string>
          </void>
          <void method="put">
+          <object class="java.lang.Enum" id="MpiSettings$KnownSimulators2" method="valueOf">
+           <class>ucl.physiol.neuroconstruct.hpc.mpi.MpiSettings$KnownSimulators</class>
+           <string>MOOSE</string>
+          </object>
+          <string>/share/apps/neuro/moose/moose</string>
+         </void>
+         <void method="put">
           <object class="java.lang.Enum" id="MpiSettings$KnownSimulators3" method="valueOf">
            <class>ucl.physiol.neuroconstruct.hpc.mpi.MpiSettings$KnownSimulators</class>
-           <string>NEURON</string>
+           <string>GENESIS</string>
           </object>
-          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv</string>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
          </void>
         </void>
         <void property="hostname">
@@ -2822,19 +2822,19 @@ part of NeuroML or any standardised XML specification. -->
         <void property="executables">
          <void method="put">
           <object idref="MpiSettings$KnownSimulators0"/>
-          <string>/share/apps/neuro/moose/moose</string>
+          <string>/home/ucbtepi/nrn-7.3/x86_64/bin/nrniv</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators1"/>
-          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
-         </void>
-         <void method="put">
-          <object idref="MpiSettings$KnownSimulators2"/>
           <string>/home/ucbtepi/nrn-7.3/x86_64/bin/nrniv -python</string>
          </void>
          <void method="put">
+          <object idref="MpiSettings$KnownSimulators2"/>
+          <string>/share/apps/neuro/moose/moose</string>
+         </void>
+         <void method="put">
           <object idref="MpiSettings$KnownSimulators3"/>
-          <string>/home/ucbtepi/nrn-7.3/x86_64/bin/nrniv</string>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
          </void>
         </void>
         <void property="hostname">
@@ -2950,19 +2950,19 @@ part of NeuroML or any standardised XML specification. -->
         <void property="executables">
          <void method="put">
           <object idref="MpiSettings$KnownSimulators0"/>
-          <string>/share/apps/neuro/moose/moose</string>
+          <string>/home/ucbtepi/nrn-7.3/x86_64/bin/nrniv</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators1"/>
-          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
-         </void>
-         <void method="put">
-          <object idref="MpiSettings$KnownSimulators2"/>
           <string>/home/ucbtepi/nrn-7.3/x86_64/bin/nrniv -python</string>
          </void>
          <void method="put">
+          <object idref="MpiSettings$KnownSimulators2"/>
+          <string>/share/apps/neuro/moose/moose</string>
+         </void>
+         <void method="put">
           <object idref="MpiSettings$KnownSimulators3"/>
-          <string>/home/ucbtepi/nrn-7.3/x86_64/bin/nrniv</string>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
          </void>
         </void>
         <void property="hostname">
@@ -3126,19 +3126,19 @@ part of NeuroML or any standardised XML specification. -->
         <void property="executables">
          <void method="put">
           <object idref="MpiSettings$KnownSimulators0"/>
-          <string>/share/apps/neuro/moose/moose</string>
+          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators1"/>
-          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
-         </void>
-         <void method="put">
-          <object idref="MpiSettings$KnownSimulators2"/>
           <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv -python</string>
          </void>
          <void method="put">
+          <object idref="MpiSettings$KnownSimulators2"/>
+          <string>/share/apps/neuro/moose/moose</string>
+         </void>
+         <void method="put">
           <object idref="MpiSettings$KnownSimulators3"/>
-          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv</string>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
          </void>
         </void>
         <void property="hostname">
@@ -3254,19 +3254,19 @@ part of NeuroML or any standardised XML specification. -->
         <void property="executables">
          <void method="put">
           <object idref="MpiSettings$KnownSimulators0"/>
-          <string>/share/apps/neuro/moose/moose</string>
+          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators1"/>
-          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
-         </void>
-         <void method="put">
-          <object idref="MpiSettings$KnownSimulators2"/>
           <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv -python</string>
          </void>
          <void method="put">
+          <object idref="MpiSettings$KnownSimulators2"/>
+          <string>/share/apps/neuro/moose/moose</string>
+         </void>
+         <void method="put">
           <object idref="MpiSettings$KnownSimulators3"/>
-          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv</string>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
          </void>
         </void>
         <void property="hostname">
@@ -3526,19 +3526,19 @@ part of NeuroML or any standardised XML specification. -->
         <void property="executables">
          <void method="put">
           <object idref="MpiSettings$KnownSimulators0"/>
-          <string>/share/apps/neuro/moose/moose</string>
+          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators1"/>
-          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
-         </void>
-         <void method="put">
-          <object idref="MpiSettings$KnownSimulators2"/>
           <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv -python</string>
          </void>
          <void method="put">
+          <object idref="MpiSettings$KnownSimulators2"/>
+          <string>/share/apps/neuro/moose/moose</string>
+         </void>
+         <void method="put">
           <object idref="MpiSettings$KnownSimulators3"/>
-          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv</string>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
          </void>
         </void>
         <void property="hostname">
@@ -3636,19 +3636,19 @@ part of NeuroML or any standardised XML specification. -->
         <void property="executables">
          <void method="put">
           <object idref="MpiSettings$KnownSimulators0"/>
-          <string>/share/apps/neuro/moose/moose</string>
+          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators1"/>
-          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
-         </void>
-         <void method="put">
-          <object idref="MpiSettings$KnownSimulators2"/>
           <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv -python</string>
          </void>
          <void method="put">
+          <object idref="MpiSettings$KnownSimulators2"/>
+          <string>/share/apps/neuro/moose/moose</string>
+         </void>
+         <void method="put">
           <object idref="MpiSettings$KnownSimulators3"/>
-          <string>/share/apps/neuro/nrn71/x86_64/bin/nrniv</string>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
          </void>
         </void>
         <void property="hostname">
@@ -3943,19 +3943,19 @@ part of NeuroML or any standardised XML specification. -->
         <void property="executables">
          <void method="put">
           <object idref="MpiSettings$KnownSimulators0"/>
-          <string>/share/apps/neuro/moose/moose</string>
+          <string>/home/ucbtepi/nrn-7.3/x86_64/bin/nrniv</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators1"/>
-          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
-         </void>
-         <void method="put">
-          <object idref="MpiSettings$KnownSimulators2"/>
           <string>/home/ucbtepi/nrn-7.3/x86_64/bin/nrniv -python</string>
          </void>
          <void method="put">
+          <object idref="MpiSettings$KnownSimulators2"/>
+          <string>/share/apps/neuro/moose/moose</string>
+         </void>
+         <void method="put">
           <object idref="MpiSettings$KnownSimulators3"/>
-          <string>/home/ucbtepi/nrn-7.3/x86_64/bin/nrniv</string>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
          </void>
         </void>
         <void property="hostname">
@@ -4050,19 +4050,19 @@ part of NeuroML or any standardised XML specification. -->
         <void property="executables">
          <void method="put">
           <object idref="MpiSettings$KnownSimulators0"/>
-          <string>/share/apps/neuro/moose/moose</string>
+          <string>/home/ucbtepi/nrn-7.3/x86_64/bin/nrniv</string>
          </void>
          <void method="put">
           <object idref="MpiSettings$KnownSimulators1"/>
-          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
-         </void>
-         <void method="put">
-          <object idref="MpiSettings$KnownSimulators2"/>
           <string>/home/ucbtepi/nrn-7.3/x86_64/bin/nrniv -python</string>
          </void>
          <void method="put">
+          <object idref="MpiSettings$KnownSimulators2"/>
+          <string>/share/apps/neuro/moose/moose</string>
+         </void>
+         <void method="put">
           <object idref="MpiSettings$KnownSimulators3"/>
-          <string>/home/ucbtepi/nrn-7.3/x86_64/bin/nrniv</string>
+          <string>/share/apps/neuro/genesis-2.3/genesis/genesis</string>
          </void>
         </void>
         <void property="hostname">
@@ -4095,12 +4095,9 @@ part of NeuroML or any standardised XML specification. -->
       <void method="add">
        <string>Golgi_network_reduced_large_spikes</string>
       </void>
-      <void method="add">
-       <string>Golgi_network_reduced_large_v</string>
-      </void>
      </void>
      <void property="simDuration">
-      <float>100.0</float>
+      <float>700.0</float>
      </void>
     </object>
    </void>
