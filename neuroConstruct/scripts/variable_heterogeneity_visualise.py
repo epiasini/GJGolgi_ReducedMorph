@@ -14,10 +14,10 @@ matplotlib.rcParams.update(rc)
 
 import utils
 
-timestamp = sys.argv[1]
+timestamp = sys.argv[1] # 1422612003.0
 
 mean_scaling_range = [1.]
-variance_scaling_range = [1./128., 0.125, 1., 8.]
+variance_scaling_range = [1e-6, 1, 4, 9]
 n_models = len(variance_scaling_range)
 n_trials = 32
 
@@ -41,7 +41,7 @@ for i, ((mean_scaling, variance_scaling), color) in enumerate(zip(itertools.prod
         for cell in range(n_cells):
             spikes = np.loadtxt('{}/Golgi_network_reduced_{}.SPIKES_min20.spike'.format(sim_dir, cell))
             spike_trains.append(pyspike.add_auxiliary_spikes(spikes, sim_duration))
-            if trial==0:
+            if trial==3:
                 ax[0].scatter(spikes,
                               np.zeros_like(spikes)+(cell+i*n_cells),
                               marker='|',
