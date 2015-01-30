@@ -69,12 +69,12 @@ for spatial_scale in spatial_scale_range:
         utils.nC_network_to_graphml(project, '/home/ucbtepi/thesis/data/GoC_net_structures/graph_' + sim_ref + '.graphml')
         if simulate:
             # generate, compile and run neuron files
-            remote_sim_refs = generate_NEURON_and_submit(pm,
-                                                         project,
-                                                         sim_config,
-                                                         sim_ref,
-                                                         remote_sim_refs,
-                                                         run_time=14)
+            remote_sim_refs = utils.nC_generate_NEURON_and_submit(pm,
+                                                                  project,
+                                                                  sim_config,
+                                                                  sim_ref,
+                                                                  remote_sim_refs,
+                                                                  run_time=14)
 
 
 if remote_sim_refs:
