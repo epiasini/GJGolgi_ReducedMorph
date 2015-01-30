@@ -14,8 +14,8 @@ from ucl.physiol import neuroconstruct as nc
 import utils
 
 mean_scaling_range = [1.]
-variance_scaling_range = [1./64., 0.125, 1., 8.]
-n_trials = 1
+variance_scaling_range = [1e-6, 1., 4., 9.]
+n_trials = 32
 
 sim_duration = 2000
 
@@ -70,32 +70,15 @@ for mean_scaling in mean_scaling_range:
                                                     ['GCL', 'ML1', 'ML2', 'ML3'],
                                                     'Golgi_gap_2010')
             # export generated network structure to graphml for debugging
-            utils.nC_network_to_graphml(project, '/home/ucbtepi/thesis/data/GoC_net_structures/graph_randomised_ms' + str(mean_scaling) + '_vs' + str(variance_scaling) + '_trial' + str(trial) +'.graphml')
+            utils.nC_network_to_graphml(project, '/home/ucbtepi/thesis/data/GoC_net_structures/graph_' + sim_ref + '.graphml')
             if simulate:
-                # generate and compile neuron files
-                print "Generating NEURON scripts..."
-                project.neuronFileManager.setSuggestedRemoteRunTime(14)
-                simulator_seed = random.getrandbits(32)
-                project.neuronFileManager.generateTheNeuronFiles(sim_config,
-                                                                 None,
-                                                                 nc.neuron.NeuronFileManager.RUN_HOC,
-                                                                 simulator_seed)
-                compile_process = nc.nmodleditor.processes.ProcessManager(project.neuronFileManager.getMainHocFile())
-                compile_success = compile_process.compileFileWithNeuron(0,0)
-                # simulate
-                if compile_success:
-                    print "Submitting simulation reference " + sim_ref
-                    pm.doRunNeuron(sim_config)
-                    time.sleep(2.5) # Wait for sim to be kicked off
-                    if sim_config.getMpiConf().isRemotelyExecuted():
-                        remote_sim_refs.append(sim_ref)
-                    else:
-                        # if running locally, never have more than one sim running
-                        # at the same time
-                        print('Simulating on the local machine.')
-                        timefile_path = '../simulations/' + sim_ref + '/time.dat'
-                        while not os.path.exists(timefile_path):
-                            time.sleep(0.5)
+                # generate, compile and run NEURON files
+                remote_sim_refs = utils.nC_generate_NEURON_and_submit(pm,
+                                                                      project,
+                                                                      sim_config,
+                                                                      sim_ref,
+                                                                      remote_sim_refs,
+                                                                      run_time=14)
 
 if remote_sim_refs:
     utils.wait_and_pull_remote(remote_sim_refs, sleep_time=0.5)  

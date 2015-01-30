@@ -235,3 +235,37 @@ def nC_generate_gj_network_from_graph(project,
                                                                   5.,
                                                                   ArrayList([connection_specific_syn_props]))
         
+
+def nC_generate_NEURON_and_submit(project_manager,
+                                  project,
+                                  sim_config,
+                                  sim_ref,
+                                  remote_sim_refs,
+                                  run_time=60):
+    from ucl.physiol import neuroconstruct as nc
+
+    print "Generating NEURON scripts..."
+    project.neuronFileManager.setSuggestedRemoteRunTime(run_time)
+    simulator_seed = random.getrandbits(32)
+    project.neuronFileManager.generateTheNeuronFiles(sim_config,
+                                                     None,
+                                                     nc.neuron.NeuronFileManager.RUN_HOC,
+                                                     simulator_seed)
+    compile_process = nc.nmodleditor.processes.ProcessManager(project.neuronFileManager.getMainHocFile())
+    compile_success = compile_process.compileFileWithNeuron(0,0)
+    # simulate
+    if compile_success:
+        print "Submitting simulation reference " + sim_ref
+        project_manager.doRunNeuron(sim_config)
+        time.sleep(2.5) # Wait for sim to be kicked off
+        if sim_config.getMpiConf().isRemotelyExecuted():
+            remote_sim_refs.append(sim_ref)
+        else:
+            # if running locally, never have more than one sim running
+            # at the same time
+            print('Simulating on the local machine.')
+            timefile_path = '../simulations/' + sim_ref + '/time.dat'
+            while not os.path.exists(timefile_path):
+                time.sleep(0.5)
+
+    return remote_sim_refs
