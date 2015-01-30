@@ -14,7 +14,7 @@ matplotlib.rcParams.update(rc)
 
 import utils
 
-timestamp = sys.argv[1]
+timestamp = sys.argv[1] # 1422551799.47
 
 spatial_scale_range = [128., 2., 1., 0.5]
 n_models = len(spatial_scale_range)
