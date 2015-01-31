@@ -14,9 +14,8 @@ import utils
 
 
 timestamp = '1422638890.67'
-data_file_name = 'desynch_voltage.npy'
 
-rewiring_p = 1e-3
+rewiring_p = 0.01
 
 sim_duration = 2000
 sim_step = 0.05
@@ -31,7 +30,11 @@ sim_ref = utils.desynchronisation_small_world(timestamp,
                                               trial=0)
 sim_dir = '../simulations/' + sim_ref
 time_points = np.loadtxt(sim_dir + '/time.dat')
-g = nx.read_graphml('/home/ucbtepi/thesis/data/GoC_net_structures/graph_' + sim_ref + '.graphml')
+graphml_file_name = '/home/ucbtepi/thesis/data/GoC_net_structures/graph_' + sim_ref + '.graphml'
+data_file_name = 'desynch_voltage_{}.npy'.format(sim_ref)
+
+
+g = nx.read_graphml(graphml_file_name)
 
 try:
     v = np.load(data_file_name)
@@ -44,12 +47,19 @@ except IOError:
     np.save(data_file_name, v)
 
 # normalise voltage
-v = (v - v.min()) / (v.max() - v.min())
+color = (v - v.min()) / (-30. - v.min())
+color[color>1] = 1
+size = (v - v.min()) / (-10. - v.min())
+size[size>1] = 1
+size *= 50
 
 fig, ax = plt.subplots(figsize=(5,3))
-pos = nx.spectral_layout(g)
-node_collection = nx.draw_networkx_nodes(g, pos, ax=ax, node_size=5+50*(v[0]**2), zorder=2, node_color=v[0], cmap='RdYlBu_r', linewidths=0)
-edge_collection = nx.draw_networkx_edges(g, pos, ax=ax, zorder=1)
+if rewiring_p==1:
+    pos = nx.random_layout(g)
+else:
+    pos = nx.spectral_layout(g)
+node_collection = nx.draw_networkx_nodes(g, pos, ax=ax, node_size=size[0], zorder=2, node_color=color[0], cmap='RdYlBu_r', linewidths=0)
+edge_collection = nx.draw_networkx_edges(g, pos, ax=ax, zorder=1, lw=0.75)
 ax.spines['top'].set_visible(False)
 ax.spines['bottom'].set_visible(False)
 ax.spines['left'].set_visible(False)
@@ -61,8 +71,8 @@ Blues = plt.get_cmap('RdYlBu_r')
 
 def animate(i):
     print("animating frame {}/{}".format(i, time_points.size/sim_to_video_scale))
-    node_collection.set_sizes(5+50*v[i*sim_to_video_scale])
-    node_collection.set_color([Blues(x) for x in v[i*sim_to_video_scale]])
+    node_collection.set_sizes(size[i*sim_to_video_scale])
+    node_collection.set_color([Blues(c) for c in color[i*sim_to_video_scale]])
     return node_collection,
 print('saving animation')
 anim = animation.FuncAnimation(fig, animate,
@@ -71,5 +81,5 @@ anim = animation.FuncAnimation(fig, animate,
                                blit=True)
 
 
-#anim.save('basic_animation.mp4', fps=15, extra_args=['-vcodec', 'libx264'])
+anim.save('desynchronisation_{}.mp4'.format(sim_ref), fps=10, extra_args=['-vcodec', 'libx264'], dpi=200)
 fig.savefig('sw_graph.pdf')

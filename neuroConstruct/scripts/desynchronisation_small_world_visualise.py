@@ -16,7 +16,7 @@ matplotlib.rcParams.update(rc)
 
 import utils
 
-timestamp = sys.argv[1] # 1422638890.67
+timestamp = '1422638890.67' # sys.argv[1]
 
 rewiring_p_range = [1., 1e-1, 1e-2, 1e-3, 1e-4]
 n_models = len(rewiring_p_range)
@@ -83,7 +83,7 @@ fig.savefig('desynchronisation_small_world.pdf')
 # plot average clustering, mean path length and synchrony index as
 # functions of the rewiring probability.
 
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(3, 2.5))
 ax.set_xscale('log')
 ax2 = ax.twinx()
 
