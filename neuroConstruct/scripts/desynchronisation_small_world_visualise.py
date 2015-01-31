@@ -8,6 +8,7 @@ import matplotlib
 import seaborn as sns
 import pyspike
 import itertools
+import networkx as nx
 
 rc = matplotlib.rc_params_from_file('/home/ucbtepi/thesis/matplotlibrc.thesis',
                                     use_default_template=False)
@@ -27,6 +28,8 @@ n_excluded_cells = 360
 n_cells_in_raster = 45
 
 fig, ax = plt.subplots(figsize=(4,3),ncols=1,nrows=2, sharex=True)
+
+synchrony_indices = []
 
 for i, (rewiring_p, color) in enumerate(zip(rewiring_p_range, sns.color_palette())):
     print i
@@ -60,6 +63,7 @@ for i, (rewiring_p, color) in enumerate(zip(rewiring_p_range, sns.color_palette(
     for distance in distances[1:]:
         average_distance.add(distance)
     average_distance.mul_scalar(1./n_trials)
+    synchrony_indices.append(1-average_distance.avrg())
     x, y = average_distance.get_plottable_data()
     ax[1].plot(x, 1-y, lw=2, c=color, label='{:g}'.format(rewiring_p))
 
@@ -75,6 +79,52 @@ ax[1].set_ylabel('Synchrony index')
 plt.tight_layout()
 fig.savefig('desynchronisation_small_world.pdf')
 
-        
-                    
-        
+
+# plot average clustering, mean path length and synchrony index as
+# functions of the rewiring probability.
+
+fig, ax = plt.subplots()
+ax.set_xscale('log')
+ax2 = ax.twinx()
+
+clustering = np.zeros_like(rewiring_p_range)
+path_length = np.zeros_like(rewiring_p_range)
+for k, p in enumerate(rewiring_p_range):
+    print p
+    c = []
+    l = []
+    for t in range(5):
+        g = nx.connected_watts_strogatz_graph(n_cells, 15, p, tries=100)
+        c.append(np.array(nx.clustering(g).values()).mean())
+        l.append(nx.average_shortest_path_length(g))
+    clustering[k] = np.array(c).mean()
+    path_length[k] = np.array(l).mean()
+
+# compute reference clustering and path length values
+c = []
+l = []
+for t in range(5):
+    g0 = nx.connected_watts_strogatz_graph(n_cells, 15, 0, tries=100)
+    c.append(np.array(nx.clustering(g0).values()).mean())
+    l.append(nx.average_shortest_path_length(g0))
+c0 = np.array(c).mean()
+l0 = np.array(l).mean()    
+
+ax.plot(rewiring_p_range, clustering/c0, c=sns.color_palette()[0], lw=2, marker='o', ls='--', zorder=10)
+ax.plot(rewiring_p_range, path_length/l0, c=sns.color_palette()[0], lw=2, marker='o', zorder=11)
+ax2.plot(rewiring_p_range, synchrony_indices, c=sns.color_palette()[2], lw=2, marker='o', zorder=12)
+
+ax.set_ylim((0, 1.05))
+ax2.set_ylim(0.8, 1.01)
+
+ax.set_yticks([0., 0.5, 1.])
+ax2.set_yticks([0.8, 0.9, 1.])
+
+for tl in ax.get_yticklabels():
+    tl.set_color(sns.color_palette()[0])
+for tl in ax2.get_yticklabels():
+    tl.set_color(sns.color_palette()[2])
+
+ax.set_xlabel('Rewiring probability')
+plt.tight_layout()
+fig.savefig('desynchronisation_small_world_summary.pdf')
