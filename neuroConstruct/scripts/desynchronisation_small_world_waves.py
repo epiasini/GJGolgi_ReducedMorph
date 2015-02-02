@@ -31,10 +31,10 @@ for rewiring_p in rewiring_p_range:
     sim_ref = utils.desynchronisation_small_world(timestamp,
                                                   rewiring_p,
                                                   trial=0)
-    sim_dir = '/Users/eugenio/mnt/virtual/thesis_edit'
+    sim_dir = '../simulations/' + sim_ref
     time_points = np.loadtxt(sim_dir + '/time.dat')
-    graphml_file_name = sim_dir + '/graph_' + sim_ref + '.graphml'
-    data_file_name = sim_dir + '/desynch_voltage_{}.npy'.format(sim_ref)
+    graphml_file_name = '/home/ucbtepi/thesis/data/GoC_net_structures/graph_' + sim_ref + '.graphml'
+    data_file_name = 'desynch_voltage_{}.npy'.format(sim_ref)
 
 
     g = nx.read_graphml(graphml_file_name)
@@ -56,13 +56,20 @@ for rewiring_p in rewiring_p_range:
     size[size>1] = 1
     size *= 50
 
-    fig, ax = plt.subplots(figsize=(5,3))
     if rewiring_p==1:
         pos = nx.random_layout(g)
     else:
         pos = nx.spectral_layout(g)
-    node_collection = nx.draw_networkx_nodes(g, pos, ax=ax, node_size=size[0], zorder=2, node_color=color[0], cmap='RdYlBu_r', linewidths=0)
-    edge_collection = nx.draw_networkx_edges(g, pos, ax=ax, zorder=1, lw=0.75)
+    if make_animation:
+        fig, ax = plt.subplots(figsize=(5,3))
+        node_collection = nx.draw_networkx_nodes(g, pos, ax=ax, node_size=size[0], zorder=2, node_color=color[0], cmap='RdYlBu_r', linewidths=0)
+        edge_collection = nx.draw_networkx_edges(g, pos, ax=ax, zorder=1, lw=0.75)
+    else:
+        fig, ax = plt.subplots(figsize=(2,2.5))
+        node_collection = nx.draw_networkx_nodes(g, pos, ax=ax, node_size=10, zorder=2, node_color='#7fbc41', linewidths=0.3, alpha=1)
+        node_collection.set_edgecolor('#4d9221')
+        edge_collection = nx.draw_networkx_edges(g, pos, ax=ax, zorder=1, width=0.75, alpha=0.5, edge_color='k')#'#bababa')
+
     ax.spines['top'].set_visible(False)
     ax.spines['bottom'].set_visible(False)
     ax.spines['left'].set_visible(False)
