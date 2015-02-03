@@ -15,7 +15,7 @@ import utils
 
 timestamp = '1422638890.67'
 rewiring_p_range = [1., 0.1, 0.01, 0.001]
-make_animation = False
+make_animation = True
 
 
 sim_duration = 2000
@@ -31,10 +31,10 @@ for rewiring_p in rewiring_p_range:
     sim_ref = utils.desynchronisation_small_world(timestamp,
                                                   rewiring_p,
                                                   trial=0)
-    sim_dir = '../simulations/' + sim_ref
+    sim_dir = '/Users/eugenio/mnt/virtual/thesis_edit'
     time_points = np.loadtxt(sim_dir + '/time.dat')
-    graphml_file_name = '/home/ucbtepi/thesis/data/GoC_net_structures/graph_' + sim_ref + '.graphml'
-    data_file_name = 'desynch_voltage_{}.npy'.format(sim_ref)
+    graphml_file_name = sim_dir + '/graph_' + sim_ref + '.graphml'
+    data_file_name = sim_dir + '/desynch_voltage_{}.npy'.format(sim_ref)
 
 
     g = nx.read_graphml(graphml_file_name)
@@ -63,7 +63,7 @@ for rewiring_p in rewiring_p_range:
     if make_animation:
         fig, ax = plt.subplots(figsize=(5,3))
         node_collection = nx.draw_networkx_nodes(g, pos, ax=ax, node_size=size[0], zorder=2, node_color=color[0], cmap='RdYlBu_r', linewidths=0)
-        edge_collection = nx.draw_networkx_edges(g, pos, ax=ax, zorder=1, lw=0.75)
+        edge_collection = nx.draw_networkx_edges(g, pos, ax=ax, zorder=1, width=0.75, alpha=0.5, edge_color='k')
     else:
         fig, ax = plt.subplots(figsize=(2,2.5))
         node_collection = nx.draw_networkx_nodes(g, pos, ax=ax, node_size=10, zorder=2, node_color='#7fbc41', linewidths=0.3, alpha=1)
@@ -79,6 +79,12 @@ for rewiring_p in rewiring_p_range:
     ax.set_yticks([])
     plt.subplots_adjust(left=0, right=1, bottom=0, top=1)
 
+    pts = np.array([[0.88,0], [1,0], [1,0.2]])
+    polygon = plt.Polygon(pts, closed=True, fill=True, linewidth=0, color='#feb24c')
+    #circle = plt.Circle((0.95,0.05),.05,color='#feb24c')
+    #fig.gca().add_artist(circle1)
+
+
     Blues = plt.get_cmap('RdYlBu_r')
 
     if make_animation:
@@ -86,7 +92,21 @@ for rewiring_p in rewiring_p_range:
             print("animating frame {}/{}".format(i, time_points.size/sim_to_video_scale))
             node_collection.set_sizes(size[i*sim_to_video_scale])
             node_collection.set_color([Blues(c) for c in color[i*sim_to_video_scale]])
-            return node_collection,
+            result = node_collection,
+            if rewiring_p==0.001:
+                if 310 <= i*video_step <= 312 or 315 <= i*video_step <= 317:
+
+                    #circle = plt.Circle((0.8,0.2),.2,color='#feb24c')
+                    if polygon in ax.patches:
+                        print ax.patches
+                        polygon.remove()
+                    ax.add_patch(polygon)
+                    result = node_collection, polygon
+                elif (312 < i*video_step < 315 or 317 < i*video_step):
+                    if polygon in ax.patches:
+                        polygon.remove()
+                    result = node_collection, polygon
+            return result
         print('saving animation')
         anim = animation.FuncAnimation(fig, animate,
                                        frames=int(np.floor(time_points.size/sim_to_video_scale)),
