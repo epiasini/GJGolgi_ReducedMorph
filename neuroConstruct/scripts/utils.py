@@ -49,6 +49,9 @@ def variable_spatial_scale(timestamp, spatial_scale, trial):
 def desynchronisation_small_world(timestamp, rewiring_p, trial):
     return 'sw_' + timestamp + '_rw' + str(rewiring_p) + '_t' + str(trial)
 
+def desynchronisation_random_graph(timestamp, trial):
+    return 'rg_' + timestamp + '_t' + str(trial)
+
 
 def distance(p, q):
     return math.sqrt(sum([(a - b)**2 for a,b in zip(p,q)]))
