@@ -14,7 +14,7 @@ matplotlib.rcParams.update(rc)
 
 import utils
 
-timestamp = sys.argv[1] # 1422551799.47
+timestamp = '1422551799.47' # sys.argv[1]
 
 spatial_scale_range = [128., 2., 1., 0.5]
 n_models = len(spatial_scale_range)
@@ -25,6 +25,8 @@ n_cells = 45
 n_excluded_cells = 10
 
 fig, ax = plt.subplots(figsize=(4,3),ncols=1,nrows=2, sharex=True)
+lines = []
+labels = []
 
 for i, (spatial_scale, color) in enumerate(zip(spatial_scale_range, sns.color_palette())):
     distances = []
@@ -51,10 +53,17 @@ for i, (spatial_scale, color) in enumerate(zip(spatial_scale_range, sns.color_pa
     for distance in distances[1:]:
         average_distance.add(distance)
     average_distance.mul_scalar(1./n_trials)
+    xmin = 50
+    xmax = 1900
     x, y = average_distance.get_plottable_data()
-    ax[1].plot(x, 1-y, lw=2, c=color, label='{:g}'.format(spatial_scale))
+    ximin = np.searchsorted(x, xmin)
+    ximax = np.searchsorted(x, xmax)
+    lines.append(ax[1].plot(x[ximin:ximax+1], 1-y[ximin:ximax+1], lw=2, c=color)[0])
+    labels.append('{:g}'.format(spatial_scale))
+    ax[1].plot(x[:ximin+1], 1-y[:ximin+1], lw=2, c=color, alpha=0.4)
+    ax[1].plot(x[ximax:], 1-y[ximax:], lw=2, c=color, alpha=0.4)
 
-ax[1].legend(loc='lower right', title='Spatial scaling')
+
 ax[0].locator_params(tight=True, nbins=4)
 ax[1].locator_params(axis='y', tight=False, nbins=4)
 ax[0].set_yticks([45 * k for k in range(n_models)])
@@ -64,6 +73,9 @@ ax[0].set_ylabel('Cell number')
 ax[1].set_xlabel('Time (ms)')
 ax[1].set_ylabel('Synchrony index')
 plt.tight_layout()
+fig.subplots_adjust(hspace=.5)
+fig.legend(lines, labels, title='Spatial scaling', loc='center', ncol=n_models,
+           bbox_to_anchor=(0.55, 0.55))
 fig.savefig('variable_spatial_scale.pdf')
 
         

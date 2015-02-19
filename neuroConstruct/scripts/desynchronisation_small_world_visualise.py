@@ -24,10 +24,12 @@ n_trials = 3
 
 sim_duration = 2000
 n_cells = 720
-n_excluded_cells = 360
+n_excluded_cells = 0
 n_cells_in_raster = 45
 
 fig, ax = plt.subplots(figsize=(4,3),ncols=1,nrows=2, sharex=True)
+lines = []
+labels = []
 
 synchrony_indices = []
 
@@ -64,10 +66,18 @@ for i, (rewiring_p, color) in enumerate(zip(rewiring_p_range, sns.color_palette(
         average_distance.add(distance)
     average_distance.mul_scalar(1./n_trials)
     synchrony_indices.append(1-average_distance.avrg())
+    xmin = 50
+    xmax = 1900
     x, y = average_distance.get_plottable_data()
-    ax[1].plot(x, 1-y, lw=2, c=color, label='{:g}'.format(rewiring_p))
+    ximin = np.searchsorted(x, xmin)
+    ximax = np.searchsorted(x, xmax)
+    lines.append(ax[1].plot(x[ximin:ximax+1], 1-y[ximin:ximax+1], lw=2, c=color)[0])
+    labels.append('{:g}'.format(rewiring_p))
+    ax[1].plot(x[:ximin+1], 1-y[:ximin+1], lw=2, c=color, alpha=0.4)
+    ax[1].plot(x[ximax:], 1-y[ximax:], lw=2, c=color, alpha=0.4)
 
-ax[1].legend(loc='lower right', title='Rewiring probability')
+
+#ax[1].legend(loc='lower right', title='Rewiring probability')
 ax[0].locator_params(tight=True, nbins=4)
 ax[1].locator_params(axis='y', tight=False, nbins=4)
 ax[0].set_yticks([45 * k for k in range(n_models)])
@@ -77,6 +87,9 @@ ax[0].set_ylabel('Cell number')
 ax[1].set_xlabel('Time (ms)')
 ax[1].set_ylabel('Synchrony index')
 plt.tight_layout()
+fig.subplots_adjust(hspace=.5)
+fig.legend(lines, labels, title='Rewiring probability', loc='center', ncol=n_models,
+           bbox_to_anchor=(0.55, 0.55))
 fig.savefig('desynchronisation_small_world.pdf')
 
 

@@ -14,7 +14,7 @@ matplotlib.rcParams.update(rc)
 
 import utils
 
-timestamp = sys.argv[1] # 1422612003.0
+timestamp = '1422612003.0' # sys.argv[1]
 
 mean_scaling_range = [1.]
 variance_scaling_range = [1e-6, 1, 4, 9]
@@ -26,7 +26,8 @@ n_cells = 45
 n_excluded_cells = 2
 
 fig, ax = plt.subplots(figsize=(4,3),ncols=1,nrows=2, sharex=True)
-
+lines = []
+labels = []
 
 for i, ((mean_scaling, variance_scaling), color) in enumerate(zip(itertools.product(mean_scaling_range, variance_scaling_range), sns.color_palette())):
     distances = []
@@ -54,10 +55,16 @@ for i, ((mean_scaling, variance_scaling), color) in enumerate(zip(itertools.prod
     for distance in distances[1:]:
         average_distance.add(distance)
     average_distance.mul_scalar(1./n_trials)
+    xmin = 50
+    xmax = 1900
     x, y = average_distance.get_plottable_data()
-    ax[1].plot(x, 1-y, lw=2, c=color, label='{:g}'.format(variance_scaling))
+    ximin = np.searchsorted(x, xmin)
+    ximax = np.searchsorted(x, xmax)
+    lines.append(ax[1].plot(x[ximin:ximax+1], 1-y[ximin:ximax+1], lw=2, c=color)[0])
+    labels.append('{:g}'.format(variance_scaling))
+    ax[1].plot(x[:ximin+1], 1-y[:ximin+1], lw=2, c=color, alpha=0.4)
+    ax[1].plot(x[ximax:], 1-y[ximax:], lw=2, c=color, alpha=0.4)
 
-ax[1].legend(loc='lower right', title='Variance scaling')
 ax[0].locator_params(tight=True, nbins=4)
 ax[1].locator_params(axis='y', tight=False, nbins=4)
 ax[0].set_yticks([45 * k for k in range(n_models)])
@@ -67,7 +74,10 @@ ax[0].set_ylabel('Cell number')
 ax[1].set_xlabel('Time (ms)')
 ax[1].set_ylabel('Synchrony index')
 plt.tight_layout()
-fig.savefig('variable_heterogeneity.pdf')
+fig.subplots_adjust(hspace=.5)
+fig.legend(lines, labels, title='Variance scaling', loc='center', ncol=n_models,
+           bbox_to_anchor=(0.55, 0.55))
+fig.savefig('desynchronisation_variable_heterogeneity.pdf')
 
         
                     

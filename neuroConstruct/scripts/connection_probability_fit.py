@@ -55,14 +55,14 @@ a, r_0, delta = curve_fit(fermi_function,
 print("Parameters for best fit Fermi function connection probability model:\n  a: {}\n  r₀: {}\n  Δ: {}".format(a, r_0, delta))
 
 # plot
-fig, ax = plt.subplots(figsize=(3,2))
+fig, ax = plt.subplots(figsize=(2.5,2))
 x_values = np.linspace(0, 200, 1000)
 # vervaeke 2010 model
-ax.fill_between(x_values, vervaeke2010_conn_prob(x_values), color=seaborn.color_palette()[1], alpha=0.5, linewidth=1)
-# experiment
-ax.fill_between(bin_centers.squeeze(), connection_probabilities.squeeze(), alpha=0.5, linewidth=1)
+ax.plot(x_values, vervaeke2010_conn_prob(x_values), color=seaborn.color_palette()[1], alpha=1, linewidth=2)
 # fermi function model
-ax.fill_between(x_values, fermi_function(x_values, a, r_0, delta), color=seaborn.color_palette()[2], alpha=0.5, linewidth=1)
+ax.plot(x_values, fermi_function(x_values, a, r_0, delta), color=seaborn.color_palette()[2], alpha=1, linewidth=2)
+# experiment
+ax.plot(bin_centers.squeeze(), connection_probabilities.squeeze(), alpha=0.8, linewidth=1, ls='', marker='o')
 
 ax.set_xlabel(r"Distance (\si{\micro\metre})")
 ax.set_ylabel("Connection probability")
